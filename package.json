@@ -1,0 +1,18 @@
+{
+  "name": "team-equinox-pro2",
+  "version": "team-equinox-pro2",
+  "description": "team-equinox-pro2",
+  "main": "server.mjs",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon server.mjs ",
+    "start": "node server.mjs "
+  },
+  "dependencies": {
+    "express": "^4.19.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
