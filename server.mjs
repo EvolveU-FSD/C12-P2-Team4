@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public"))); // used to convert filepath to url
 
 app.get("/api/users", (req, res) => {
   const users = UserData.getAllUsers();
