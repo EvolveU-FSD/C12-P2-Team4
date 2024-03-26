@@ -1,4 +1,4 @@
-fetch("../../public_art.json")
+fetch("/api/public-art")
   .then((response) => response.json())
   .then((data) => {
     data.forEach((item) => {
