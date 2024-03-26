@@ -62,3 +62,10 @@ body {
   font-size: 0.85em;
   text-align: left;
 }
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 2rem;
+}
