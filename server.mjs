@@ -12,10 +12,10 @@ const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public"))); // used to convert filepath to url
-const uri = "mongodb://localhost:27017/equinox";
+const uri = process.env.MONGODB;
 
 mongoose
-  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(uri)
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err));
 
