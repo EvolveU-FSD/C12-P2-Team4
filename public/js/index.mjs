@@ -12,10 +12,5 @@ const user = new User({
 
 await user.save();
 
-<<<<<<< HEAD
-const firstUser = await User.findOne({});
-console.log(firstUser);
-=======
 const allUsers = await User.find({});
 console.log(allUsers);
->>>>>>> 941d48ccf5e0d1beafa004c50bbd7ba33cd27e4f
