@@ -1,9 +1,5 @@
-var users = [
-  { name: "Tony", team: "oilers" },
-  { name: "Chris", team: "flames" },
-];
-
 export function getAllUsers() {
+  const users = db.find();
   return users;
 }
 
@@ -21,5 +17,6 @@ export function deleteUser(name) {
 }
 
 export function addUser(newUser) {
-  users.push(newUser);
+  db.users.insertOne(newUser);
+  // users.push(newUser);
 }

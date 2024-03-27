@@ -1,9 +1,9 @@
 import express from "express";
 import path from "path";
+import mongoose from "mongoose";
 import { fileURLToPath } from "url";
-import { config as dotenvConfig } from "dotenv"; // Setup npm i dotenv for use in app
-import * as UserData from "./public/api/users.mjs"; // Test route using user data
-//import * as UserData from "./users.js";
+import { config as dotenvConfig } from "dotenv";
+import * as UserData from "./public/api/users.mjs";
 
 dotenvConfig();
 const PORT = process.env.PORT || 3000;
@@ -11,7 +11,50 @@ const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public"))); // used to convert filepath to url
+const uri = process.env.MONGODB;
 
+mongoose
+  .connect(uri)
+  .then(() => console.log("MongoDB Connected..."))
+  .catch((err) => console.log(err));
+
+const db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", function () {
+  console.log("Connected to MongoDB");
+});
+
+const publicArtSchema = new mongoose.Schema({}, { collection: "public-art" });
+const PublicArt = mongoose.model("PublicArt", publicArtSchema);
+
+app.get("/api/public-art", async (req, res) => {
+  const data = await PublicArt.find({}).sort({ title: 1 });
+  res.json(data);
+});
+
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "googleMaps")));
+
+// Serve .mjs files with the correct MIME type
+app.get("*.mjs", (req, res, next) => {
+  res.type("application/javascript");
+  next();
+});
+
+// Serve CSS files with the correct MIME type
+app.get("*.css", (req, res, next) => {
+  res.type("text/css");
+  next();
+});
+
+// Serve map.html file
+app.get("/maps", (req, res) => {
+  res.sendFile(path.join(__dirname, "googleMaps", "map.html"));
+});
+
+// API routes
 app.get("/api/users", (req, res) => {
   const users = UserData.getAllUsers();
   res.send(users);
