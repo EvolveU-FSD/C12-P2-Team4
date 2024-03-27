@@ -13,6 +13,10 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.1",
+<<<<<<< HEAD
+=======
+    "mongodb": "^6.5.0",
+>>>>>>> 941d48ccf5e0d1beafa004c50bbd7ba33cd27e4f
     "mongoose": "^8.2.3"
   },
   "devDependencies": {
