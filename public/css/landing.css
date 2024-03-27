@@ -2,14 +2,13 @@
 .layout {
   display: grid;
   gap: 4px;
-  grid-template-rows: 40px auto auto auto 60px;
-  grid-template-columns: 1fr;
+  grid-template-rows: 40px auto 80px 40px;
+  grid-template-columns: 160px auto auto;
   grid-template-areas:
-    "header"
-    "sidebar"
-    "main"
-    "widget"
-    "footer";
+    "header header header"
+    "sidebar main main"
+    "sidebar widget widget"
+    "footer footer footer";
   height: 100vh;
 }
 
