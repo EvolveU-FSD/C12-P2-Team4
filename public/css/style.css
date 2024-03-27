@@ -67,5 +67,6 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  gap: 2rem;
+  gap: 5rem;
+  list-style: none;
 }
