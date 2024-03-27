@@ -1,3 +1,4 @@
+//----- IMPORT STATEMENTS ---------//
 import express from "express";
 import path from "path";
 import mongoose from "mongoose";
@@ -5,20 +6,27 @@ import { fileURLToPath } from "url";
 import { config as dotenvConfig } from "dotenv";
 import * as UserData from "./public/api/users.mjs";
 
+//--------------- FUNCTION CALLS ----------------//
 dotenvConfig();
+
+//---------------- VARIABLES ---------------------//
 const PORT = process.env.PORT || 3000;
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "public"))); // used to convert filepath to url
 const uri = process.env.MONGODB;
 
+//-------------- MONGOOSE CONNECTION ------------//
 mongoose
   .connect(uri)
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err));
 
 const db = mongoose.connection;
+
+//-------------- SERVER FUNCTIONS ----------------//
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "public"))); // used to convert filepath to url
+app.use(express.static(path.join(__dirname, "googleMaps")));
 
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function () {
@@ -28,14 +36,11 @@ db.once("open", function () {
 const publicArtSchema = new mongoose.Schema({}, { collection: "public-art" });
 const PublicArt = mongoose.model("PublicArt", publicArtSchema);
 
+//---------------- API HANDLES ------------------//
 app.get("/api/public-art", async (req, res) => {
   const data = await PublicArt.find({}).sort({ title: 1 });
   res.json(data);
 });
-
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static(path.join(__dirname, "googleMaps")));
 
 // Serve .mjs files with the correct MIME type
 app.get("*.mjs", (req, res, next) => {
