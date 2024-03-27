@@ -2,18 +2,20 @@
   "name": "team-equinox-pro2",
   "version": "team-equinox-pro2",
   "description": "team-equinox-pro2",
-  "main": "server.mjs",
+  "main": "index.mjs",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "nodemon server.mjs ",
-    "start": "node server.mjs "
+    "start": "node server.mjs ",
+    "start:dev:db": " node ./public/js/index.mjs "
   },
   "dependencies": {
     "dotenv": "^16.4.5",
     "ejs": "^3.1.9",
     "express": "^4.19.1",
-    "@googlemaps/js-api-loader": "^1.16.6"
+    "@googlemaps/js-api-loader": "^1.16.6",
+    "mongoose": "^8.2.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
