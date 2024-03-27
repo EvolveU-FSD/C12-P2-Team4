@@ -59,6 +59,7 @@ main {
   justify-content: center;
   margin-bottom: 10px;
   margin-top: 10px;
+  gap: 0.3rem;
 }
 
 .search-bar input[type="text"] {
