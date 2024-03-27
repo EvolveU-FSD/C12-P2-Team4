@@ -57,7 +57,7 @@ main {
 @media (min-width: 768px) and (max-width: 1023px) {
   .layout {
     grid-template-columns: 1fr 1fr; /* Two columns layout */
-    grid-template-rows: 40px auto auto auto auto 60px; /* Adjust rows as needed */
+    grid-template-rows: 40px calc(100vh - 40px - 40px - 60px); /* 100vh for main content area */
     grid-template-areas:
       "header header"
       "sidebar main"
