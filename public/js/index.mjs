@@ -12,5 +12,5 @@ const user = new User({
 
 await user.save();
 
-const firstUser = await User.findOne({});
-console.log(firstUser);
+const allUsers = await User.find({});
+console.log(allUsers);
