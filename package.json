@@ -11,10 +11,11 @@
     "start:dev:db": " node ./public/js/index.mjs "
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.6",
+    "axios": "^1.6.8",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.9",
     "express": "^4.19.1",
-    "@googlemaps/js-api-loader": "^1.16.6",
     "mongoose": "^8.2.3"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
 //----- IMPORT STATEMENTS ---------//
+import axios from "axios";
 import express from "express";
 import path from "path";
 import mongoose from "mongoose";
@@ -14,7 +15,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const uri = process.env.MONGODB;
-
+const apiKey = process.env.GOOGLEMAPS_API_KEY;
 //-------------- MONGOOSE CONNECTION ------------//
 mongoose
   .connect(uri)
@@ -45,7 +46,6 @@ app.get("/api/public-art", async (req, res) => {
 app.get("/places", async (req, res) => {
   try {
     const { query } = req.query;
-    const apiKey = process.env.GOOGLEMAPS_API_KEY;
     const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(
       query
     )}&key=${apiKey}`;
