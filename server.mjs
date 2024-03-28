@@ -42,6 +42,21 @@ app.get("/api/public-art", async (req, res) => {
   res.json(data);
 });
 
+app.get("/places", async (req, res) => {
+  try {
+    const { query } = req.query;
+    const apiKey = process.env.GOOGLEMAPS_API_KEY;
+    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(
+      query
+    )}&key=${apiKey}`;
+
+    const response = await axios.get(url);
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: error.toString() });
+  }
+});
+
 // Serve .mjs files with the correct MIME type
 app.get("*.mjs", (req, res, next) => {
   res.type("application/javascript");

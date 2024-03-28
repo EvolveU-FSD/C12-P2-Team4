@@ -12,10 +12,12 @@
 
 <body>
   <h1> Calgary Map!</h1>
+  <input id="searchInput" type="text" placeholder="Enter a location">
+  <button onclick="search()">Search</button>
   <div id="map"></div>
 
   <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz7ZMiaTHwnM3p1jV7YmlPloDccJu-y-s&callback=calgaryLocationMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc3Hk1MTawXfffp9ufIoe5NNymJZhtRb4&libraries=places&callback=calgaryLocationMap">
     </script>
 
 </body>
