@@ -15,7 +15,26 @@
         <a href="/publicartgallery.html">Art</a>
         <a href="/map.html">Map</a>
       </header>
-      <nav>Things To Do</nav>
+      <nav class="sidebar" id="sidebar">
+        <button class="openbtn" onclick="toggleNav()">☰ Open Sidebar</button>
+        <script>
+          function toggleNav() {
+            var sidebar = document.getElementById("sidebar");
+            if (sidebar.style.width === "250px") {
+              closeNav();
+            } else {
+              openNav();
+            }
+          }
+          function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+          }
+    
+          function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+          }
+        </script>
+      </nav>
       <main>
         <div class="search-bar">
           <input type="text" placeholder="Search, attractions, things to do">
