@@ -158,7 +158,10 @@ button[type="submit"]:hover {
 }
 
 /* Button Styles */
-button {
+button.openModal {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
   background: none;
   border: none;
   cursor: pointer;
