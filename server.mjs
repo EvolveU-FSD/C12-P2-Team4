@@ -3,9 +3,9 @@ import axios from "axios";
 import express from "express";
 import path from "path";
 import mongoose from "mongoose";
+import bcrypt from "bcrypt";
 import { fileURLToPath } from "url";
 import { config as dotenvConfig } from "dotenv";
-import * as UserData from "./public/api/users.mjs";
 import User from "./database/mongodb-mongoose/model/userOperations.js";
 
 //--------------- FUNCTION CALLS ----------------//
@@ -108,8 +108,12 @@ app.post("/signin", async (req, res) => {
   }
 });
 
-//                 SIGNP HANDLING                  //
-app.post("/signin", async (req, res) => {
+//               SIGNP HANDLING                  //
+app.post("/signup", async (req, res) => {
+  const salt = await bcrypt.genSalt(10);
+  const secPass = await bcrypt.hash(req.body.password, salt);
+  console.log(secPass);
+
   try {
     const { firstname, lastname, username, email, password } = req.body;
 
@@ -127,14 +131,13 @@ app.post("/signin", async (req, res) => {
       lastname,
       username,
       email,
-      password,
+      password: secPass,
     });
     await newUser.save();
 
     // Return success response
 
     res.status(201).json({ message: "User created successfully" });
-    mongoose.disconnect();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -151,3 +154,6 @@ app.delete("/api/users/:name", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Running on http://localhost:${PORT}`);
 });
+
+//---------- DISCONNECT FROM DATABASE ----------//
+//           mongoose.disconnect();            //
