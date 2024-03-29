@@ -64,29 +64,38 @@
           <span class="close">&times;</span>
           <h2>Sign Up</h2>
           <form id="signUpForm">
-            <label for="signUpFirstName">First Name:</label>
+            <label for="firstname">First Name:</label>
             <input
               type="text"
-              id="signUpFirstName"
-              name="signUpFirstName"
+              id="firstname"
+              name="firstname"
               required
               minlength="2"
               maxlength="20"
             />
-            <label for="signUpLastName">Last Name:</label>
+            <label for="lastname">Last Name:</label>
             <input
               type="text"
-              id="signUpLastName"
-              name="signUpLastName"
+              id="lastname"
+              name="lastname"
               required
               minlength="2"
               maxlength="20"
             />
             <label for="signUpUsername">Username:</label>
             <input
-              type="email"
+              type="text"
               id="signUpUsername"
-              name="signUpUsername"
+              name="username"
+              required
+              minlength="6"
+              maxlength="32"
+            />
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
               required
               minlength="6"
               maxlength="32"
@@ -95,7 +104,7 @@
             <input
               type="password"
               id="signUpPassword"
-              name="signUpPassword"
+              name="password"
               required
               minlength="9"
               maxlength="64"
