@@ -87,7 +87,28 @@ app.get("/api/users/:name", (req, res) => {
 });
 
 //------------------ POST API ROUTE -------------------//
+//            SIGNIN HANDLING                    //
+app.post("/signin", async (req, res) => {
+  // Change route to POST
+  try {
+    const { username, password } = req.body;
 
+    // Check if the user already exists
+    const existingUser = await User.findOne({ username, password });
+    if (existingUser) {
+      console.log(`${username} Logged in`); // Log the username instead of res
+      const sessionToken = "some Generated Session Token STRING";
+      res.json({ sessionToken }); // Send session token as JSON response
+    } else {
+      res.status(401).json({ error: "Invalid username or password" }); // Send error if user doesn't exist
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+//                 SIGNP HANDLING                  //
 app.post("/signin", async (req, res) => {
   try {
     const { firstname, lastname, username, email, password } = req.body;
@@ -111,18 +132,14 @@ app.post("/signin", async (req, res) => {
     await newUser.save();
 
     // Return success response
+
     res.status(201).json({ message: "User created successfully" });
+    mongoose.disconnect();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
-// app.post("/user", (req, res) => {
-//   var body = req.body;
-//   UserData.addUser(body);
-//   res.status(200).send("ok");
-// });
 
 //------------------ DELETE API ROUTE -------------------//
 app.delete("/api/users/:name", (req, res) => {
