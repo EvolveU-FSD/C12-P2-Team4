@@ -86,22 +86,28 @@ app.get("/api/users/:name", (req, res) => {
   res.send(record);
 });
 
-//------------------ POST API ROUTE -------------------//
+//----------------- POST API ROUTE --------------//
 //            SIGNIN HANDLING                    //
 app.post("/signin", async (req, res) => {
   // Change route to POST
   try {
-    const { username, password } = req.body;
+    let user = await User.findOne({ username: req.body.username });
 
-    // Check if the user already exists
-    const existingUser = await User.findOne({ username, password });
-    if (existingUser) {
-      console.log(`${username} Logged in`); // Log the username instead of res
-      const sessionToken = "some Generated Session Token STRING";
-      res.json({ sessionToken }); // Send session token as JSON response
-    } else {
-      res.status(401).json({ error: "Invalid username or password" }); // Send error if user doesn't exist
+    if (!user) {
+      return res.status(400).json({ error: "Invalid credentials try again" });
     }
+    const passwordCompare = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!passwordCompare) {
+      return res
+        .status(400)
+        .join({ error: "Enter valid credntials to continue." });
+    }
+
+    res.json({ sucess: "Authenication Accepted" });
+    console.log(`Logged in as ${user}`);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -144,7 +150,7 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-//------------------ DELETE API ROUTE -------------------//
+//------------- DELETE API ROUTE ---------------//
 app.delete("/api/users/:name", (req, res) => {
   const name = req.params.name;
   UserData.delete(name);
