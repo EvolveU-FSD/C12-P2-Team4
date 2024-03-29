@@ -1,10 +1,12 @@
 //----- IMPORT STATEMENTS ---------//
+import axios from "axios";
 import express from "express";
 import path from "path";
 import mongoose from "mongoose";
 import { fileURLToPath } from "url";
 import { config as dotenvConfig } from "dotenv";
 import * as UserData from "./public/api/users.mjs";
+import User from "./database/mongodb-mongoose/model/userOperations.mjs";
 
 //--------------- FUNCTION CALLS ----------------//
 dotenvConfig();
@@ -14,7 +16,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const uri = process.env.MONGODB;
-
+const apiKey = process.env.GOOGLEMAPS_API_KEY;
 //-------------- MONGOOSE CONNECTION ------------//
 mongoose
   .connect(uri)
@@ -36,7 +38,7 @@ db.once("open", function () {
 const publicArtSchema = new mongoose.Schema({}, { collection: "public-art" });
 const PublicArt = mongoose.model("PublicArt", publicArtSchema);
 
-//---------------- API HANDLES ------------------//
+//---------------- GET API HANDLES ------------------//
 app.get("/api/public-art", async (req, res) => {
   const data = await PublicArt.find({}).sort({ title: 1 });
   res.json(data);
@@ -45,7 +47,6 @@ app.get("/api/public-art", async (req, res) => {
 app.get("/places", async (req, res) => {
   try {
     const { query } = req.query;
-    const apiKey = process.env.GOOGLEMAPS_API_KEY;
     const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(
       query
     )}&key=${apiKey}`;
@@ -85,18 +86,45 @@ app.get("/api/users/:name", (req, res) => {
   res.send(record);
 });
 
+// ----------------- POST API ROUTE -------------------//
+
+app.post("/signup", async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+
+    // Check if the user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res
+        .status(400)
+        .json({ error: "User already exists, Please Signin" });
+    }
+
+    // Create a new user
+    const newUser = new User({ username, email, password });
+    await newUser.save();
+
+    // Return success response
+    res.status(201).json({ message: "User created successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// app.post("/user", (req, res) => {
+//   var body = req.body;
+//   UserData.addUser(body);
+//   res.status(200).send("ok");
+// });
+
+// ----------------- DELETE API ROUTE -------------------//
 app.delete("/api/users/:name", (req, res) => {
   const name = req.params.name;
   UserData.delete(name);
   res.status(200).send("ok");
 });
 
-app.post("/user", (req, res) => {
-  var body = req.body;
-  UserData.addUser(body);
-  res.status(200).send("ok");
-});
-
 app.listen(PORT, () => {
-  console.log(`Running on Port ${PORT}`);
+  console.log(`Running on http://localhost:${PORT}`);
 });

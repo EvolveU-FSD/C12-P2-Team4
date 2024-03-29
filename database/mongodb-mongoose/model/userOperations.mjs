@@ -3,16 +3,25 @@ import mongoose from "mongoose";
 
 const { Schema, model } = mongoose;
 
+// Define a Mongoose schema for user
 const userSchema = new Schema({
-  name: {
+  username: {
     type: String,
     required: true,
+    minLength: 6,
+    maxLength: 20,
   },
   email: {
     type: String,
-    minLength: 10,
     required: true,
-    lowercase: true,
+    minLength: 6,
+    maxLength: 32,
+  },
+  password: {
+    type: String,
+    required: true,
+    minLength: 13,
+    maxLength: 32,
   },
 });
 
