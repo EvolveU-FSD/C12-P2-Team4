@@ -33,7 +33,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
     minLength: 13,
-    maxLength: 32,
+    maxLength: 256,
   },
 });
 
