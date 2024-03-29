@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 import { fileURLToPath } from "url";
 import { config as dotenvConfig } from "dotenv";
 import * as UserData from "./public/api/users.mjs";
-import User from "./database/mongodb-mongoose/model/userOperations.mjs";
+import User from "./database/mongodb-mongoose/model/userOperations.js";
 
 //--------------- FUNCTION CALLS ----------------//
 dotenvConfig();
@@ -86,11 +86,11 @@ app.get("/api/users/:name", (req, res) => {
   res.send(record);
 });
 
-// ----------------- POST API ROUTE -------------------//
+//------------------ POST API ROUTE -------------------//
 
-app.post("/signup", async (req, res) => {
+app.post("/signin", async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { firstname, lastname, username, email, password } = req.body;
 
     // Check if the user already exists
     const existingUser = await User.findOne({ email });
@@ -101,7 +101,13 @@ app.post("/signup", async (req, res) => {
     }
 
     // Create a new user
-    const newUser = new User({ username, email, password });
+    const newUser = new User({
+      firstname,
+      lastname,
+      username,
+      email,
+      password,
+    });
     await newUser.save();
 
     // Return success response
@@ -118,7 +124,7 @@ app.post("/signup", async (req, res) => {
 //   res.status(200).send("ok");
 // });
 
-// ----------------- DELETE API ROUTE -------------------//
+//------------------ DELETE API ROUTE -------------------//
 app.delete("/api/users/:name", (req, res) => {
   const name = req.params.name;
   UserData.delete(name);
