@@ -33,7 +33,7 @@ document
       }
 
       //---------- COLLECT RESPONSE --------------//
-      const response = await fetch("/signin", {
+      const response = await fetch("/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,13 +44,12 @@ document
       if (response.ok) {
         const data = await response.json();
         alert(data.message); // Display success message
-        document.getElementById("signUpModal").style.display = "none";
       } else {
         const errorData = await response.json();
         alert(errorData.error); // Display error message
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred. Please try again."); // Display generic error message
+      alert("An error occurred. Please try again.", error); // Display error message
     }
   });
