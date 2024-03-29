@@ -1,15 +1,9 @@
-// SIGNIN LOGIC
-
+//----------------- SIGNIN LOGIC --------------------//
+//                  MODAL CONTROL                   //
 document
   .getElementById("openSignInModal")
   .addEventListener("click", function () {
-    document.getElementById("signInModal").style.display = "block";
-  });
-
-document
-  .getElementById("openSignUpModal")
-  .addEventListener("click", function () {
-    document.getElementById("signUpModal").style.display = "block";
+    document.getElementById("signInModal").style.display = "flex";
   });
 
 document.querySelectorAll(".close").forEach(function (closeButton) {
@@ -18,44 +12,38 @@ document.querySelectorAll(".close").forEach(function (closeButton) {
   });
 });
 
-window.addEventListener("click", function (event) {
-  if (event.target.classList.contains("modal")) {
-    event.target.style.display = "none";
-  }
-});
-
+////             SIGNIN FORM HANDLING            ////
 document
   .getElementById("signInForm")
-  .addEventListener("submit", function (event) {
+  .addEventListener("submit", async function (event) {
     event.preventDefault(); // Prevent the default form submission
 
-    // You can add your sign-in logic here
+    try {
+      const username = document.getElementById("signInUsername").value;
+      const password = document.getElementById("signInPassword").value;
 
-    // For demonstration purposes, let's just log the username and password
-    const username = document.getElementById("signInUsername").value;
-    const password = document.getElementById("signInPassword").value;
-
-    console.log("Sign In Username:", username);
-    console.log("Sign In Password:", password);
+      //---------- COLLECT RESPONSE --------------//
+      const response = await fetch("/signin", {
+        method: "POST", // Change method to POST
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }), // Send username and password as JSON in the request body
+      });
+      //---------- CHECK FOR SUCCESS --------//
+      if (response.ok) {
+        const data = await response.json();
+        document.getElementById("signInModal").style.display = "none";
+        console.log(data);
+      } else {
+        const errorData = await response.json();
+        alert(errorData.error); // Display error message
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again."); // Display generic error message
+    }
 
     // Close the modal after submission
     document.getElementById("signInModal").style.display = "none";
-  });
-
-document
-  .getElementById("signUpForm")
-  .addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    // You can add your sign-up logic here
-
-    // For demonstration purposes, let's just log the username and password
-    const username = document.getElementById("signUpUsername").value;
-    const password = document.getElementById("signUpPassword").value;
-
-    console.log("Sign Up Username:", username);
-    console.log("Sign Up Password:", password);
-
-    // Close the modal after submission
-    document.getElementById("signUpModal").style.display = "none";
   });
