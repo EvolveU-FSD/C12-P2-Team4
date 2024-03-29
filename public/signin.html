@@ -64,6 +64,24 @@
           <span class="close">&times;</span>
           <h2>Sign Up</h2>
           <form id="signUpForm">
+            <label for="signUpFirstName">First Name:</label>
+            <input
+              type="text"
+              id="signUpFirstName"
+              name="signUpFirstName"
+              required
+              minlength="2"
+              maxlength="20"
+            />
+            <label for="signUpLastName">Last Name:</label>
+            <input
+              type="text"
+              id="signUpLastName"
+              name="signUpLastName"
+              required
+              minlength="2"
+              maxlength="20"
+            />
             <label for="signUpUsername">Username:</label>
             <input
               type="email"
@@ -89,5 +107,6 @@
       <footer>Footer</footer>
     </div>
   </body>
+  <script src="/js/signup.js"></script>
   <script src="/js/signin.js"></script>
 </html>
