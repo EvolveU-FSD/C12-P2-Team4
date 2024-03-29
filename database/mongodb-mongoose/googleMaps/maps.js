@@ -1,4 +1,8 @@
+import { config as dotenvConfig } from "dotenv";
+dotenvConfig();
+
 let map; // Declaring map as a global variable
+api_key = process.env.GOOGLEMAPS_API_KEY;
 
 async function calgaryLocationMap() {
   const calgaryLocation = {
@@ -13,8 +17,8 @@ async function calgaryLocationMap() {
 
 function search() {
   const request = {
-    query: document.getElementById('searchInput').value,
-    fields: ['name', 'geometry']
+    query: document.getElementById("searchInput").value,
+    fields: ["name", "geometry"],
   };
 
   const service = new google.maps.places.PlacesService(map); // Accessing map globally
@@ -23,12 +27,12 @@ function search() {
       map.setCenter(results[0].geometry.location);
       const marker = new google.maps.Marker({
         map: map,
-        position: results[0].geometry.location
+        position: results[0].geometry.location,
       });
       infowindow.setContent(results[0].name);
       infowindow.open(map, marker);
     } else {
-      console.error('Place not Found');
+      console.error("Place not Found");
     }
   });
 }

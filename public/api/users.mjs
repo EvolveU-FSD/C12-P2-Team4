@@ -18,5 +18,5 @@ export function deleteUser(name) {
 
 export function addUser(newUser) {
   db.users.insertOne(newUser);
-  // users.push(newUser);
+  return console.log(`${newuser} added.`); // users.push(newUser);
 }

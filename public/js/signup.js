@@ -44,6 +44,7 @@ document
       if (response.ok) {
         const data = await response.json();
         alert(data.message); // Display success message
+        document.getElementById("signUpModal").style.display = "none";
       } else {
         const errorData = await response.json();
         alert(errorData.error); // Display error message

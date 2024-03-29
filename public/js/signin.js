@@ -41,7 +41,7 @@ document
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("An error occurred. Please try again."); // Display generic error message
+      alert("An error occurred. Please try again.", error); // Display error message
     }
 
     // Close the modal after submission

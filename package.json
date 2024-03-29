@@ -8,11 +8,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "nodemon server.mjs ",
     "start": "node server.mjs ",
-    "start:dev:db": " node ./public/js/index.mjs "
+    "start:dev:db": " node ./public/js/index.mjs ",
+    "dev": "nodemon --env-file=.env server.mjs"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.6",
     "axios": "^1.6.8",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.9",
     "express": "^4.19.1",
