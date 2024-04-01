@@ -15,13 +15,24 @@
 header {
   grid-area: header;
     background-color: black;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    margin: 0; /* Reset margin */
     height: 3rem;
+    margin: 0;
+    color: white;
+    justify-content: space-around;
+    text-align: center;   
+    margin: 0; /* Reset margin */
   }
 
+  header a {
+    font-size: 25px;
+    color: #818181;
+    display: inline-block;
+    margin-right: 25px; /* Add spacing between links */
+    transition: 0.3s;
+  }
+  header a:hover {
+    color: #f1f1f1;
+  }
 footer {
   grid-area: footer;
   background: #c08bfd;
@@ -79,6 +90,7 @@ footer {
 main {
   grid-area: main;
   background: #b2ee94;
+  
 }
 .widget {
   grid-area: widget;
