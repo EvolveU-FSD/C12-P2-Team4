@@ -20,10 +20,56 @@ footer {
   grid-area: footer;
   background: #c08bfd;
 }
-nav {
+/* nav {
   grid-area: sidebar;
   background: #f6c356;
+} */
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 25px /* Adjust the top position to accommodate the header */
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
 }
+
+.sidebar-content a {
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar-content a:hover {
+  color: #f1f1f1;
+}
+
+.content {
+  margin-left: 250px;
+  transition: margin-left 0.5s;
+  top: 2em;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+}
+
 main {
   grid-area: main;
   background: #b2ee94;
@@ -34,11 +80,11 @@ main {
   width: 100%;
 }
 
-.navbar {
+/* .navbar {
   overflow: hidden;
   background-color: #333;
-}
-
+} */
+/* 
 .navbar a {
   float: left;
   display: block;
@@ -46,12 +92,12 @@ main {
   text-align: center;
   padding: 14px 20px;
   text-decoration: none;
-}
+} */
 
-.navbar a:hover {
+/* .navbar a:hover {
   background-color: #ddd;
   color: black;
-}
+} */
 
 .search-bar {
   display: flex;
