@@ -16,8 +16,34 @@
         <a href="/map.html">Map</a>
       </header>
       <nav class="sidebar" id="sidebar">
-        <button class="openbtn" onclick="toggleNav()">☰ Open Sidebar</button>
-      
+    <div class="sidebar-content" id="sidebar">
+      <a href="#Explore">Explore</a>
+      <a href="#Wishlist ">Wishlist </a>
+      <a href="# My plan"> My plan(map)</a>
+      <a href="#Bookings">Bookings</a>
+      <a href="#profile"> profile</a>
+    </div>
+    <div class="content">
+      <button class="openbtn" onclick="toggleNav()">☰ Open Sidebar</button>
+    </div>
+
+    <script>
+      function toggleNav() {
+        var sidebar = document.getElementById("sidebar");
+        if (sidebar.style.width === "250px") {
+          closeNav();
+        } else {
+          openNav();
+        }
+      }
+      function openNav() {
+        document.getElementById("sidebar").style.width = "250px";
+      }
+
+      function closeNav() {
+        document.getElementById("sidebar").style.width = "0";
+      }
+    </script>
       </nav>
     
         
