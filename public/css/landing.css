@@ -53,7 +53,7 @@ header {
 }
 
 .sidebar-content a {
-  padding: 10px 15px;
+  padding: 5px 15px;
   text-decoration: none;
   font-size: 25px;
   color: #818181;
@@ -61,12 +61,18 @@ header {
   transition: 0.3s;
   border-style: solid;
   border-color: red;
+  background-color: red;
   border-radius: 10px;
+  height: 4em;
+  width: 4em;
   margin-top: 5%;
+  margin-left: 10   %;
 }
 
 .sidebar-content a:hover {
   color: #f1f1f1;
+  border-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .content {
