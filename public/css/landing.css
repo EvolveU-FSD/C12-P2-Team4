@@ -35,7 +35,23 @@ header {
   }
 footer {
   grid-area: footer;
-  background: #c08bfd;
+  background-color: black;
+  height: 3rem;
+  margin: 0;
+  color: white;
+  justify-content: space-around;
+  text-align: center;   
+  margin: 0; /* Reset margin */
+}
+footer a {
+  font-size: 25px;
+  color: #818181;
+  display: inline-block;
+  margin-right: 25px; /* Add spacing between links */
+  transition: 0.3s;
+}
+footer a:hover {
+  color: #f1f1f1;
 }
 /* nav {
   grid-area: sidebar;
@@ -111,10 +127,22 @@ main {
 
 .widget {
   grid-area: widget;
-  background: #99c2fe;
+  /* background: #99c2fe; */
   width: 100%;
 }
+.card {
+  width: 200px;
+  height: 100px;
+  background-color: #f0f0f0;
+  margin: 10px;
+  transition: transform 0.5s ease;
+  opacity: 0;
+}
 
+.card.animate {
+  transform: translateY(0);
+  opacity: 1;
+}
 /* .navbar {
   overflow: hidden;
   background-color: #333;
