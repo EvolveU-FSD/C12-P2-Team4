@@ -90,7 +90,10 @@ footer {
 main {
   grid-area: main;
   background: #b2ee94;
-  
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  flex-direction: column; /* Stack items vertically */
 }
 .widget {
   grid-area: widget;
