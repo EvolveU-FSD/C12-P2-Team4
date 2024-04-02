@@ -53,20 +53,20 @@ header {
 }
 
 .sidebar-content a {
-  padding: 5px 15px;
+  padding: 0px 15px;
   text-decoration: none;
   font-size: 25px;
   color: #818181;
   display: block;
   transition: 0.3s;
   border-style: solid;
-  border-color: red;
-  background-color: red;
+  border-color: #545454;
+  background-color: #545454;
   border-radius: 10px;
   height: 4em;
   width: 4em;
   margin-top: 5%;
-  margin-left: 10   %;
+  margin-left: 10%;
 }
 
 .sidebar-content a:hover {
