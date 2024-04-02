@@ -33,26 +33,7 @@ header {
   header a:hover {
     color: #f1f1f1;
   }
-footer {
-  grid-area: footer;
-  background-color: black;
-  height: 3rem;
-  margin: 0;
-  color: white;
-  justify-content: space-around;
-  text-align: center;   
-  margin: 0; /* Reset margin */
-}
-footer a {
-  font-size: 25px;
-  color: #818181;
-  display: inline-block;
-  margin-right: 25px; /* Add spacing between links */
-  transition: 0.3s;
-}
-footer a:hover {
-  color: #f1f1f1;
-}
+
 /* nav {
   grid-area: sidebar;
   background: #f6c356;
@@ -125,6 +106,35 @@ main {
   z-index: -1; /* Send the background image behind other content */ 
 }
 
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  gap: 0.3rem;
+}
+
+.search-bar input[type="text"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 400px; /* Adjust the width as needed */
+}
+
+.search-bar button {
+  padding: 8px 16px;
+  background-color: #5313d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #ab2bf6;
+}
+
 .widget {
   grid-area: widget;
   /* background: #99c2fe; */
@@ -162,33 +172,25 @@ main {
   color: black;
 } */
 
-.search-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  gap: 0.3rem;
-}
-
-.search-bar input[type="text"] {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 400px; /* Adjust the width as needed */
-}
-
-.search-bar button {
-  padding: 8px 16px;
-  background-color: #5313d2;
+footer {
+  grid-area: footer;
+  background-color: black;
+  height: 3rem;
+  margin: 0;
   color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  justify-content: space-around;
+  text-align: center;   
+  margin: 0; /* Reset margin */
 }
-
-.search-bar button:hover {
-  background-color: #ab2bf6;
+footer a {
+  font-size: 25px;
+  color: #818181;
+  display: inline-block;
+  margin-right: 25px; /* Add spacing between links */
+  transition: 0.3s;
+}
+footer a:hover {
+  color: #f1f1f1;
 }
 
 /* Media query for tablet */
