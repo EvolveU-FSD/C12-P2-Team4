@@ -1,4 +1,4 @@
-const apiKey = "";
+const apiKey = "AIzaSyCIC_vfw1KByMvwLXmgHdY5ZKfA8NorD5w";
 
 ((g) => {
   var h,
@@ -43,6 +43,7 @@ const apiKey = "";
 
 // Initialize and add the map
 let map;
+let markers = []; // Array to hold all markers
 
 async function initMap() {
   const position = { lat: 51.037611, lng: -114.063163 };
@@ -59,35 +60,76 @@ async function initMap() {
 
 initMap();
 
+function getCurrentLocation() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+}
+
+let currentlat, currentlng;
+
+async function logCurrentLocation() {
+  try {
+    const position = await getCurrentLocation();
+    currentlat = position.coords.latitude;
+    currentlng = position.coords.longitude;
+    console.log(`Latitude: ${currentlat}, Longitude: ${currentlng}`);
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+  }
+}
+
 // Get the search input and form
 const searchForm = document.getElementById("searchForm");
 const searchInput = document.getElementById("searchInput");
 
-// Add an event listener to the form
-searchForm.addEventListener("submit", function (event) {
-  // Prevent the form from submitting normally
-  event.preventDefault();
+// Update the range value
+window.addEventListener("DOMContentLoaded", (event) => {
+  const range = document.getElementById("range");
+  const rangeValue = document.getElementById("rangeValue");
 
-  // Get the user's search query
-  const query = searchInput.value;
+  range.oninput = function () {
+    rangeValue.textContent = this.value;
+  };
+});
 
-  // Make a GET request to your Express endpoint
-  fetch(`/places?query=${encodeURIComponent(query)}`)
-    .then((response) => response.json())
-    .then((data) => {
-      // Clear the map
+logCurrentLocation().then(() => {
+  searchForm.addEventListener("submit", function (event) {
+    // Prevent the form from submitting normally
+    event.preventDefault();
 
-      // Update the map with the data
-      data.results.forEach((item) => {
-        const marker = new google.maps.marker.AdvancedMarkerElement({
-          map: map,
-          position: {
-            lat: item.geometry.location.lat,
-            lng: item.geometry.location.lng,
-          },
-          title: item.name,
+    // Clear previous markers
+    for (let i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+    }
+    markers = [];
+
+    // Get the user's search query
+    const query = `?location=${encodeURIComponent(currentlat)},${encodeURIComponent(currentlng)}&radius=${encodeURIComponent(range.value * 1000)}&keyword=${encodeURIComponent(searchInput.value)}`;
+    // Make a GET request to your Express endpoint
+    fetch(`/places${query}`)
+      .then((response) => response.json())
+      .then((data) => {
+
+        // Update the map with the data
+        data.results.forEach((item) => {
+          const results = document.getElementById("results");
+          const div = document.createElement("gmpx-place-overview");
+          div.setAttribute("place", item.place_id);
+          div.setAttribute("size", "medium");
+          results.appendChild(div);
+
+          const marker = new google.maps.marker.AdvancedMarkerElement({
+            map: map,
+            position: {
+              lat: item.geometry.location.lat,
+              lng: item.geometry.location.lng,
+            },
+            title: item.name,
+          });
+          markers.push(marker); // Add the marker to the array
         });
-      });
-    })
-    .catch((error) => console.error("Error:", error));
+      })
+      .catch((error) => console.error("Error:", error));
+  });
 });

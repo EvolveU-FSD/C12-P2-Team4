@@ -37,6 +37,8 @@ db.once("open", function () {
 
 const publicArtSchema = new mongoose.Schema({}, { collection: "public-art" })
 const PublicArt = mongoose.model("PublicArt", publicArtSchema)
+const historicSitesSchema = new mongoose.Schema({}, { collection: "historic-sites" })
+const HistoricSites = mongoose.model("HistoricSites", historicSitesSchema)
 
 //---------------- GET API HANDLES ------------------//
 app.get("/api/public-art", async (req, res) => {
@@ -44,17 +46,42 @@ app.get("/api/public-art", async (req, res) => {
   res.json(data)
 })
 
+app.get('/api/historic-sites', async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const startIndex = (page - 1) * limit;
+
+    // Fetch total count of documents
+    const totalCount = await HistoricSites.countDocuments();
+
+    // Fetch data slice based on startIndex and limit
+    const dataSlice = await HistoricSites.find({})
+      .sort({ name: 1 })
+      .skip(startIndex)
+      .limit(limit);
+
+    res.json({
+      items: dataSlice,
+      page,
+      limit,
+      totalCount,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 app.get("/places", async (req, res) => {
   try {
-    const { query } = req.query
-    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(
-      query
-    )}&key=${apiKey}`
+    const { location, radius, keyword } = req.query;
+    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${encodeURIComponent(location)}&radius=${encodeURIComponent(radius)}&keyword=${encodeURIComponent(keyword)}&key=${apiKey}`;
 
-    const response = await axios.get(url)
-    res.json(response.data)
+    const response = await axios.get(url);
+    res.json(response.data);
   } catch (error) {
-    res.status(500).json({ error: error.toString() })
+    res.status(500).json({ error: error.toString() });
   }
 })
 
