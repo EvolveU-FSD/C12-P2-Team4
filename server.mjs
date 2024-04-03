@@ -72,7 +72,7 @@ app.get("*.css", (req, res, next) => {
 
 // Serve map.html file
 app.get("/maps", (req, res) => {
-  res.sendFile(path.join(__dirname, "googleMaps", "map.html"))
+  res.send(path.join(__dirname, "googleMaps", "map.html"))
 })
 
 // API routes
@@ -89,7 +89,6 @@ app.get("/api/users/:name", (req, res) => {
 //----------------- POST API ROUTE --------------//
 //            SIGNIN HANDLING                    //
 app.post("/signin", async (req, res) => {
-  // Change route to POST
   try {
     let user = await User.findOne({ username: req.body.username })
 
