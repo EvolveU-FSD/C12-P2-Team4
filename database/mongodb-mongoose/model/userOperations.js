@@ -1,7 +1,7 @@
 // userOperations.mjs
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
 // Define a Mongoose schema for user
 const userSchema = new Schema({
@@ -35,7 +35,7 @@ const userSchema = new Schema({
     minLength: 13,
     maxLength: 256,
   },
-});
+})
 
-const User = mongoose.model("User", userSchema);
-export default User;
+const User = mongoose.model("User", userSchema)
+export default User
