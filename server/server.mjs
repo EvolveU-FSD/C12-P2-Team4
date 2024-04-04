@@ -6,7 +6,7 @@ import mongoose from "mongoose"
 import bcrypt from "bcrypt"
 import { fileURLToPath } from "url"
 import { config as dotenvConfig } from "dotenv"
-import User from "../database/mongodb-mongoose/model/userOperations.js"
+import User from "../database/models/usersOperations.mjs"
 
 //--------------- FUNCTION CALLS ----------------//
 dotenvConfig()
