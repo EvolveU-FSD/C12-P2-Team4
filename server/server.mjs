@@ -6,7 +6,7 @@ import mongoose from "mongoose"
 import bcrypt from "bcrypt"
 import { fileURLToPath } from "url"
 import { config as dotenvConfig } from "dotenv"
-import User from "./database/mongodb-mongoose/model/userOperations.js"
+import User from "../database/mongodb-mongoose/model/userOperations.js"
 
 //--------------- FUNCTION CALLS ----------------//
 dotenvConfig()
@@ -23,20 +23,25 @@ mongoose
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err))
 
-const db = mongoose.connection
+// const db = mongoose.connection
+
+// db.on("error", console.error.bind(console, "connection error:"))
+// db.once("open", function () {
+//   console.log("Connected to MongoDB")
+// })
 
 //-------------- SERVER FUNCTIONS ----------------//
 app.use(express.json())
-app.use(express.static(path.join(__dirname, "public"))) // used to convert filepath to url
-app.use(express.static(path.join(__dirname, "googleMaps")))
-
-db.on("error", console.error.bind(console, "connection error:"))
-db.once("open", function () {
-  console.log("Connected to MongoDB")
-})
+app.use(express.static(path.join(__dirname, "../client/public"))) // used to convert filepath to url
+app.use(express.static(path.join(__dirname, "../googleMaps")))
 
 const publicArtSchema = new mongoose.Schema({}, { collection: "public-art" })
 const PublicArt = mongoose.model("PublicArt", publicArtSchema)
+const historicSitesSchema = new mongoose.Schema(
+  {},
+  { collection: "historic-sites" }
+)
+const HistoricSites = mongoose.model("HistoricSites", historicSitesSchema)
 
 //---------------- GET API HANDLES ------------------//
 app.get("/api/public-art", async (req, res) => {
@@ -44,11 +49,39 @@ app.get("/api/public-art", async (req, res) => {
   res.json(data)
 })
 
+app.get("/api/historic-sites", async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 20
+    const startIndex = (page - 1) * limit
+
+    // Fetch total count of documents
+    const totalCount = await HistoricSites.countDocuments()
+
+    // Fetch data slice based on startIndex and limit
+    const dataSlice = await HistoricSites.find({})
+      .sort({ name: 1 })
+      .skip(startIndex)
+      .limit(limit)
+
+    res.json({
+      items: dataSlice,
+      page,
+      limit,
+      totalCount,
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
 app.get("/places", async (req, res) => {
   try {
-    const { query } = req.query
-    const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(
-      query
+    const { location, radius, keyword } = req.query
+    const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${encodeURIComponent(
+      location
+    )}&radius=${encodeURIComponent(radius)}&keyword=${encodeURIComponent(
+      keyword
     )}&key=${apiKey}`
 
     const response = await axios.get(url)
@@ -72,7 +105,11 @@ app.get("*.css", (req, res, next) => {
 
 // Serve map.html file
 app.get("/maps", (req, res) => {
+<<<<<<< HEAD:server.mjs
   res.send(path.join(__dirname, "googleMaps", "map.html"))
+=======
+  res.send(path.join(__dirname, "../googleMaps", "map.html"))
+>>>>>>> 0234947ec0e6e05ca4fbc49b2bdfa044a0eb0a8b:server/server.mjs
 })
 
 // API routes
@@ -89,7 +126,6 @@ app.get("/api/users/:name", (req, res) => {
 //----------------- POST API ROUTE --------------//
 //            SIGNIN HANDLING                    //
 app.post("/signin", async (req, res) => {
-  // Change route to POST
   try {
     let user = await User.findOne({ username: req.body.username })
 

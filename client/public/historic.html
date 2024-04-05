@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/gallery.css">
+  <title>Historic Buildings</title>
+</head>
+
+<body>
+  <div class="gallery" id="gallery"></div>
+  <div>
+    <button onclick="loadPage(currentPage - 1)">Previous</button>
+    <span>Page <span id="currentPage"></span> of <span id="totalPages"></span></span>
+    <button onclick="loadPage(currentPage + 1)">Next</button>
+  </div>
+  <script src="js/historic.js"></script>
+</body>
+
+</html>

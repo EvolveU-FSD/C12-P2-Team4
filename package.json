@@ -2,14 +2,14 @@
   "name": "team-equinox-pro2",
   "version": "team-equinox-pro2",
   "description": "team-equinox-pro2",
-  "main": "index.mjs",
+  "main": "./server/server.mjs",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon server.mjs ",
-    "start": "node server.mjs ",
-    "start:dev:db": " node ./public/js/index.mjs ",
-    "dev": "nodemon --env-file=.env server.mjs"
+    "start:dev": "nodemon ../server/server.mjs",
+    "start": "node ../server/server.mjs ",
+    "start:dev:db": " node ./client/public/js/dbConnect.js",
+    "dev": "nodemon --env-file=.env ../server/server.mjs"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.6",
@@ -18,6 +18,7 @@
     "dotenv": "^16.4.5",
     "ejs": "^3.1.9",
     "express": "^4.19.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.3"
   },
   "devDependencies": {
