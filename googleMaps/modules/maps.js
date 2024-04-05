@@ -1,8 +1,8 @@
-import { config as dotenvConfig } from "dotenv";
-dotenvConfig();
+// import { config as dotenvConfig } from "dotenv";
+// dotenvConfig();
 
 let map; // Declaring map as a global variable
-api_key = process.env.GOOGLEMAPS_API_KEY;
+// api_key = process.env.GOOGLEMAPS_API_KEY;
 
 async function calgaryLocationMap() {
   const calgaryLocation = {

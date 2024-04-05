@@ -72,7 +72,7 @@ app.get("*.css", (req, res, next) => {
 
 // Serve map.html file
 app.get("/maps", (req, res) => {
-  res.sendFile(path.join(__dirname, "googleMaps", "map.html"))
+  res.send(path.join(__dirname, "googleMaps", "map.html"))
 })
 
 // API routes

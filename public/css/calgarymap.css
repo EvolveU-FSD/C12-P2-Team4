@@ -1,0 +1,33 @@
+/* Map */
+#map {
+    height: 300px;
+    width: 50%;
+    float: right;
+    /* Move the map to the right */
+    margin-left: 20px;
+    /* Add some spacing between the map and the card */
+}
+
+/* Itinerary Card */
+#dayCard {
+    background-color: hsl(0, 9%, 37%);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px;
+    width: 300px;
+    max-width: 100%;
+}
+
+/* Additional styling for the content inside the card */
+#dayCard h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#dayCard p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #ffffff;
+    /* Change text color to white */
+}
