@@ -105,11 +105,7 @@ app.get("*.css", (req, res, next) => {
 
 // Serve map.html file
 app.get("/maps", (req, res) => {
-<<<<<<< HEAD:server.mjs
   res.send(path.join(__dirname, "googleMaps", "map.html"))
-=======
-  res.send(path.join(__dirname, "../googleMaps", "map.html"))
->>>>>>> 0234947ec0e6e05ca4fbc49b2bdfa044a0eb0a8b:server/server.mjs
 })
 
 // API routes
