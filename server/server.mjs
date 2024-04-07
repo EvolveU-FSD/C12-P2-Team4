@@ -6,17 +6,19 @@ import mongoose from "mongoose"
 import bcrypt from "bcrypt"
 import { fileURLToPath } from "url"
 import { config as dotenvConfig } from "dotenv"
-import User from "../database/models/usersOperations.mjs"
-
+import userModel from "./models/userModel.js"
+import cors from "cors"
 //--------------- FUNCTION CALLS ----------------//
 dotenvConfig()
 
 //---------------- VARIABLES ---------------------//
 const PORT = process.env.PORT || 3000
 const app = express()
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const uri = process.env.MONGODB
 const apiKey = process.env.GOOGLEMAPS_API_KEY
+
 //-------------- MONGOOSE CONNECTION ------------//
 mongoose
   .connect(uri)
@@ -31,6 +33,8 @@ mongoose
 // })
 
 //-------------- SERVER FUNCTIONS ----------------//
+app.use("/", cors())
+
 app.use(express.json())
 app.use(express.static(path.join(__dirname, "../client/public"))) // used to convert filepath to url
 app.use(express.static(path.join(__dirname, "../googleMaps")))
@@ -108,20 +112,15 @@ app.get("/maps", (req, res) => {
   res.send(path.join(__dirname, "../googleMaps", "map.html"))
 })
 
-// API routes
-app.get("/api/users", (req, res) => {
-  const users = UserData.getAllUsers()
-  res.send(users)
-})
-
-app.get("/api/users/:name", (req, res) => {
-  const record = UserData.getUser(req.params.name)
-  res.send(record)
-})
+// ---------------------- API END POINTS --------------------------------------- //
+// app.get("/api/users", (req, res) => {
+//   const users = UserData.getAllUsers()
+//   res.send(users)
+// })
 
 //----------------- POST API ROUTE --------------//
 //            SIGNIN HANDLING                    //
-app.post("/signin", async (req, res) => {
+app.post("/api/signin", async (req, res) => {
   try {
     let user = await User.findOne({ username: req.body.username })
 
@@ -147,7 +146,7 @@ app.post("/signin", async (req, res) => {
 })
 
 //               SIGNP HANDLING                  //
-app.post("/signup", async (req, res) => {
+app.post("/api/signup", async (req, res) => {
   const salt = await bcrypt.genSalt(10)
   const secPass = await bcrypt.hash(req.body.password, salt)
   console.log(secPass)
@@ -176,6 +175,20 @@ app.post("/signup", async (req, res) => {
     // Return success response
 
     res.status(201).json({ message: "User created successfully" })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: "Internal server error" })
+  }
+})
+
+// -------- Retriver User Data ------------//
+app.get("/api/users/:email", async (req, res) => {
+  try {
+    let user = await user.findOne({ email: req.params.email })
+    console.log(user)
+    if (!user) {
+      return res.status(400).json({ error: "Some Error Occurred" })
+    }
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: "Internal server error" })

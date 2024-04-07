@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "server.mjs",
+  "main": "routes/index.js",
   "type": "module",
   "scripts": {
     "start:dev": "nodemon server.mjs",
@@ -14,9 +14,11 @@
   "dependencies": {
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.9",
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.0"
   },
   "devDependencies": {
