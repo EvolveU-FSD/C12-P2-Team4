@@ -23,7 +23,7 @@ document
       const password = document.getElementById("signInPassword").value
 
       //---------- COLLECT RESPONSE --------------//
-      const response = await fetch("/signin", {
+      const response = await fetch("/api/signin", {
         method: "POST", // Change method to POST
         headers: {
           "Content-Type": "application/json",

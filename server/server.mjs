@@ -1,5 +1,6 @@
 //----- IMPORT STATEMENTS ---------//
 import axios from "axios"
+import bodyParser from "body-parser"
 import express from "express"
 import path from "path"
 import mongoose from "mongoose"
@@ -14,7 +15,7 @@ dotenvConfig()
 //---------------- VARIABLES ---------------------//
 const PORT = process.env.PORT || 3000
 const app = express()
-
+app.use(bodyParser.json())
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const uri = process.env.MONGODB
 const apiKey = process.env.GOOGLEMAPS_API_KEY
@@ -33,10 +34,13 @@ mongoose
 // })
 
 //-------------- SERVER FUNCTIONS ----------------//
-app.use("/", cors())
-
+app.use("", cors())
+app.use("*", (req, res, next) => {
+  console.log(req.originalUrl)
+  next()
+})
 app.use(express.json())
-app.use(express.static(path.join(__dirname, "../client/public"))) // used to convert filepath to url
+app.use(express.static(path.join(__dirname, "../client/public/"))) // used to convert filepath to url
 app.use(express.static(path.join(__dirname, "../googleMaps")))
 
 const publicArtSchema = new mongoose.Schema({}, { collection: "public-art" })
@@ -79,7 +83,7 @@ app.get("/api/historic-sites", async (req, res) => {
   }
 })
 
-app.get("/places", async (req, res) => {
+app.get("/api/places", async (req, res) => {
   try {
     const { location, radius, keyword } = req.query
     const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${encodeURIComponent(
@@ -122,7 +126,7 @@ app.get("/maps", (req, res) => {
 //            SIGNIN HANDLING                    //
 app.post("/api/signin", async (req, res) => {
   try {
-    let user = await User.findOne({ username: req.body.username })
+    let user = await userModel.findOne({ username: req.body.username })
 
     if (!user) {
       return res.status(400).json({ error: "Invalid credentials try again" })
@@ -147,6 +151,7 @@ app.post("/api/signin", async (req, res) => {
 
 //               SIGNP HANDLING                  //
 app.post("/api/signup", async (req, res) => {
+  console.log("Made iT here...")
   const salt = await bcrypt.genSalt(10)
   const secPass = await bcrypt.hash(req.body.password, salt)
   console.log(secPass)
@@ -155,7 +160,7 @@ app.post("/api/signup", async (req, res) => {
     const { firstname, lastname, username, email, password } = req.body
 
     // Check if the user already exists
-    const existingUser = await User.findOne({ email })
+    const existingUser = await userModel.findOne({ email })
     if (existingUser) {
       return res
         .status(400)
@@ -163,7 +168,7 @@ app.post("/api/signup", async (req, res) => {
     }
 
     // Create a new user
-    const newUser = new User({
+    const newUser = new userModel({
       firstname,
       lastname,
       username,
@@ -184,7 +189,7 @@ app.post("/api/signup", async (req, res) => {
 // -------- Retriver User Data ------------//
 app.get("/api/users/:email", async (req, res) => {
   try {
-    let user = await user.findOne({ email: req.params.email })
+    let user = await userModel.findOne({ email: req.params.email })
     console.log(user)
     if (!user) {
       return res.status(400).json({ error: "Some Error Occurred" })

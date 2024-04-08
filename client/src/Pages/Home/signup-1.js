@@ -33,13 +33,14 @@ document
       }
 
       //---------- COLLECT RESPONSE --------------//
-      const response = await fetch("/signup", {
+      const response = await fetch("/api/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formDataObject), // Convert FormData object to JSON
       })
+      console.log(response)
       //---------- CHECK FOR SUCCESS --------//
       if (response.ok) {
         const data = await response.json()

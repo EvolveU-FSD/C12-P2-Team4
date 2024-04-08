@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      type="module"
+      src="https://unpkg.com/@googlemaps/extended-component-library/place_overview.js"
+    ></script>
+    <link rel="stylesheet" href="./css/maptest.css" />
+    <title>Map Test</title>
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div id="map"></div>
+    </div>
+    <form action="" id="searchForm">
+      <label for="range">Range (<span id="rangeValue">1</span>km):</label>
+      <input type="range" id="range" name="range" min="1" max="50" value="1" />
+      <label for="searchInput">Search for a place</label>
+      <input type="search" name="searchplace" id="searchInput" />
+    </form>
+    <div class="results" id="results"></div>
+    <script type="module" src="./js/maptest.js"></script>
+  </body>
+</html>

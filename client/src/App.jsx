@@ -1,11 +1,21 @@
-import { useState } from "react"
+// App.jsx
+import React from "react"
 
-import "./App.css"
+import Profile from "./components/Profile/Profile"
+import UserProfile from "./components/UserProfile/UserProfile"
+import { UserCard } from "./components/UserCard/UserCard"
+import MapComponent from "./components/MapComponents/MapComponent"
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return <>{<h1>Count: {count}</h1>}</>
+const App = () => {
+  return (
+    <div className="app">
+      <h1>App jsx renders</h1>
+      <MapComponent />
+      {/* <UserProfile />
+      <UserCard />
+      <Profile /> */}
+    </div>
+  )
 }
 
 export default App
