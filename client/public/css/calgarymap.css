@@ -13,8 +13,10 @@
     background-color: hsl(0, 9%, 37%);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 0px 20px 20px 20px;
     margin: 20px;
+
+    margin-top: 2px;
     width: 300px;
     max-width: 100%;
 }
@@ -23,11 +25,14 @@
 #dayCard h2 {
     font-size: 20px;
     margin-bottom: 10px;
+
 }
 
 #dayCard p {
-    font-size: 16px;
+    font-size: 8px;
     line-height: 1.5;
     color: #ffffff;
+    display: block;
     /* Change text color to white */
+
 }
