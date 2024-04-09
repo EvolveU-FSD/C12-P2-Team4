@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+}
+
+.card {
+  color: black;
+  background-color: blanchedalmond;
+  border-radius: 2rem;
+}
+img {
+  border-radius: 1.5rem;
+}
