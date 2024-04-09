@@ -14,7 +14,7 @@ createItineraryCard();
 // Fetch current weather data from OpenWeather API
 
 function fetchWeatherData() {
-    const apiKey = '';
+    const apiKey = '1ada488dc5f7b624d882cbf49f94afc8';
     const city = 'Calgary';
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
 
