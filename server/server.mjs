@@ -12,11 +12,13 @@ import User from "../database/mongodb-mongoose/model/userOperations.js";
 dotenvConfig();
 
 //---------------- VARIABLES ---------------------//
+// require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const uri = process.env.MONGODB;
 const apiKey = process.env.GOOGLEMAPS_API_KEY;
+// const jwt = require("jsonwebtoken");
 //-------------- MONGOOSE CONNECTION ------------//
 mongoose
   .connect(uri)
@@ -105,8 +107,8 @@ app.get("*.css", (req, res, next) => {
 
 // Serve map.html file
 app.get("/maps", (req, res) => {
-  res.send(path.join(__dirname, "googleMaps", "map.html"))
-})
+  res.send(path.join(__dirname, "googleMaps", "map.html"));
+});
 
 // API routes
 app.get("/api/users", (req, res) => {
@@ -121,7 +123,7 @@ app.get("/api/users/:name", (req, res) => {
 
 //----------------- POST API ROUTE --------------//
 //            SIGNIN HANDLING                    //
-app.post("/signin", async (req, res) => {
+app.post("/signin", authenticateToken, async (req, res) => {
   try {
     let user = await User.findOne({ username: req.body.username });
 
@@ -144,7 +146,31 @@ app.post("/signin", async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
+  //JWT Authentication
+  const username = req.body.username;
+  const user = { name: username };
+  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+  res.json({ accessToken: accessToken });
 });
+//JWT Middleware
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token == null)
+    return res
+      .sendStatus(401)
+      .json({ error: "Unauthorized, valid authentication required " });
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err)
+      return res
+        .sendStatus(403)
+        .json({ error: "Session no longer valid, please log-in" });
+    //if token is valid
+    req.user = user;
+    next();
+  });
+}
 
 //               SIGNP HANDLING                  //
 app.post("/signup", async (req, res) => {
