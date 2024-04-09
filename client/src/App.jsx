@@ -10,10 +10,10 @@ const App = () => {
   return (
     <div className="app">
       <h1>App jsx renders</h1>
-      <MapComponent />
-      {/* <UserProfile />
+      {/* <MapComponent /> */}
+      <UserProfile />
       <UserCard />
-      <Profile /> */}
+      <Profile />
     </div>
   )
 }
