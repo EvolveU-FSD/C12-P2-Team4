@@ -117,10 +117,10 @@ app.get("/api/maps", (req, res) => {
 })
 
 // ---------------------- API END POINTS --------------------------------------- //
-// app.get("/api/users", (req, res) => {
-//   const users = UserData.getAllUsers()
-//   res.send(users)
-// })
+app.get("/api/users", (req, res) => {
+  const users = UserData.getAllUsers()
+  res.send(users)
+})
 
 //----------------- POST API ROUTE --------------//
 //            SIGNIN HANDLING                    //
