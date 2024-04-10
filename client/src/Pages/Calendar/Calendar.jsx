@@ -6,7 +6,7 @@ import {
   EllipsisHorizontalIcon,
 } from "@heroicons/react/20/solid"
 import { Menu, Transition } from "@headlessui/react"
-
+import "./calendar.css"
 const days = [
   { date: "2021-12-27" },
   { date: "2021-12-28" },

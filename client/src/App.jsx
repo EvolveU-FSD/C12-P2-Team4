@@ -16,17 +16,12 @@ import SideBar from "./components/SideBar/SideBar"
 const App = () => {
   return (
     <>
-      {/* <h1>DAY PLANNER</h1> */}
-      {/* <Calendar /> */}
-      <SideBar />
+      <div className="card">
+        <SideBar />
+      </div>
+
+      <div className="calendar">{/* <Calendar /> */}</div>
     </>
-    // <div className="app">
-    //   <h1>Explore</h1>
-    //   {/* <UserProfile /> */}
-    //   <SignIn />
-    //   {/* <SignUp /> */}
-    //   <Calendar />
-    // </div>
   )
 }
 
