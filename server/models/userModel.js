@@ -1,6 +1,8 @@
 // userOperations.mjs
 import mongoose from "mongoose"
 
+await mongoose.connect("mongodb://localhost:27017/equinox")
+
 const Schema = mongoose.Schema
 
 // Define a Mongoose schema for user
@@ -37,5 +39,24 @@ const userSchema = new Schema({
   },
 })
 
-const userModel = mongoose.model("User", userSchema)
-export default userModel
+const User = mongoose.model("user", userSchema)
+
+export async function getAllUsers() {
+  return await User.find()
+}
+
+export async function getUserById(id) {
+  return await User.findById(id)
+}
+
+export async function deleteUser(id) {
+  await User.findByIdAndDelete(id)
+}
+
+export async function addUser(newUserData) {
+  const created = new User(newUserData)
+  await created.save()
+  return created
+}
+
+export default User
