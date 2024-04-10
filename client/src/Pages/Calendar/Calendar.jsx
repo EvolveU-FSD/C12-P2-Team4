@@ -85,7 +85,7 @@ export default function Calendar() {
               April 26, 2024
             </time>
           </h1>
-          <p className="mt-1 text-sm text-gray-400">Friday</p>
+          <p className="mt-1 text-sm primary-orange-500">Friday</p>
         </div>
         <div className="flex items-center">
           <div className="relative flex items-center rounded-md bg-white shadow-sm md:items-stretch">
