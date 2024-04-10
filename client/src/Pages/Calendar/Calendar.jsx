@@ -6,50 +6,51 @@ import {
   EllipsisHorizontalIcon,
 } from "@heroicons/react/20/solid"
 import { Menu, Transition } from "@headlessui/react"
+
 import "./calendar.css"
 const days = [
-  { date: "2021-12-27" },
-  { date: "2021-12-28" },
-  { date: "2021-12-29" },
-  { date: "2021-12-30" },
-  { date: "2021-12-31" },
-  { date: "2022-01-01", isCurrentMonth: true },
-  { date: "2022-01-02", isCurrentMonth: true },
-  { date: "2022-01-03", isCurrentMonth: true },
-  { date: "2022-01-04", isCurrentMonth: true },
-  { date: "2022-01-05", isCurrentMonth: true },
-  { date: "2022-01-06", isCurrentMonth: true },
-  { date: "2022-01-07", isCurrentMonth: true },
-  { date: "2022-01-08", isCurrentMonth: true },
-  { date: "2022-01-09", isCurrentMonth: true },
-  { date: "2022-01-10", isCurrentMonth: true },
-  { date: "2022-01-11", isCurrentMonth: true },
-  { date: "2022-01-12", isCurrentMonth: true },
-  { date: "2022-01-13", isCurrentMonth: true },
-  { date: "2022-01-14", isCurrentMonth: true },
-  { date: "2022-01-15", isCurrentMonth: true },
-  { date: "2022-01-16", isCurrentMonth: true },
-  { date: "2022-01-17", isCurrentMonth: true },
-  { date: "2022-01-18", isCurrentMonth: true },
-  { date: "2022-01-19", isCurrentMonth: true },
-  { date: "2022-01-20", isCurrentMonth: true, isToday: true },
-  { date: "2022-01-21", isCurrentMonth: true },
-  { date: "2022-01-22", isCurrentMonth: true, isSelected: true },
-  { date: "2022-01-23", isCurrentMonth: true },
-  { date: "2022-01-24", isCurrentMonth: true },
-  { date: "2022-01-25", isCurrentMonth: true },
-  { date: "2022-01-26", isCurrentMonth: true },
-  { date: "2022-01-27", isCurrentMonth: true },
-  { date: "2022-01-28", isCurrentMonth: true },
-  { date: "2022-01-29", isCurrentMonth: true },
-  { date: "2022-01-30", isCurrentMonth: true },
-  { date: "2022-01-31", isCurrentMonth: true },
-  { date: "2022-02-01" },
-  { date: "2022-02-02" },
-  { date: "2022-02-03" },
-  { date: "2022-02-04" },
-  { date: "2022-02-05" },
-  { date: "2022-02-06" },
+  { date: "2023-12-27" },
+  { date: "2023-12-28" },
+  { date: "2023-12-29" },
+  { date: "2023-12-30" },
+  { date: "2023-12-31" },
+  { date: "2024-01-01", isCurrentMonth: true },
+  { date: "2024-01-02", isCurrentMonth: true },
+  { date: "2024-01-03", isCurrentMonth: true },
+  { date: "2024-01-04", isCurrentMonth: true },
+  { date: "2024-01-05", isCurrentMonth: true },
+  { date: "2024-01-06", isCurrentMonth: true },
+  { date: "2024-01-07", isCurrentMonth: true },
+  { date: "2024-01-08", isCurrentMonth: true },
+  { date: "2024-01-09", isCurrentMonth: true },
+  { date: "2024-01-10", isCurrentMonth: true },
+  { date: "2024-01-11", isCurrentMonth: true, isToday: true },
+  { date: "2024-01-12", isCurrentMonth: true },
+  { date: "2024-01-13", isCurrentMonth: true },
+  { date: "2024-01-14", isCurrentMonth: true },
+  { date: "2024-01-15", isCurrentMonth: true },
+  { date: "2024-01-16", isCurrentMonth: true },
+  { date: "2024-01-17", isCurrentMonth: true },
+  { date: "2024-01-18", isCurrentMonth: true },
+  { date: "2024-01-19", isCurrentMonth: true },
+  { date: "2024-01-20", isCurrentMonth: true },
+  { date: "2024-01-21", isCurrentMonth: true },
+  { date: "2024-01-22", isCurrentMonth: true },
+  { date: "2024-01-23", isCurrentMonth: true },
+  { date: "2024-01-24", isCurrentMonth: true },
+  { date: "2024-01-25", isCurrentMonth: true },
+  { date: "2024-01-26", isCurrentMonth: true, isSelected: true },
+  { date: "2024-01-27", isCurrentMonth: true },
+  { date: "2024-01-28", isCurrentMonth: true },
+  { date: "2024-01-29", isCurrentMonth: true },
+  { date: "2024-01-30", isCurrentMonth: true },
+  { date: "2024-01-31", isCurrentMonth: true },
+  { date: "2024-02-01" },
+  { date: "2024-02-02" },
+  { date: "2024-02-03" },
+  { date: "2024-02-04" },
+  { date: "2024-02-05" },
+  { date: "2024-02-06" },
 ]
 
 function classNames(...classes) {
@@ -76,15 +77,15 @@ export default function Calendar() {
     <div className="flex h-full flex-col">
       <header className="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
         <div>
-          <h1 className="text-base font-semibold leading-6 text-gray-900">
+          <h1 className="text-base font-semibold leading-6 text-green-500">
             <time dateTime="2024-04-26" className="sm:hidden">
               April 26, 2024
             </time>
-            <time dateTime="2024-01-26" className="hidden sm:inline">
+            <time dateTime="2024-04-26" className="hidden sm:inline">
               April 26, 2024
             </time>
           </h1>
-          <p className="mt-1 text-sm text-gray-500">Friday</p>
+          <p className="mt-1 text-sm text-gray-400">Friday</p>
         </div>
         <div className="flex items-center">
           <div className="relative flex items-center rounded-md bg-white shadow-sm md:items-stretch">
@@ -568,7 +569,7 @@ export default function Calendar() {
                       Breakfast
                     </p>
                     <p className="text-blue-500 group-hover:text-blue-700">
-                      <time dateTime="2022-01-22T06:00">6:00 AM</time>
+                      <time dateTime="2024-01-22T06:00">6:00 AM</time>
                     </p>
                   </a>
                 </li>
@@ -587,7 +588,7 @@ export default function Calendar() {
                       John F. Kennedy International Airport
                     </p>
                     <p className="text-pink-500 group-hover:text-pink-700">
-                      <time dateTime="2022-01-22T07:30">7:30 AM</time>
+                      <time dateTime="2024-01-22T07:30">7:30 AM</time>
                     </p>
                   </a>
                 </li>
@@ -606,7 +607,7 @@ export default function Calendar() {
                       Eiffel Tower
                     </p>
                     <p className="text-indigo-500 group-hover:text-indigo-700">
-                      <time dateTime="2022-01-22T11:00">11:00 AM</time>
+                      <time dateTime="2024-01-22T11:00">11:00 AM</time>
                     </p>
                   </a>
                 </li>

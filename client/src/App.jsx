@@ -20,7 +20,7 @@ const App = () => {
         <SideBar />
       </div>
 
-      <div className="calendar">{/* <Calendar /> */}</div>
+      <div className="map">{/* <MapComponent /> */}</div>
     </>
   )
 }
