@@ -6,6 +6,7 @@ import SignIn from "./components/Signin/SignIn"
 // import Explore from "./components/Explore/Explore"
 import SideBar from "./components/SideBar/SideBar"
 import Footer from "./components/Footer/Footer"
+import CalgaryMap from "./components/MapComponents/Map"
 // import SignUp from "./components/SignUp.jsx/SignUp"
 
 // import Profile from "./components/Profile/Profile"
@@ -18,11 +19,12 @@ const App = () => {
   return (
     <>
       <div className="card">
-        <SideBar />
+        <CalgaryMap />
+        {/* <SideBar /> */}
       </div>
 
       <div className="map">
-        {/* <MapComponent /> */}
+
         <Footer />
       </div>
     </>

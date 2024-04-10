@@ -1,27 +1,49 @@
-// eslint-disable-next-line no-unused-vars
-import React from "react";
-import { GoogleMap, withScriptjs, withGoogleMap } from "@react-google-maps";
+import React from 'react'
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import "./map.css"
 
-function Map() {
-    return (
+const containerStyle = {
+    width: '400px',
+    height: '400px'
+};
+
+const center = {
+    lat: 51.0447,
+    lng: -114.0719
+};
+
+function CalgaryMap() {
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: ""
+    })
+
+    const [map, setMap] = React.useState(null)
+
+    const onLoad = React.useCallback(function callback(map) {
+        // This is just an example of getting and using the map instance!!! don't just blindly copy!
+        const bounds = new window.google.maps.LatLngBounds(center);
+        map.fitBounds(bounds);
+
+        setMap(map)
+    }, [])
+
+    const onUnmount = React.useCallback(function callback(map) {
+        setMap(null)
+    }, [])
+
+    return isLoaded ? (
         <GoogleMap
-            defaultZoom={10}
-            defaultCenter={{ lat: 51.0447, lng: 114.0719 }}
-        />
-    );
+            mapContainerStyle={containerStyle}
+            center={center}
+            zoom={10}
+            onLoad={onLoad}
+            onUnmount={onUnmount}
+        >
+            { /* Child components, such as markers, info windows, etc. */}
+            <></>
+        </GoogleMap>
+    ) : <></>
 }
 
-const WrappedMap = withScriptjs(withGoogleMap(Map));
-
-export default function CalgaryMap() {
-    return (
-        <div style={{ width: '100vw', height: '100vh' }}>
-            <WrappedMap
-                googleMapURL={"https://maps.googleapis.com/maps/api/js?key=AIzaSyDz7ZMiaTHwnM3p1jV7YmlPloDccJu-y-s&libraries=places"}
-                loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div style={{ height: `400px` }} />}
-                mapElement={<div style={{ height: `100%` }} />}
-            />
-        </div>
-    );
-}
+export default CalgaryMap
