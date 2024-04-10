@@ -10,8 +10,8 @@ import {
   UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline"
-// import Calendar from "../../Pages/Calendar/Calendar"
-import Calendar from "../../Pages/Calendar/Day"
+import Calendar from "../../Pages/Calendar/Calendar"
+// import Calendar from "../../Pages/Calendar/Day"
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
