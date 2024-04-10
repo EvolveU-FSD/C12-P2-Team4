@@ -1,29 +1,23 @@
-import React, { useState, useEffect } from "react"
-import Profile from "../Profile/Profile" // Assuming Profile.jsx is in the same directory
+import { useEffect, useState } from "react"
+import { getUserById } from "../../api"
+import { useParams } from "react-router-dom"
 
-const UserProfile = () => {
-  const [user, setUser] = useState(null)
+function UserProfile() {
+  const [user, setUser] = useState({ username: "", email: "" })
+  const [loadError, setLoadError] = useState()
+  const { id } = useParams()
 
   useEffect(() => {
-    // Fetch user data from backend and set it to the state
-    const fetchUser = async () => {
-      try {
-        const response = await fetch("http://localhost:5555/api/users/:email")
-        const userData = await response.json()
-        setUser(userData)
-      } catch (error) {
-        console.error("Error fetching user data:", error)
-      }
-    }
-
-    fetchUser()
+    getUserById(id).then(setUser).catch(setLoadError)
   }, [])
 
   return (
     <div>
-      {user ? <Profile user={user} /> : <div>Loading user profile...</div>}
+      {loadError && <div>Error: {loadError.message}</div>}
+      <div>UserId: {id}</div>
+      <div>username: {user.username}</div>
+      <div>email: {user.email}</div>
     </div>
   )
 }
-
 export default UserProfile
