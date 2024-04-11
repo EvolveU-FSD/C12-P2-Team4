@@ -1,12 +1,12 @@
 // App.jsx
 import React from "react"
-import SignIn from "./components/Signin/SignIn.jsx"
-import ItineraryCard from "./components/ItineraryCard/ItineraryCard.jsx"
-import SideBar from "./components/SideBar/SideBar.jsx"
-import CalgaryMap from "./components/MapComponents/Map.jsx"
-import Footer from "./components/Footer/Footer.jsx"
-
-import SignUp from "./components/SignUp/SignUp.jsx"
+import SignIn from "./components/Signin/SignIn"
+import ItineraryCard from "./components/ItineraryCard/ItineraryCard"
+import SideBar from "./components/SideBar/SideBar"
+import CalgaryMap from "./components/MapComponents/Map"
+import Footer from "./components/Footer/Footer"
+import SearchBar from "./components/ReusableComponents/SearchBar"
+import SignUp from "./components/SignUp/SignUp"
 import "./index.css"
 
 const App = () => {
@@ -17,14 +17,17 @@ const App = () => {
         <SignIn />
         <SignUp />
       </div>
-      {/* <SignIn /> */}
-      <div className="card">{/* <ItineraryCard /> */}</div>
-      {/* <div className="map-container">
+      <div className="map-container">
+        <div className="itinerary">
+          <ItineraryCard />
+        </div>
+        <div className="search-bar">
+          <SearchBar />
+        </div>
         <div className="map">
           <CalgaryMap />
         </div>
-      </div> */}
-
+      </div>
       <div className="footer">
         <Footer />
       </div>
