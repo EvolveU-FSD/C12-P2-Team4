@@ -113,8 +113,8 @@ app.get("*.css", (req, res, next) => {
 
 // Serve map.html file
 app.get("/api/maps", (req, res) => {
-  res.send(path.join(__dirname, "../googleMaps", "map.html"))
-})
+  res.send(path.join(__dirname, "../googleMaps", "map.html"));
+});
 
 // ---------------------- API END POINTS --------------------------------------- //
 app.get("/api/users", (req, res) => {

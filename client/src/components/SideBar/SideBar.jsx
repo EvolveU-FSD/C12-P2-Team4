@@ -11,6 +11,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline"
 import Calendar from "../../Pages/Calendar/Calendar"
+import CalgaryMap from "../MapComponents/Map"
 // import Calendar from "../../Pages/Calendar/Day"
 
 const navigation = [
@@ -297,6 +298,7 @@ export default function SideBar() {
             <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
               {/* Main area */}
             </div>
+            <CalgaryMap />
           </div>
         </main>
 

@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.map-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  /* Adjust width as needed */
+  height: 100%;
+  /* Adjust height as needed */
+  background-color: #f0f0f0;
+  /* Optional: Add background color */
+  border-left: 1px solid #ccc;
+  /* Optional: Add border for separation */
+  z-index: 1000;
+  /* Ensure the map container stays on top of other elements */
+  overflow-y: auto;
+  /* Enable vertical scrolling if needed */
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+}
