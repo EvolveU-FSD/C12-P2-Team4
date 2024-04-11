@@ -3,10 +3,10 @@ import React from "react"
 import Calendar from "./Pages/Calendar/Calendar"
 import UserProfile from "./components/UserProfile/UserProfile"
 import SignIn from "./components/Signin/SignIn.jsx"
+import SignUp from "./components/SignUp/SignUp.jsx"
 // import Explore from "./components/Explore/Explore"
 import SideBar from "./components/SideBar/SideBar"
 import Footer from "./components/Footer/Footer"
-// import SignUp from "./components/SignUp.jsx/SignUp"
 
 // import Profile from "./components/Profile/Profile"
 // import UserProfile from "./components/UserProfile/UserProfile"
@@ -19,8 +19,11 @@ const App = () => {
     <>
       <div className="signin">
         <SignIn />
+        {/* <SignUp /> */}
       </div>
-      <div className="card">{/* <SideBar /> */}</div>
+      <div className="card">
+        <SideBar />
+      </div>
 
       <div className="map">
         {/* <MapComponent /> */}
