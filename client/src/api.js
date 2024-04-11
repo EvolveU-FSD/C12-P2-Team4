@@ -1,4 +1,6 @@
-export async function getAllUsers() {
+// import { Router } from "react-router-dom"
+
+export default async function getAllUsers() {
   const allUsersResponse = await fetch("/api/users")
   if (allUsersResponse.status !== 200) {
     console.log(allUsersResponse)

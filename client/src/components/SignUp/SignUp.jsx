@@ -1,11 +1,46 @@
-import "../../Pages/Home/landing.css"
+import { useState } from "react"
+import "../../index.css"
+// import "../../Pages/Home/landing.css"
 // import "../../Pages/Home/signup-1"
 
 export default function SignUp() {
+  const [modalOpen, setModalOpen] = useState(false)
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+
+  const openModal = () => setModalOpen(true)
+  const closeModal = () => setModalOpen(false)
+
+  const handleSignUp = async (event) => {
+    event.preventDefault() // Prevent the default form submission
+
+    try {
+      const response = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }), // Send username and password as JSON in the request body
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        closeModal() // Close the modal on success
+        console.log(data) // Log or handle the response data
+      } else {
+        const errorData = await response.json()
+        alert(errorData.error) // Display error message from response
+      }
+    } catch (error) {
+      console.error("Error:", error)
+      alert("An error occurred. Please try again.") // Display error message
+    }
+  }
+
   return (
     <>
       <a id="openSignUpModal" className="openModal">
-        <i className="fas fa-user-plus"></i>
+        <i className="fas fa-user-plus text-center text-3xl"></i>
       </a>
       <div id="signUpModal" className="modal">
         <div className="modal-content">
