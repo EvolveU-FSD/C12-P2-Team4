@@ -1,39 +1,31 @@
 // App.jsx
 import React from "react"
-import Calendar from "./Pages/Calendar/Calendar"
-import UserProfile from "./components/UserProfile/UserProfile"
-import SignIn from "./components/Signin/SignIn"
-// import Explore from "./components/Explore/Explore"
-import SideBar from "./components/SideBar/SideBar"
-import Footer from "./components/Footer/Footer"
-import CalgaryMap from "./components/MapComponents/Map"
+import SignIn from "./components/Signin/SignIn.jsx"
+import ItineraryCard from "./components/ItineraryCard/ItineraryCard.jsx"
+import SideBar from "./components/SideBar/SideBar.jsx"
+import CalgaryMap from "./components/MapComponents/Map.jsx"
+import Footer from "./components/Footer/Footer.jsx"
 
-// import Profile from "./components/Profile/Profile"
-// import UserProfile from "./components/UserProfile/UserProfile"
-// import { UserCard } from "./components/UserCard/UserCard"
-// import MapComponent from "./components/MapComponents/MapComponent";
-import ItineraryCard from "./components/ItineraryCard/ItineraryCard"
+import SignUp from "./components/SignUp/SignUp.jsx"
+import "./index.css"
 
 const App = () => {
   return (
     <>
       <div className="signin">
+        {/* <SideBar /> */}
         <SignIn />
-        {/* <SignUp /> */}
+        <SignUp />
       </div>
       {/* <SignIn /> */}
-      <div className="card">
-        <ItineraryCard />
-
-        {/* <SideBar /> */}
-      </div>
-      <div className="map-container">
+      <div className="card">{/* <ItineraryCard /> */}</div>
+      {/* <div className="map-container">
         <div className="map">
           <CalgaryMap />
         </div>
-      </div>
+      </div> */}
 
-      <div className="map">
+      <div className="footer">
         <Footer />
       </div>
     </>

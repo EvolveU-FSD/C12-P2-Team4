@@ -116,3 +116,11 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+.signin {
+  display: flex;
+  flex-direction: row;
+  gap: 5rem;
+  position: relative;
+  align-items: stretch;
+  justify-content: center;
+}

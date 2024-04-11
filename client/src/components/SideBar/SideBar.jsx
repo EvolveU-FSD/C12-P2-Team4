@@ -12,7 +12,8 @@ import {
 } from "@heroicons/react/24/outline"
 import Calendar from "../../Pages/Calendar/Calendar"
 import CalgaryMap from "../MapComponents/Map"
-// import Calendar from "../../Pages/Calendar/Day"
+import SignIn from "../Signin/SignIn"
+import SignUp from "../SignUp/SignUp"
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
@@ -280,7 +281,8 @@ export default function SideBar() {
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
           <div className="flex-1 text-sm font-semibold leading-6 text-gray-900">
-            Dashboard
+            <SignIn />
+            {/* <SignUp /> */}
           </div>
           <a href="#">
             <span className="sr-only">Your profile</span>
@@ -298,7 +300,6 @@ export default function SideBar() {
             <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
               {/* Main area */}
             </div>
-            <CalgaryMap />
           </div>
         </main>
 
