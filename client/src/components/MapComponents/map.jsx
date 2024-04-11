@@ -36,7 +36,7 @@ function CalgaryMap() {
         <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
-            zoom={10}
+            zoom={8}
             onLoad={onLoad}
             onUnmount={onUnmount}
         >

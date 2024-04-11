@@ -13,17 +13,26 @@ import CalgaryMap from "./components/MapComponents/Map"
 // import UserProfile from "./components/UserProfile/UserProfile"
 // import { UserCard } from "./components/UserCard/UserCard"
 // import MapComponent from "./components/MapComponents/MapComponent"
-// import ItineraryCard from "./components/ItineraryCard/ItineraryCard"
+import ItineraryCard from "./components/ItineraryCard/ItineraryCard"
 
 const App = () => {
   return (
     <>
+      {/* <SignIn /> */}
       <div className="card">
-        <CalgaryMap />
+        <ItineraryCard />
+
         {/* <SideBar /> */}
+      </div>
+      <div className="map-container">
+        <div className="map">
+          <CalgaryMap />
+        </div>
       </div>
 
       <div className="map">
+
+
 
         <Footer />
       </div>
