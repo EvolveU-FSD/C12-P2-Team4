@@ -11,13 +11,12 @@ import "./index.css";
 const App = () => {
   return (
     <>
-      <div className="navbar">
+      <div className="nav-bar">
         <NavBar />
-        <div className="signin">
+      </div>
+      <div className="side-bar">
           <SideBar />
         </div>
-      </div>
-
       <div className="map-container">
         <div className="itinerary">
           <ItineraryCard />
