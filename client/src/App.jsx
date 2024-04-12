@@ -16,7 +16,7 @@ const App = () => {
       <div className="navbar">
         <NavBar />
         <div className="signin">
-          {/* <SideBar /> */}
+          <SideBar />
           <SignIn />
           <SignUp />
         </div>
