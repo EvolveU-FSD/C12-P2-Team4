@@ -21,7 +21,7 @@ function CalgaryMap() {
     const [map, setMap] = React.useState(null);
 
     const onLoad = React.useCallback(function callback(map) {
-        // This is just an example of getting and using the map instance!!! don't just blindly copy!
+
         const bounds = new window.google.maps.LatLngBounds();
         bounds.extend({ lat: 51.0447, lng: -114.0719 }); // Extend the bounds to include the center coordinate
         map.fitBounds(bounds);
