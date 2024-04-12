@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Icon } from "@heroicons/react/24/solid";
 
+//LargeButton
+
 function DeleteButton() {
   return (
     <div className="flex justify-center space-x-4">
@@ -13,5 +15,7 @@ function DeleteButton() {
     </div>
   );
 }
+
+//FAB Button
 
 export default DeleteButton;
