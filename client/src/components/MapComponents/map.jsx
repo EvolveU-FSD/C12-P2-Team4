@@ -4,7 +4,7 @@ import "./map.css";
 
 const containerStyle = {
     width: "400px",
-    height: "4000px",
+    height: "400px",
 };
 
 const center = {
