@@ -6,16 +6,20 @@ import SideBar from "./components/SideBar/SideBar"
 import CalgaryMap from "./components/MapComponents/Map"
 import Footer from "./components/Footer/Footer"
 import SearchBar from "./components/ReusableComponents/SearchBar"
-// import Header from "./components/Home/Header"
 import SignUp from "./components/SignUp/SignUp"
+import NavBar from "./components/ReusableComponents/NavBar"
 import "./index.css"
-import { Header } from "./components/Home/Header"
 
 const App = () => {
   return (
     <>
-      <div className="Header">
-        <SideBar />
+      <div className="navbar">
+        <NavBar />
+        <div className="signin">
+          {/* <SideBar /> */}
+          <SignIn />
+          <SignUp />
+        </div>
       </div>
 
       <div className="map-container">
