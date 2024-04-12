@@ -12,7 +12,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Calendar from "../../Pages/Calendar/Calendar";
 import CalgaryMap from "../MapComponents/Map";
-import SignIn from "../Signin/SignIn";
+// import SignIn from "../Signin/SignIn";
 import SignUp from "../SignUp/SignUp";
 
 const navigation = [

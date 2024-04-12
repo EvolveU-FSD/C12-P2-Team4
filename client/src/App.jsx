@@ -1,7 +1,7 @@
 // App.jsx
 import React from "react";
 import ItineraryCard from "./components/ItineraryCard/ItineraryCard";
-import SideBar from "./components/SideBar/SideBar";
+// import SideBar from "./components/SideBar/SideBar";
 import CalgaryMap from "./components/MapComponents/Map";
 import Footer from "./components/Footer/Footer";
 import SearchBar from "./components/ReusableComponents/SearchBar";
