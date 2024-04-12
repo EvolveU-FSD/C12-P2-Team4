@@ -1,17 +1,17 @@
-import { useState } from "react"
+import { useState } from "react";
 
-import "../Signin/signin.css"
+import "../SignIn/signin.css";
 
 export default function SignUp() {
-  const [modalOpen, setModalOpen] = useState(false)
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const [modalOpen, setModalOpen] = useState(false);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
 
   const handleSignUp = async (event) => {
-    event.preventDefault() // Prevent the default form submission
+    event.preventDefault(); // Prevent the default form submission
 
     try {
       const response = await fetch("/api/signup", {
@@ -20,21 +20,21 @@ export default function SignUp() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }), // Send username and password as JSON in the request body
-      })
+      });
 
       if (response.ok) {
-        const data = await response.json()
-        closeModal() // Close the modal on success
-        console.log(data) // Log or handle the response data
+        const data = await response.json();
+        closeModal(); // Close the modal on success
+        console.log(data); // Log or handle the response data
       } else {
-        const errorData = await response.json()
-        alert(errorData.error) // Display error message from response
+        const errorData = await response.json();
+        alert(errorData.error); // Display error message from response
       }
     } catch (error) {
-      console.error("Error:", error)
-      alert("An error occurred. Please try again.") // Display error message
+      console.error("Error:", error);
+      alert("An error occurred. Please try again."); // Display error message
     }
-  }
+  };
 
   return (
     <>
@@ -103,5 +103,5 @@ export default function SignUp() {
         </div>
       )}
     </>
-  )
+  );
 }
