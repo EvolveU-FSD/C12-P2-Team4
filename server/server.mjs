@@ -1,24 +1,25 @@
 //----- IMPORT STATEMENTS ---------//
-import axios from "axios";
-import express from "express";
-import path from "path";
-import mongoose from "mongoose";
-import bcrypt from "bcrypt";
-import { fileURLToPath } from "url";
-import { config as dotenvConfig } from "dotenv";
-import User from "../database/mongodb-mongoose/model/userOperations.js";
-
+import axios from "axios"
+import bodyParser from "body-parser"
+import express from "express"
+import path from "path"
+import mongoose from "mongoose"
+import bcrypt from "bcrypt"
+import { fileURLToPath } from "url"
+import { config as dotenvConfig } from "dotenv"
+import User from "./models/userModel.js"
+import cors from "cors"
 //--------------- FUNCTION CALLS ----------------//
 dotenvConfig();
 
 //---------------- VARIABLES ---------------------//
-// require("dotenv").config();
-const PORT = process.env.PORT || 3000;
-const app = express();
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const uri = process.env.MONGODB;
-const apiKey = process.env.GOOGLEMAPS_API_KEY;
-// const jwt = require("jsonwebtoken");
+const PORT = process.env.PORT || 3000
+const app = express()
+app.use(bodyParser.json())
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const uri = process.env.MONGODB
+const apiKey = process.env.GOOGLEMAPS_API_KEY
+
 //-------------- MONGOOSE CONNECTION ------------//
 mongoose
   .connect(uri)
@@ -33,9 +34,14 @@ mongoose
 // })
 
 //-------------- SERVER FUNCTIONS ----------------//
-app.use(express.json());
-app.use(express.static(path.join(__dirname, "../client/public"))); // used to convert filepath to url
-app.use(express.static(path.join(__dirname, "../googleMaps")));
+app.use("", cors())
+app.use("*", (req, res, next) => {
+  console.log(req.originalUrl)
+  next()
+})
+app.use(express.json())
+app.use(express.static(path.join(__dirname, "../client/public/"))) // used to convert filepath to url
+app.use(express.static(path.join(__dirname, "../googleMaps")))
 
 const publicArtSchema = new mongoose.Schema({}, { collection: "public-art" });
 const PublicArt = mongoose.model("PublicArt", publicArtSchema);
@@ -77,7 +83,7 @@ app.get("/api/historic-sites", async (req, res) => {
   }
 });
 
-app.get("/places", async (req, res) => {
+app.get("/api/places", async (req, res) => {
   try {
     const { location, radius, keyword } = req.query;
     const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${encodeURIComponent(
@@ -106,11 +112,11 @@ app.get("*.css", (req, res, next) => {
 });
 
 // Serve map.html file
-app.get("/maps", (req, res) => {
-  res.send(path.join(__dirname, "googleMaps", "map.html"));
-});
+app.get("/api/maps", (req, res) => {
+  res.send(path.join(__dirname, "../googleMaps", "map.html"))
+})
 
-// API routes
+// ---------------------- API END POINTS --------------------------------------- //
 app.get("/api/users", (req, res) => {
   const users = UserData.getAllUsers();
   res.send(users);
@@ -123,7 +129,7 @@ app.get("/api/users/:name", (req, res) => {
 
 //----------------- POST API ROUTE --------------//
 //            SIGNIN HANDLING                    //
-app.post("/signin", authenticateToken, async (req, res) => {
+app.post("/api/signin", async (req, res) => {
   try {
     let user = await User.findOne({ username: req.body.username });
 
@@ -173,10 +179,12 @@ function authenticateToken(req, res, next) {
 }
 
 //               SIGNP HANDLING                  //
-app.post("/signup", async (req, res) => {
-  const salt = await bcrypt.genSalt(10);
-  const secPass = await bcrypt.hash(req.body.password, salt);
-  console.log(secPass);
+app.post("/api/signup", async (req, res) => {
+  console.log("Made it Into SignUp...")
+  console.log(req.body)
+  const salt = await bcrypt.genSalt(10)
+  const secPass = await bcrypt.hash(req.body.password, salt)
+  console.log(secPass)
 
   try {
     const { firstname, lastname, username, email, password } = req.body;
@@ -207,6 +215,20 @@ app.post("/signup", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+// -------- Retriver User Data ------------//
+app.get("/api/users/:email", async (req, res) => {
+  try {
+    let user = await User.findOne({ email: req.params.email })
+    console.log(user)
+    if (!user) {
+      return res.status(400).json({ error: "Some Error Occurred" })
+    }
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ error: "Internal server error" })
+  }
+})
 
 //------------- DELETE API ROUTE ---------------//
 app.delete("/api/users/:name", (req, res) => {

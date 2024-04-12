@@ -1,0 +1,35 @@
+#card {
+  position: relative;
+  background-color: grey;
+  max-width: 30%;
+  /* Adjust the width as needed */
+  height: 150px;
+  /* Adjust the height as needed */
+  border: 1px solid #0a0909;
+  border-radius: 10px;
+  padding: 10px;
+
+}
+
+.weather-info {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  /* Use flexbox */
+  align-items: center;
+  /* Center items vertically */
+}
+
+.weather-info img {
+  width: 50px;
+  /* Adjust the size of the icon as needed */
+  height: auto;
+  margin-right: 5px;
+  /* Add some space between the icon and text */
+}
+
+.weather-info p {
+  margin: 0;
+  font-size: 14px;
+}
