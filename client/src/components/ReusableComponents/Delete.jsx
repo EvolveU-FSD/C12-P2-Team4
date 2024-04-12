@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TrashIcon } from "@heroicons/react/24/solid";
 
-//LargeButton
+//PageButton
 
 function DeleteButton() {
   return (
