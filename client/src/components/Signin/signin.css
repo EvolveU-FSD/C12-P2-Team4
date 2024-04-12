@@ -27,7 +27,7 @@
   padding: auto;
 }
 .close {
-  color: #aaa;
+  color: #f2eeed;
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -57,19 +57,20 @@ input[type="password"],
 button[type="submit"] {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #f2eeed;
   border-radius: 5px;
   font-size: 16px;
 }
 
 button[type="submit"] {
-  background-color: #4caf50;
-  color: white;
+  background-color: white;
+  outline: 2px solid #f1be48;
+  color: black;
   border: none;
   cursor: pointer;
   justify-content: center;
 }
 
 button[type="submit"]:hover {
-  background-color: #45a049;
+  background-color: #f1be48;
 }
