@@ -1,6 +1,6 @@
 import React from "react"
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api"
-import "./map.css"
+import "./calgarymap.css"
 
 const containerStyle = {
   width: "400px",
