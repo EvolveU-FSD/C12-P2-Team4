@@ -1,8 +1,8 @@
 import { useState } from "react"
 // import "../../Pages/Home/landing.css"
-import "../../index.css"
+import "./signin.css"
 
-const SignIn = () => {
+const UserSignIn = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -81,7 +81,7 @@ const SignIn = () => {
   )
 }
 
-export default SignIn
+export default UserSignIn
 
 // import "../../Pages/Home/landing.css"
 // // import "../../Pages/Home/signin-1"

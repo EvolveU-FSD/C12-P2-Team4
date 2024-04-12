@@ -1,6 +1,6 @@
 // App.jsx
 import React from "react"
-import SignIn from "./components/Signin/SignIn"
+import SignIn from "./components/SignIn/SignIn"
 import ItineraryCard from "./components/ItineraryCard/ItineraryCard"
 import SideBar from "./components/SideBar/SideBar"
 import CalgaryMap from "./components/MapComponents/Map"
@@ -16,7 +16,7 @@ const App = () => {
       <div className="navbar">
         <NavBar />
         <div className="signin">
-          {/* <SideBar /> */}
+          <SideBar />
           <SignIn />
           <SignUp />
         </div>
