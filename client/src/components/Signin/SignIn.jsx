@@ -1,11 +1,11 @@
 import { useState } from "react";
 // import "../../Pages/Home/landing.css"
-// import "../../index.css";
+import "./signin.css"
 
 const UserSignIn = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [modalOpen, setModalOpen] = useState(false)
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -81,7 +81,11 @@ const UserSignIn = () => {
   );
 };
 
+<<<<<<< HEAD
+export default UserSignIn
+=======
 export default UserSignIn;
+>>>>>>> 42b788f1a65a96011de828d9c94d996854361c7d
 
 // import "../../Pages/Home/landing.css"
 // // import "../../Pages/Home/signin-1"

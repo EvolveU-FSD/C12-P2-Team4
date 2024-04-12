@@ -9,11 +9,19 @@ import {
   HomeIcon,
   UsersIcon,
   XMarkIcon,
+<<<<<<< HEAD
+} from "@heroicons/react/24/outline"
+import Calendar from "../../Pages/Calendar/Calendar"
+import CalgaryMap from "../MapComponents/Map"
+import SignIn from "../SignIn/SignIn"
+import SignUp from "../SignUp/SignUp"
+=======
 } from "@heroicons/react/24/outline";
 import Calendar from "../../Pages/Calendar/Calendar";
 import CalgaryMap from "../MapComponents/Map";
 // import SignIn from "../Signin/SignIn";
 import SignUp from "../SignUp/SignUp";
+>>>>>>> 42b788f1a65a96011de828d9c94d996854361c7d
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
