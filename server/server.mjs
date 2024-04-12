@@ -113,8 +113,8 @@ app.get("*.css", (req, res, next) => {
 
 // Serve map.html file
 app.get("/api/maps", (req, res) => {
-  res.send(path.join(__dirname, "../googleMaps", "map.html"));
-});
+  res.send(path.join(__dirname, "../googleMaps", "map.html"))
+})
 
 // ---------------------- API END POINTS --------------------------------------- //
 app.get("/api/users", (req, res) => {
@@ -151,7 +151,8 @@ app.post("/api/signin", async (req, res) => {
 
 //               SIGNP HANDLING                  //
 app.post("/api/signup", async (req, res) => {
-  console.log("Made iT here...")
+  console.log("Made it Into SignUp...")
+  console.log(req.body)
   const salt = await bcrypt.genSalt(10)
   const secPass = await bcrypt.hash(req.body.password, salt)
   console.log(secPass)

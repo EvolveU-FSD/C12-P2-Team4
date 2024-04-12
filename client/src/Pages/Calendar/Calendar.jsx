@@ -75,7 +75,7 @@ export default function Calendar() {
 
   return (
     <div className="flex h-full flex-col">
-      <header className="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
+      <header className="flex flex-none gap-8 items-center justify-around border-b border-gray-200 px-6 py-2">
         <div>
           <h1 className="text-base font-semibold leading-6 text-green-500">
             <time dateTime="2024-04-26" className="sm:hidden">
@@ -324,7 +324,7 @@ export default function Calendar() {
           </Menu>
         </div>
       </header>
-      <div className="isolate flex flex-auto overflow-hidden bg-white">
+      <div className="isolate flex w-1/2 overflow-hidden bg-white">
         <div ref={container} className="flex flex-auto flex-col overflow-auto">
           <div
             ref={containerNav}

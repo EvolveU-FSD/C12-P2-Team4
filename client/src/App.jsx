@@ -1,11 +1,12 @@
 // App.jsx
 import React from "react";
-// import SignIn from "./components/SignIn/SignIn";
+// import SignIn from "./components/Signin/SignIn";
 import ItineraryCard from "./components/ItineraryCard/ItineraryCard";
-// import SideBar from "./components/SideBar/SideBar";
+import SideBar from "./components/SideBar/SideBar";
 import CalgaryMap from "./components/MapComponents/Map";
 import Footer from "./components/Footer/Footer";
 import SearchBar from "./components/ReusableComponents/SearchBar";
+// import SignUp from "./components/SignUp/SignUp";
 import NavBar from "./components/ReusableComponents/NavBar";
 import "./index.css";
 
@@ -14,9 +15,7 @@ const App = () => {
     <>
       <div className="navbar">
         <NavBar />
-        {/* <SignIn /> */}
-      </div>
-      {/* <div className="signin">
+        {/* <div className="signin">
           {/* <SideBar /> */}
       {/* </div> } */}
 
@@ -34,8 +33,8 @@ const App = () => {
       <div className="footer">
         <Footer />
       </div>
-    </>
-  );
-};
+      </>
+  )
+}
 
-export default App;
+export default App
