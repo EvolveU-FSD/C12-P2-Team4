@@ -1,7 +1,6 @@
 import { useState } from "react"
-import { useEffect } from "react"
 
-import "../Signin/signin.css"
+import "../SignIn/signin.css"
 
 export default function SignUp() {
   const [modalOpen, setModalOpen] = useState(false)

@@ -23,14 +23,14 @@ const App = () => {
       </div>
 
       <div className="map-container">
+        <div className="itinerary">
+          <ItineraryCard />
+        </div>
         <div className="search-bar">
           <SearchBar />
         </div>
         <div className="map">
           <CalgaryMap />
-          <div className="itinerary">
-            <ItineraryCard />
-          </div>
         </div>
       </div>
       <div className="footer">
