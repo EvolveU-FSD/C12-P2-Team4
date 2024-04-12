@@ -1,5 +1,5 @@
-import { Fragment, useState } from "react"
-import { Dialog, Transition } from "@headlessui/react"
+import { Fragment, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   CalendarIcon,
@@ -9,11 +9,11 @@ import {
   HomeIcon,
   UsersIcon,
   XMarkIcon,
-} from "@heroicons/react/24/outline"
-import Calendar from "../../Pages/Calendar/Calendar"
-import CalgaryMap from "../MapComponents/Map"
-import SignIn from "../Signin/SignIn"
-import SignUp from "../SignUp/SignUp"
+} from "@heroicons/react/24/outline";
+import Calendar from "../../Pages/Calendar/Calendar";
+import CalgaryMap from "../MapComponents/Map";
+import SignIn from "../Signin/SignIn";
+import SignUp from "../SignUp/SignUp";
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
@@ -22,19 +22,19 @@ const navigation = [
   { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
   { name: "Events", href: "#", icon: GlobeAmericasIcon, current: false },
   { name: "Social", href: "#", icon: UsersIcon, current: false },
-]
+];
 const teams = [
   { id: 1, name: "BMO Center", href: "#", initial: "BC", current: false },
   { id: 2, name: "Calgary Tower", href: "#", initial: "CT", current: false },
   { id: 3, name: "Chinook Center", href: "#", initial: "CC", current: false },
-]
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ")
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function SideBar() {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <>
@@ -281,7 +281,7 @@ export default function SideBar() {
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
           <div className="flex-1 text-sm font-semibold leading-6 text-gray-900">
-            <SignIn />
+            {/* <SignIn /> */}
             {/* <SignUp /> */}
           </div>
           <a href="#">
@@ -308,5 +308,5 @@ export default function SideBar() {
         </aside>
       </div>
     </>
-  )
+  );
 }
