@@ -1,7 +1,7 @@
 import { useState } from "react";
 import UserSignIn from "../SignIn/SignIn";
 import SignUp from "../SignUp/SignUp";
-// import Profile from "../Profile/Profile";
+import Profile from "../Profile/Profile";
 
 function NavBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
