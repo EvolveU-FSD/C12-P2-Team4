@@ -12,6 +12,7 @@ const App = () => {
   return (
     <>
       <div className="nav-bar">
+        <NavBar />
       </div>
       <div className="side-bar">
           {/* <SideBar /> */}
