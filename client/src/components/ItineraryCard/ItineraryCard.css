@@ -1,11 +1,10 @@
 #card {
   position: relative;
-  background-color: grey;
+  background-color: white;
   max-width: 30%;
   /* Adjust the width as needed */
   height: 150px;
   /* Adjust the height as needed */
-  border: 1px solid #0a0909;
   border-radius: 10px;
   padding: 10px;
 
