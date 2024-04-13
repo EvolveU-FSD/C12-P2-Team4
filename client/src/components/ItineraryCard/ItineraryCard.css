@@ -9,7 +9,10 @@
   padding: 10px;
 
 }
-
+.itinerary {
+  margin: 10px 10px 10px 10px;
+  width: 100%;
+}
 .weather-info {
   position: absolute;
   top: 10px;
