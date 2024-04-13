@@ -6,20 +6,15 @@ import CalgaryMap from "./components/MapComponents/CalgaryMap"
 import Footer from "./components/Footer/Footer"
 import SearchBar from "./components/ReusableComponents/SearchBar"
 import NavBar from "./components/ReusableComponents/NavBar"
-import SignUp from "./components/SignUp/SignUp"
-import SignIn from "./components/SignIn/SignIn"
 import "./index.css"
 
 const App = () => {
   return (
     <>
-      <div className="navbar">
+      <div className="nav-bar">
         <NavBar />
-        {/* <div className="signin">
-          <SideBar />
-        </div>  */}
       </div>
-
+      <div className="side-bar">{/* <SideBar /> */}</div>
       <div className="map-container">
         <div className="itinerary">
           <ItineraryCard />
