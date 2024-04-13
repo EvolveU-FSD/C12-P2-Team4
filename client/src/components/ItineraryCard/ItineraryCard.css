@@ -1,7 +1,7 @@
 #card {
   position: relative;
   background-color: white;
-  max-width: 30%;
+  max-width: 100%;
   /* Adjust the width as needed */
   height: 150px;
   /* Adjust the height as needed */
@@ -11,20 +11,18 @@
 }
 .itinerary {
   margin: 10px 10px 10px 10px;
-  width: 100%;
+
 }
 .weather-info {
-  position: absolute;
-  top: 10px;
-  right: 10px;
   display: flex;
-  /* Use flexbox */
+  flex-direction: column-reverse;
   align-items: center;
   /* Center items vertically */
+  color:black
 }
 
 .weather-info img {
-  width: 50px;
+  width: 70px;
   /* Adjust the size of the icon as needed */
   height: auto;
   margin-right: 5px;
