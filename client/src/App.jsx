@@ -1,6 +1,7 @@
 // App.jsx
 import React from "react"
 import { Route, Routes } from "react-router-dom"
+
 // import NavBar from "./components/ReusableComponents/NavBar"
 
 // import ItineraryCard from "./components/ItineraryCard/ItineraryCard"

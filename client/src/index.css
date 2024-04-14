@@ -54,7 +54,8 @@ ul {
 
 ol,
 ul {
-  list-style: none;
+  background-color: red;
+  list-style: circle;
 }
 
 img {
