@@ -11,9 +11,9 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline"
 import Calendar from "../../Pages/Calendar/Calendar"
-import CalgaryMap from "../MapComponents/CalgaryMap"
-import SignIn from "../SignIn/SignIn"
+
 import SignUp from "../SignUp/SignUp"
+import SignIn from "../SignIn/SignIn"
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
@@ -303,6 +303,9 @@ export default function SideBar() {
         </main>
 
         <aside className="fixed inset-y-0 left-72 hidden w-96 overflow-y-auto border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-8 xl:block">
+          <SignUp />
+          <SignIn />
+
           {/* Secondary column (hidden on smaller screens) */}
         </aside>
       </div>

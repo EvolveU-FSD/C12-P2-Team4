@@ -1,5 +1,6 @@
 // App.jsx
 import React from "react"
+
 import ItineraryCard from "./components/ItineraryCard/ItineraryCard"
 import SideBar from "./components/SideBar/SideBar"
 import CalgaryMap from "./components/MapComponents/CalgaryMap"
