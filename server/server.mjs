@@ -9,8 +9,11 @@ import { fileURLToPath } from "url"
 import { config as dotenvConfig } from "dotenv"
 import User from "./models/userModel.js"
 import cors from "cors"
+import { authenticateToken } from "./middleware/token.js"
+import jwt from "jsonwebtoken"
+
 //--------------- FUNCTION CALLS ----------------//
-dotenvConfig();
+dotenvConfig()
 
 //---------------- VARIABLES ---------------------//
 const PORT = process.env.PORT || 3000
@@ -24,7 +27,7 @@ const apiKey = process.env.GOOGLEMAPS_API_KEY
 mongoose
   .connect(uri)
   .then(() => console.log("MongoDB Connected..."))
-  .catch((err) => console.log(err));
+  .catch((err) => console.log(err))
 
 // const db = mongoose.connection
 
@@ -40,144 +43,156 @@ app.use("*", (req, res, next) => {
   next()
 })
 app.use(express.json())
-app.use(express.static(path.join(__dirname, "../client/public/"))) // used to convert filepath to url
-app.use(express.static(path.join(__dirname, "../googleMaps")))
+// app.use(express.static(path.join(__dirname, "../client/public/"))) // used to convert filepath to url
+// app.use(express.static(path.join(__dirname, "../googleMaps")))
 
-const publicArtSchema = new mongoose.Schema({}, { collection: "public-art" });
-const PublicArt = mongoose.model("PublicArt", publicArtSchema);
+const publicArtSchema = new mongoose.Schema({}, { collection: "public-art" })
+const PublicArt = mongoose.model("PublicArt", publicArtSchema)
 const historicSitesSchema = new mongoose.Schema(
   {},
   { collection: "historic-sites" }
-);
-const HistoricSites = mongoose.model("HistoricSites", historicSitesSchema);
+)
+const HistoricSites = mongoose.model("HistoricSites", historicSitesSchema)
 
 //---------------- GET API HANDLES ------------------//
 app.get("/api/public-art", async (req, res) => {
-  const data = await PublicArt.find({}).sort({ title: 1 });
-  res.json(data);
-});
+  const data = await PublicArt.find({}).sort({ title: 1 })
+  res.json(data)
+})
 
 app.get("/api/historic-sites", async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 20;
-    const startIndex = (page - 1) * limit;
+    const page = parseInt(req.query.page) || 1
+    const limit = parseInt(req.query.limit) || 20
+    const startIndex = (page - 1) * limit
 
     // Fetch total count of documents
-    const totalCount = await HistoricSites.countDocuments();
+    const totalCount = await HistoricSites.countDocuments()
 
     // Fetch data slice based on startIndex and limit
     const dataSlice = await HistoricSites.find({})
       .sort({ name: 1 })
       .skip(startIndex)
-      .limit(limit);
+      .limit(limit)
 
     res.json({
       items: dataSlice,
       page,
       limit,
       totalCount,
-    });
+    })
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message })
   }
-});
+})
 
 app.get("/api/places", async (req, res) => {
   try {
-    const { location, radius, keyword } = req.query;
+    const { location, radius, keyword } = req.query
     const url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${encodeURIComponent(
       location
     )}&radius=${encodeURIComponent(radius)}&keyword=${encodeURIComponent(
       keyword
-    )}&key=${apiKey}`;
+    )}&key=${apiKey}`
 
-    const response = await axios.get(url);
-    res.json(response.data);
+    const response = await axios.get(url)
+    res.json(response.data)
   } catch (error) {
-    res.status(500).json({ error: error.toString() });
+    res.status(500).json({ error: error.toString() })
   }
-});
+})
 
 // Serve .mjs files with the correct MIME type
 app.get("*.mjs", (req, res, next) => {
-  res.type("application/javascript");
-  next();
-});
+  res.type("application/javascript")
+  next()
+})
 
 // Serve CSS files with the correct MIME type
 app.get("*.css", (req, res, next) => {
-  res.type("text/css");
-  next();
-});
-
-// Serve map.html file
-app.get("/api/maps", (req, res) => {
-  res.send(path.join(__dirname, "../googleMaps", "map.html"))
+  res.type("text/css")
+  next()
 })
+
+// // Serve map.html file
+// app.get("/api/maps", (req, res) => {
+//   res.send(path.join(__dirname, "../googleMaps", "map.html"))
+// })
 
 // ---------------------- API END POINTS --------------------------------------- //
 app.get("/api/users", (req, res) => {
-  const users = UserData.getAllUsers();
-  res.send(users);
-});
+  const users = UserData.getAllUsers()
+  res.send(users)
+})
 
 app.get("/api/users/:name", (req, res) => {
-  const record = UserData.getUser(req.params.name);
-  res.send(record);
-});
+  const record = UserData.getUser(req.params.name)
+  res.send(record)
+})
 
 //----------------- POST API ROUTE --------------//
 //            SIGNIN HANDLING                    //
-app.post("/api/signin", authenticateToken, async (req, res) => {
+app.post("/api/signin", async (req, res) => {
   try {
-    let user = await User.findOne({ username: req.body.username });
+    let user = await User.findOne({ username: req.body.username })
 
     if (!user) {
-      return res.status(400).json({ error: "Invalid credentials try again" });
+      return res.status(400).json({ error: "Invalid credentials try again" })
     }
     const passwordCompare = await bcrypt.compare(
       req.body.password,
       user.password
-    );
+    )
     if (!passwordCompare) {
       return res
         .status(400)
-        .join({ error: "Enter valid credntials to continue." });
+        .json({ error: "Enter valid credntials to continue." })
     }
 
-    res.json({ sucess: "Authenication Accepted" });
-    console.log(`Logged in as ${user}`);
+    //JWT Authentication
+    // const username = await req.body.username
+    // const user = { name: username }
+    app.post("/api/signin", async (req, res) => {
+      try {
+        let user = await User.findOne({ username: req.body.username })
+
+        if (!user) {
+          return res
+            .status(400)
+            .json({ error: "Invalid credentials try again" })
+        }
+        const passwordCompare = await bcrypt.compare(
+          req.body.password,
+          user.password
+        )
+        if (!passwordCompare) {
+          return res
+            .status(400)
+            .json({ error: "Enter valid credentials to continue." })
+        }
+
+        const accessToken = jwt.sign(
+          { name: user.username },
+          process.env.ACCESS_TOKEN_SECRET
+        )
+        res.json({ accessToken: accessToken })
+
+        console.log(`Logged in as ${user}`)
+      } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: "Internal server error =(" })
+      }
+    })
+
+    const accessToken = jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET)
+    res.json({ accessToken: accessToken, success: "Authenication Accepted" })
+
+    console.log(`Logged in as ${user}`)
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error(error)
+    res.status(500).json({ error: "Internal server error =(" })
   }
-  //JWT Authentication
-  const username = req.body.username;
-  const user = { name: username };
-  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-  res.json({ accessToken: accessToken });
-});
-//JWT Middleware
-function authenticateToken(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (token == null)
-    return res
-      .sendStatus(401)
-      .json({ error: "Unauthorized, valid authentication required " });
-
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err)
-      return res
-        .sendStatus(403)
-        .json({ error: "Session no longer valid, please log-in" });
-    //if token is valid
-    req.user = user;
-    next();
-  });
-}
-
+})
 
 //               SIGNP HANDLING                  //
 app.post("/api/signup", async (req, res) => {
@@ -188,14 +203,14 @@ app.post("/api/signup", async (req, res) => {
   console.log(secPass)
 
   try {
-    const { firstname, lastname, username, email, password } = req.body;
+    const { firstname, lastname, username, email, password } = req.body
 
     // Check if the user already exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email })
     if (existingUser) {
       return res
         .status(400)
-        .json({ error: "User already exists, Please Signin" });
+        .json({ error: "User already exists, Please Signin" })
     }
 
     // Create a new user
@@ -205,15 +220,15 @@ app.post("/api/signup", async (req, res) => {
       username,
       email,
       password: secPass,
-    });
-    await newUser.save();
+    })
+    await newUser.save()
 
     // Return success response
 
-    res.status(201).json({ message: "User created successfully" });
+    res.status(201).json({ message: "User created successfully" })
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    console.error(error)
+    res.status(500).json({ error: "Internal server error" })
   }
 })
 
@@ -233,14 +248,14 @@ app.get("/api/users/:email", async (req, res) => {
 
 //------------- DELETE API ROUTE ---------------//
 app.delete("/api/users/:name", (req, res) => {
-  const name = req.params.name;
-  UserData.delete(name);
-  res.status(200).send("ok");
-});
+  const name = req.params.name
+  UserData.delete(name)
+  res.status(200).send("ok")
+})
 
 app.listen(PORT, () => {
-  console.log(`Running on http://localhost:${PORT}`);
-});
+  console.log(`Running on http://localhost:${PORT}`)
+})
 
 //---------- DISCONNECT FROM DATABASE ----------//
 //           mongoose.disconnect();            //
