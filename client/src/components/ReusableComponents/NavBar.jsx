@@ -1,10 +1,10 @@
-import { useState } from "react";
-import UserSignIn from "../SignIn/SignIn";
-import SignUp from "../SignUp/SignUp";
-import Profile from "../Profile/Profile";
+import { useState } from "react"
+import UserSignIn from "../SignIn/SignIn"
+import SignUp from "../SignUp/SignUp"
+import Profile from "../../Pages/Profile/Profile"
 
 function NavBar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   return (
     <nav className="bg-white text-black p-4">
@@ -22,7 +22,7 @@ function NavBar() {
         </div>
       </div>
     </nav>
-  );
+  )
 }
 
 // function NavBar() {
@@ -39,4 +39,4 @@ function NavBar() {
 //     );
 //   }
 
-export default NavBar;
+export default NavBar
