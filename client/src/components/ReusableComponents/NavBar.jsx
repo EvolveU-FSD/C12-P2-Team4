@@ -28,6 +28,7 @@ function NavBar() {
                 <>
                   <UserSignIn onLogin={() => setIsLoggedIn(true)} />
                   <Profile />
+                  <SignUp hidden={true} />
                 </>
               ) : (
                 <>
