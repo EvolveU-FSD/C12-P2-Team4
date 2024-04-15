@@ -54,6 +54,8 @@ ul {
 
 ol,
 ul {
+  color: #242424;
+
   list-style: none;
 }
 

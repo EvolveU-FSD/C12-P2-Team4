@@ -1,9 +1,14 @@
 import { useState } from "react"
-// import "../../Pages/Home/landing.css"
-import "../../index.css"
 
-const SignIn = () => {
+import "./signin.css"
+
+const UserSignIn = () => {
   const [modalOpen, setModalOpen] = useState(false)
+  // const [form, setForm] = useState({
+  //   username:"",
+  //   password:"",
+  //
+  // })
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
@@ -81,45 +86,4 @@ const SignIn = () => {
   )
 }
 
-export default SignIn
-
-// import "../../Pages/Home/landing.css"
-// // import "../../Pages/Home/signin-1"
-
-// export default function SignIn() {
-//   return (
-//     <>
-//       <a id="openSignInModal" className="openModal">
-//         <i className="fas fa-sign-in-alt"></i>
-//       </a>
-
-//       <div id="signInModal" className="modal">
-//         <div className="modal-content">
-//           <span className="close">&times;</span>
-//           <h2>Sign In</h2>
-//           <form id="signInForm">
-//             <label htmlFor="signInUsername">Username:</label>
-//             <input
-//               type="text"
-//               id="signInUsername"
-//               name="username"
-//               required
-//               minLength="6"
-//               maxLength="32"
-//             />
-//             <label htmlFor="signInPassword">Password:</label>
-//             <input
-//               type="password"
-//               id="signInPassword"
-//               name="password"
-//               required
-//               minLength="9"
-//               maxLength="64"
-//             />
-//             <button type="submit">Sign In</button>
-//           </form>
-//         </div>
-//       </div>
-//     </>
-//   )
-// }
+export default UserSignIn

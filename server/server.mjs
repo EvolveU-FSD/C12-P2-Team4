@@ -9,6 +9,9 @@ import { fileURLToPath } from "url"
 import { config as dotenvConfig } from "dotenv"
 import User from "./models/userModel.js"
 import cors from "cors"
+import { authenticateToken } from "./middleware/token.js"
+import jwt from "jsonwebtoken"
+
 //--------------- FUNCTION CALLS ----------------//
 dotenvConfig()
 
@@ -40,8 +43,8 @@ app.use("*", (req, res, next) => {
   next()
 })
 app.use(express.json())
-app.use(express.static(path.join(__dirname, "../client/public/"))) // used to convert filepath to url
-app.use(express.static(path.join(__dirname, "../googleMaps")))
+// app.use(express.static(path.join(__dirname, "../client/public/"))) // used to convert filepath to url
+// app.use(express.static(path.join(__dirname, "../googleMaps")))
 
 const publicArtSchema = new mongoose.Schema({}, { collection: "public-art" })
 const PublicArt = mongoose.model("PublicArt", publicArtSchema)
@@ -111,15 +114,20 @@ app.get("*.css", (req, res, next) => {
   next()
 })
 
-// Serve map.html file
-app.get("/api/maps", (req, res) => {
-  res.send(path.join(__dirname, "../googleMaps", "map.html"));
-});
+// // Serve map.html file
+// app.get("/api/maps", (req, res) => {
+//   res.send(path.join(__dirname, "../googleMaps", "map.html"))
+// })
 
 // ---------------------- API END POINTS --------------------------------------- //
 app.get("/api/users", (req, res) => {
   const users = UserData.getAllUsers()
   res.send(users)
+})
+
+app.get("/api/users/:name", (req, res) => {
+  const record = UserData.getUser(req.params.name)
+  res.send(record)
 })
 
 //----------------- POST API ROUTE --------------//
@@ -138,20 +146,58 @@ app.post("/api/signin", async (req, res) => {
     if (!passwordCompare) {
       return res
         .status(400)
-        .join({ error: "Enter valid credntials to continue." })
+        .json({ error: "Enter valid credntials to continue." })
     }
 
-    res.json({ sucess: "Authenication Accepted" })
+    //JWT Authentication
+    // const username = await req.body.username
+    // const user = { name: username }
+    app.post("/api/signin", async (req, res) => {
+      try {
+        let user = await User.findOne({ username: req.body.username })
+
+        if (!user) {
+          return res
+            .status(400)
+            .json({ error: "Invalid credentials try again" })
+        }
+        const passwordCompare = await bcrypt.compare(
+          req.body.password,
+          user.password
+        )
+        if (!passwordCompare) {
+          return res
+            .status(400)
+            .json({ error: "Enter valid credentials to continue." })
+        }
+
+        const accessToken = jwt.sign(
+          { name: user.username },
+          process.env.ACCESS_TOKEN_SECRET
+        )
+        res.json({ accessToken: accessToken })
+
+        console.log(`Logged in as ${user}`)
+      } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: "Internal server error =(" })
+      }
+    })
+
+    const accessToken = jwt.sign(user.toJSON(), process.env.ACCESS_TOKEN_SECRET)
+    res.json({ accessToken: accessToken, success: "Authenication Accepted" })
+
     console.log(`Logged in as ${user}`)
   } catch (error) {
     console.error(error)
-    res.status(500).json({ error: "Internal server error" })
+    res.status(500).json({ error: "Internal server error =(" })
   }
 })
 
 //               SIGNP HANDLING                  //
 app.post("/api/signup", async (req, res) => {
-  console.log("Made iT here...")
+  console.log("Made it Into SignUp...")
+  console.log(req.body)
   const salt = await bcrypt.genSalt(10)
   const secPass = await bcrypt.hash(req.body.password, salt)
   console.log(secPass)

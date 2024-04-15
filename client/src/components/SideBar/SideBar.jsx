@@ -11,9 +11,9 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline"
 import Calendar from "../../Pages/Calendar/Calendar"
-import CalgaryMap from "../MapComponents/Map"
-import SignIn from "../Signin/SignIn"
+
 import SignUp from "../SignUp/SignUp"
+import SignIn from "../SignIn/SignIn"
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
@@ -271,7 +271,7 @@ export default function SideBar() {
           </div>
         </div>
 
-        <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-white px-4 py-4 shadow-sm sm:px-6 lg:hidden">
+        <div className="sticky top-0 z-40 flex w-1/2 items-center gap-x-6 bg-white px-4 py-4 shadow-sm sm:px-6 lg:hidden">
           <button
             type="button"
             className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
@@ -281,8 +281,7 @@ export default function SideBar() {
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
           </button>
           <div className="flex-1 text-sm font-semibold leading-6 text-gray-900">
-            <SignIn />
-            {/* <SignUp /> */}
+            DASHBORD
           </div>
           <a href="#">
             <span className="sr-only">Your profile</span>
@@ -296,7 +295,7 @@ export default function SideBar() {
 
         <main className="lg:pl-72">
           <div className="xl:pl-96">
-            <Calendar />
+            {/* <Calendar /> */}
             <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
               {/* Main area */}
             </div>
@@ -304,6 +303,9 @@ export default function SideBar() {
         </main>
 
         <aside className="fixed inset-y-0 left-72 hidden w-96 overflow-y-auto border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-8 xl:block">
+          {/* <SignUp />
+          <SignIn /> */}
+
           {/* Secondary column (hidden on smaller screens) */}
         </aside>
       </div>
