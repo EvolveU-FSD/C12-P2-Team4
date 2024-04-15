@@ -9,9 +9,9 @@ function NavBar() {
 
   return (
     <>
-      <nav className="bg-white text-black  flex flex-row justify-start p-4">
+      <nav className="bg-white text-black gap-4 flex flex-row px-8 py-6">
         <div className="font-bold">Logo</div>
-        <div className="container mx-auto flex justify-between">
+        <div className="container mx-auto flex justify-around">
           <>
             <UserSignIn />
             <SignUp />
