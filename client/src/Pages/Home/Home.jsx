@@ -1,8 +1,9 @@
-import NavBar from "../../components/ReusableComponents/NavBar"
-import ItineraryCard from "../../components/ItineraryCard/ItineraryCard"
-import SearchBar from "../../components/ReusableComponents/SearchBar"
-import CalgaryMap from "../../components/MapComponents/CalgaryMap"
-import Footer from "../../components/Footer/Footer"
+import NavBar from "../../components/ReusableComponents/NavBar";
+import ItineraryCard from "../../components/ItineraryCard/ItineraryCard";
+import SearchBar from "../../components/ReusableComponents/SearchBar";
+import CalgaryMap from "../../components/MapComponents/CalgaryMap";
+import Footer from "../../components/Footer/Footer";
+import Calendar from "../Calendar/CalendarTwo";
 
 export default function Home() {
   return (
@@ -11,7 +12,9 @@ export default function Home() {
         <NavBar />
       </div>
       <div className="side-bar">{/* <SideBar /> */}</div>
-
+      <div className="calendar">
+        <Calendar />
+      </div>
       <div className="map-container">
         <div className="itinerary">
           <ItineraryCard />
@@ -27,5 +30,5 @@ export default function Home() {
         <Footer />
       </div>
     </>
-  )
+  );
 }
