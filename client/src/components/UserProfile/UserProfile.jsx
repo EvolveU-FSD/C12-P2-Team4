@@ -15,13 +15,30 @@ function UserProfile() {
 
   const fetchUser = async () => {
     try {
-      const response = await fetch("/api/profile")
+      const response = await fetch("/api/profile", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user: user.email }), // Send username and password as JSON in the request body
+      })
 
-      console.log(response)
+      if (response.ok) {
+        const data = await response.json()
+
+        console.log(
+          `UserProfile fetchUser response: ${data.email}, Access token: ${data.accessToken}`
+        ) // Log or handle the response data
+      } else {
+        const errorData = await response.json()
+        alert(errorData.error) // Display error message from response
+      }
     } catch (error) {
-      console.log(`Error ${error}`)
+      console.error("Error:", error)
+      alert("An error occurred. Please try again.", error) // Display error message
     }
   }
+
   useEffect(() => {
     // getUserById(id).then(setUser).catch(setLoadError)
     fetchUser()

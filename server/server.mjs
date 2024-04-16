@@ -42,6 +42,13 @@ app.use("*", (req, res, next) => {
   console.log(req.originalUrl)
   next()
 })
+app.use((err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err)
+  }
+  res.status(500).json({ error: "Internal server error" })
+})
+
 app.use(express.json())
 
 const publicArtSchema = new mongoose.Schema({}, { collection: "public-art" })
@@ -113,23 +120,24 @@ app.get("*.css", (req, res, next) => {
 })
 
 // ---------------------- API END POINTS --------------------------------------- //
-app.get("/api/users", (req, res) => {
-  const users = UserData.getAllUsers()
-  res.send(users)
-})
+// app.get("/api/users", (req, res) => {
+//   const users = UserData.getAllUsers()
+//   res.send(users)
+// })
 
-app.get("/api/users/:name", (req, res) => {
-  const record = UserData.getUser(req.params.name)
-  res.send(record)
-})
+// app.get("/api/users/:name", (req, res) => {
+//   const record = UserData.getUser(req.params.name)
+//   res.send(record)
+// })
 
 app.get("/api/profile", authenticateToken, async (req, res) => {
   console.log(`Printing Authen Token ${req.user}`)
-  let profile = await User.findOne({ email: "xinra.inc@gmail.com" })
+  let profile = await User.findOne({ email: user.email })
 
   console.log(`1. Pulling profile ${profile}`)
   res.send(profile)
 })
+
 //----------------- POST API ROUTE --------------//
 
 app.post("/api/signin", async (req, res) => {
@@ -148,14 +156,16 @@ app.post("/api/signin", async (req, res) => {
         .status(400)
         .json({ error: "Enter valid credentials to continue." })
     }
+    const email = user.email
 
     const accessToken = jwt.sign(
-      { name: user.username, email: user.email },
+      { email: user.email },
       process.env.ACCESS_TOKEN_SECRET
     )
-    res.json({ accessToken: accessToken })
+    res.json({ email, accessToken })
+    //accessToken: accessToken
 
-    console.log(`Logged in as ${user}`)
+    console.log(`Logged in as ${user.email}, AccessToken:${accessToken}`)
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: "Internal server error =(" })
