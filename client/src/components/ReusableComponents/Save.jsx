@@ -25,7 +25,7 @@ function SaveButton() {
         ) : (
           <BookmarkIcon className="h-5 w-5" />
         )}
-        <span className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity">
+        <span>
           Save
         </span>
       </button>

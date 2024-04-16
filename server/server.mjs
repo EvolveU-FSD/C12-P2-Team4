@@ -29,12 +29,12 @@ mongoose
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err))
 
-// const db = mongoose.connection
+const db = mongoose.connection
 
-// db.on("error", console.error.bind(console, "connection error:"))
-// db.once("open", function () {
-//   console.log("Connected to MongoDB")
-// })
+db.on("error", console.error.bind(console, "connection error:"))
+db.once("open", function () {
+  console.log("Connected to MongoDB")
+})
 
 //-------------- SERVER FUNCTIONS ----------------//
 app.use(cors())
@@ -50,6 +50,19 @@ app.use((err, req, res, next) => {
 })
 
 app.use(express.json())
+<<<<<<< HEAD
+=======
+
+//-------------- MODELS -------------------------//
+
+const itineraryItemSchema = new mongoose.Schema({
+  title: String,
+  lat: Number,
+  lng: Number,
+}, { collection: "itinerary" });
+
+const ItineraryItem = mongoose.model('ItineraryItem', itineraryItemSchema);
+>>>>>>> a58ffde85d90b884d09d338a585702cc5f090586
 
 const publicArtSchema = new mongoose.Schema({}, { collection: "public-art" })
 const PublicArt = mongoose.model("PublicArt", publicArtSchema)
@@ -60,6 +73,11 @@ const historicSitesSchema = new mongoose.Schema(
 const HistoricSites = mongoose.model("HistoricSites", historicSitesSchema)
 
 //---------------- GET API HANDLES ------------------//
+app.get('/api/itinerary', async (req, res) => {
+  const items = await ItineraryItem.find();
+  res.json(items);
+});
+
 app.get("/api/public-art", async (req, res) => {
   const data = await PublicArt.find({}).sort({ title: 1 })
   res.json(data)
@@ -107,6 +125,7 @@ app.get("/api/places", async (req, res) => {
   }
 })
 
+<<<<<<< HEAD
 // Serve .mjs files with the correct MIME type
 app.get("*.mjs", (req, res, next) => {
   res.type("application/javascript")
@@ -129,6 +148,13 @@ app.get("*.css", (req, res, next) => {
 //   const record = UserData.getUser(req.params.name)
 //   res.send(record)
 // })
+=======
+// ---------------------- API END POINTS --------------------------------------- //
+app.get("/api/users", (req, res) => {
+  const users = UserData.getAllUsers()
+  res.send(users)
+})
+>>>>>>> a58ffde85d90b884d09d338a585702cc5f090586
 
 app.get("/api/profile", authenticateToken, async (req, res) => {
   console.log(`Printing Authen Token ${req.user}`)
@@ -139,7 +165,26 @@ app.get("/api/profile", authenticateToken, async (req, res) => {
 })
 
 //----------------- POST API ROUTE --------------//
+<<<<<<< HEAD
 
+=======
+app.post('/api/itinerary', async (req, res) => {
+  console.log('Received POST request to /api/itinerary'); // Log when a request is received
+
+  try {
+    console.log('Creating new itinerary item with body:', req.body); // Log the request body
+    const newItem = new ItineraryItem(req.body);
+    const savedItem = await newItem.save();
+    console.log('Saved new itinerary item:', savedItem); // Log the saved item
+    res.json(savedItem);
+  } catch (error) {
+    console.error('Error while handling /api/itinerary POST request:', error); // Log any errors
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+//            SIGNIN HANDLING                    //
+>>>>>>> a58ffde85d90b884d09d338a585702cc5f090586
 app.post("/api/signin", async (req, res) => {
   try {
     let user = await User.findOne({ username: req.body.username })
@@ -172,7 +217,7 @@ app.post("/api/signin", async (req, res) => {
   }
 })
 
-//               SIGNP HANDLING                  //
+//               SIGNUP HANDLING                  //
 app.post("/api/signup", async (req, res) => {
   console.log("Made it Into SignUp...")
   console.log(req.body)
@@ -230,6 +275,11 @@ app.delete("/api/users/:name", (req, res) => {
   UserData.delete(name)
   res.status(200).send("ok")
 })
+
+app.delete('/api/itinerary/:id', async (req, res) => {
+  const deletedItem = await ItineraryItem.findByIdAndDelete(req.params.id);
+  res.json(deletedItem);
+});
 
 app.listen(PORT, () => {
   console.log(`Running on http://localhost:${PORT}`)

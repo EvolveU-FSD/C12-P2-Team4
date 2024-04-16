@@ -1,32 +1,25 @@
 #card {
   position: relative;
-  background-color: white;
-  max-width: 100%;
-  /* Adjust the width as needed */
+  background-color: gray;
+  width: 400px;
   height: 150px;
-  /* Adjust the height as needed */
   border-radius: 10px;
   padding: 10px;
-
 }
 .itinerary {
-  margin: 10px 10px 10px 10px;
-
 }
+
 .weather-info {
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
-  /* Center items vertically */
-  color:black
+  color: black;
 }
 
 .weather-info img {
   width: 70px;
-  /* Adjust the size of the icon as needed */
   height: auto;
   margin-right: 5px;
-  /* Add some space between the icon and text */
 }
 
 .weather-info p {
