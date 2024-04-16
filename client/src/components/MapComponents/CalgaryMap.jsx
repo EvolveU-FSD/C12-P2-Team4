@@ -17,26 +17,26 @@ const center = {
 function CalgaryMap() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyCIC_vfw1KByMvwLXmgHdY5ZKfA8NorD5w",
+    googleMapsApiKey: "",
   })
 
   const [map, setMap] = React.useState(null)
   const [markersData, setMarkersData] = useState([]) // New state for the markers data
   const { selectedMarker, setSelectedMarker } = useContext(ItineraryContext);
 
-const handleAddToItinerary = async () => {
-  // Add the selected marker to the itinerary
-  const response = await fetch('/api/itinerary', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(selectedMarker),
-  });
-  const data = await response.json();
-  console.log(data); // Log the saved itinerary item
+  const handleAddToItinerary = async () => {
+    // Add the selected marker to the itinerary
+    const response = await fetch('/api/itinerary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(selectedMarker),
+    });
+    const data = await response.json();
+    console.log(data); // Log the saved itinerary item
 
-  // Close the InfoWindow
-  setSelectedMarker(null);
-};
+    // Close the InfoWindow
+    setSelectedMarker(null);
+  };
   useEffect(() => {
     // Fetch the data from the endpoint and set it to the markersData state
     fetch('/api/public-art')
@@ -70,9 +70,9 @@ const handleAddToItinerary = async () => {
     >
       {/* Map over the markersData to create a Marker for each data point */}
       {markersData.map((marker, index) => (
-        <Marker 
-          key={index} 
-          position={{ lat: marker.lat, lng: marker.lng }} 
+        <Marker
+          key={index}
+          position={{ lat: marker.lat, lng: marker.lng }}
           onMouseOver={() => {
             setSelectedMarker(marker)
           }}
@@ -81,7 +81,7 @@ const handleAddToItinerary = async () => {
 
       {/* Display an InfoWindow for the selected marker */}
       {selectedMarker && (
-        <InfoWindow 
+        <InfoWindow
           position={{ lat: selectedMarker.lat, lng: selectedMarker.lng }}
           onCloseClick={() => setSelectedMarker(null)} // Add this line
         >
