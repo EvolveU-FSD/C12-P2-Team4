@@ -50,8 +50,6 @@ app.use((err, req, res, next) => {
 })
 
 app.use(express.json())
-<<<<<<< HEAD
-=======
 
 //-------------- MODELS -------------------------//
 
@@ -62,7 +60,6 @@ const itineraryItemSchema = new mongoose.Schema({
 }, { collection: "itinerary" });
 
 const ItineraryItem = mongoose.model('ItineraryItem', itineraryItemSchema);
->>>>>>> a58ffde85d90b884d09d338a585702cc5f090586
 
 const publicArtSchema = new mongoose.Schema({}, { collection: "public-art" })
 const PublicArt = mongoose.model("PublicArt", publicArtSchema)
@@ -125,36 +122,11 @@ app.get("/api/places", async (req, res) => {
   }
 })
 
-<<<<<<< HEAD
-// Serve .mjs files with the correct MIME type
-app.get("*.mjs", (req, res, next) => {
-  res.type("application/javascript")
-  next()
-})
-
-// Serve CSS files with the correct MIME type
-app.get("*.css", (req, res, next) => {
-  res.type("text/css")
-  next()
-})
-
-// ---------------------- API END POINTS --------------------------------------- //
-// app.get("/api/users", (req, res) => {
-//   const users = UserData.getAllUsers()
-//   res.send(users)
-// })
-
-// app.get("/api/users/:name", (req, res) => {
-//   const record = UserData.getUser(req.params.name)
-//   res.send(record)
-// })
-=======
 // ---------------------- API END POINTS --------------------------------------- //
 app.get("/api/users", (req, res) => {
   const users = UserData.getAllUsers()
   res.send(users)
 })
->>>>>>> a58ffde85d90b884d09d338a585702cc5f090586
 
 app.get("/api/profile", authenticateToken, async (req, res) => {
   console.log(`Printing Authen Token ${req.user}`)
@@ -165,9 +137,6 @@ app.get("/api/profile", authenticateToken, async (req, res) => {
 })
 
 //----------------- POST API ROUTE --------------//
-<<<<<<< HEAD
-
-=======
 app.post('/api/itinerary', async (req, res) => {
   console.log('Received POST request to /api/itinerary'); // Log when a request is received
 
@@ -184,7 +153,6 @@ app.post('/api/itinerary', async (req, res) => {
 });
 
 //            SIGNIN HANDLING                    //
->>>>>>> a58ffde85d90b884d09d338a585702cc5f090586
 app.post("/api/signin", async (req, res) => {
   try {
     let user = await User.findOne({ username: req.body.username })
