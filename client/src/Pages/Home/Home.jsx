@@ -1,33 +1,43 @@
-import React, { useState } from 'react';
-import NavBar from "../../components/ReusableComponents/NavBar"
-import ItineraryCard from "../../components/ItineraryCard/ItineraryCard"
-import ItineraryContext from '../../contexts/ItineraryContext';
-import SearchBar from "../../components/ReusableComponents/SearchBar"
-import CalgaryMap from "../../components/MapComponents/CalgaryMap"
-import Footer from "../../components/Footer/Footer"
+import React, { useState } from "react";
+import NavBar from "../../components/ReusableComponents/NavBar";
+import ItineraryCard from "../../components/ItineraryCard/ItineraryCard";
+import ItineraryContext from "../../contexts/ItineraryContext";
+import SearchBar from "../../components/ReusableComponents/SearchBar";
+import CalgaryMap from "../../components/MapComponents/CalgaryMap";
+import Footer from "../../components/Footer/Footer";
+import Calendar from "../Calendar/CalendarTwo";
 
 export default function Home() {
   const [selectedMarker, setSelectedMarker] = useState(null);
 
   return (
-    <ItineraryContext.Provider value={{ selectedMarker, setSelectedMarker }}>
-      <div className="nav-bar">
-        <NavBar />
-      </div>
-
-      <div className="main-container">
-        <div className="itinerary">
-          <ItineraryCard />
+    <div className="home-container">
+      <ItineraryContext.Provider value={{ selectedMarker, setSelectedMarker }}>
+        <div className="nav-bar">
+          <NavBar />
+        </div>
+        <div className="side-bar">{/* <SideBar /> */}</div>
+        <div className="calendar">
+          <Calendar />
         </div>
         <div className="map-container">
-          <div className="search-bar"><SearchBar /></div>
-          <div className="map"><CalgaryMap /></div>
+          <div className="itinerary">
+            <ItineraryCard />
+          </div>
+          <div className="map-container">
+            <div className="search-bar">
+              <SearchBar />
+            </div>
+            <div className="map">
+              <CalgaryMap />
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className="footer">
-        <Footer />
-      </div>
-    </ItineraryContext.Provider>
+        <div className="footer">
+          <Footer />
+        </div>
+      </ItineraryContext.Provider>
+    </div>
   );
 }
