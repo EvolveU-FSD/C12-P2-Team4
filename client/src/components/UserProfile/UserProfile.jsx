@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { getUserById } from "../../api"
 import { useParams } from "react-router-dom"
-
+import { AuthContext } from "../Auth/AuthProvider"
 function UserProfile() {
+  const { auth } = useContext(AuthContext)
+  console.log("from profile auth:", auth)
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -16,18 +18,19 @@ function UserProfile() {
   const fetchUser = async () => {
     try {
       const response = await fetch("/api/profile", {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user: user.email }), // Send username and password as JSON in the request body
+        body: JSON.stringify({ email: auth.email }), // Send username and password as JSON in the request body
       })
 
       if (response.ok) {
         const data = await response.json()
-
+        setUser({ email: data.email, username: data.username })
+        console.log(data)
         console.log(
-          `UserProfile fetchUser response: ${data.email}, Access token: ${data.accessToken}`
+          `UserProfile fetchUser response: email: ${data.email}, User Name: ${data.username}`
         ) // Log or handle the response data
       } else {
         const errorData = await response.json()
@@ -44,9 +47,9 @@ function UserProfile() {
     fetchUser()
   }, [])
 
-  useEffect(() => {
-    getUserById(id).then(setUser).catch(setLoadError)
-  }, [])
+  // useEffect(() => {
+  //   getUserById(id).then(setUser).catch(setLoadError)
+  // }, [])
 
   return (
     <div>
