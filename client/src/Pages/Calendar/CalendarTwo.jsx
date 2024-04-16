@@ -10,7 +10,7 @@ const Calendar = () => {
 
   const getHeader = () => {
     return (
-      <div class="header">
+      <div className="header">
         <div className="todayButton">Today</div>
         <AiOutlineLeft className="navIcon" />
         <AiOutlineRight className="navIcon" />
