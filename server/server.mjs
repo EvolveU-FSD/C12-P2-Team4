@@ -125,29 +125,6 @@ app.get("/api/places", async (req, res) => {
   }
 })
 
-// Serve .mjs files with the correct MIME type
-app.get("*.mjs", (req, res, next) => {
-  res.type("application/javascript")
-  next()
-})
-
-// Serve CSS files with the correct MIME type
-app.get("*.css", (req, res, next) => {
-  res.type("text/css")
-  next()
-})
-
-// ---------------------- API END POINTS --------------------------------------- //
-// app.get("/api/users", (req, res) => {
-//   const users = UserData.getAllUsers()
-//   res.send(users)
-// })
-
-// app.get("/api/users/:name", (req, res) => {
-//   const record = UserData.getUser(req.params.name)
-//   res.send(record)
-// })
-
 // ---------------------- API END POINTS --------------------------------------- //
 app.get("/api/users", (req, res) => {
   const users = UserData.getAllUsers()
