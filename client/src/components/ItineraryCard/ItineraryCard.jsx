@@ -5,7 +5,7 @@ function ItineraryCard() {
   const [weather, setWeather] = useState(null);
 
   useEffect(() => {
-    const apiKey = ""; // Replace "YOUR_API_KEY" with your actual API key
+    const apiKey = "fd7220113c12f8cdf16e48000ddee475"; // Replace "YOUR_API_KEY" with your actual API key
     const city = "Calgary";
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
 
