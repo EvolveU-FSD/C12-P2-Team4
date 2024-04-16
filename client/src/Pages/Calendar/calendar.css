@@ -1,4 +1,4 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -37,4 +37,30 @@ ul {
 img {
   max-width: 100%;
   height: auto;
+} */
+
+.header {
+  display: flex;
+  align-items: center;
+  background-color: black;
+}
+
+.navIcon {
+  width: 20px;
+  height: 20px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.navIcon:hover {
+  border-radius: 50%;
+  background: #efefee;
+}
+
+.todayButton {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-right: 8px;
 }
