@@ -1,8 +1,11 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { AuthContext } from "../Auth/AuthProvider"
 
 import "./signin.css"
 
 const UserSignIn = () => {
+  const { auth, setAuth } = useContext(AuthContext)
+
   const [modalOpen, setModalOpen] = useState(false)
   // const [form, setForm] = useState({
   //   username:"",
@@ -29,15 +32,20 @@ const UserSignIn = () => {
 
       if (response.ok) {
         const data = await response.json()
+        setAuth({ email: data.email, accessToken: data.accessToken })
         closeModal() // Close the modal on success
-        console.log(data) // Log or handle the response data
+        // console.log(
+        //   `SignIn response: ${JSON.stringify(
+        //     auth.email
+        //   )},  token:${JSON.stringify(auth.accessToken)}`
+        // ) // Log or handle the response data
       } else {
         const errorData = await response.json()
         alert(errorData.error) // Display error message from response
       }
     } catch (error) {
-      console.error("Error:", error)
-      alert("An error occurred. Please try again.") // Display error message
+      console.error("Signin Error:", error)
+      alert("A SignIn error occurred. Please try again.", error) // Display error message
     }
   }
 

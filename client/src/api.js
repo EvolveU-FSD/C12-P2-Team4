@@ -2,24 +2,26 @@
 
 export default async function getAllUsers() {
   const allUsersResponse = await fetch("/api/users")
-  if (allUsersResponse.status !== 200) {
+  if (!allUsersResponse.ok) {
     console.log(allUsersResponse)
-    throw Error("Cannot find users")
+    throw new Error(`Cannot find users. Status ${allUsersResponse.status}`)
   }
   return allUsersResponse.json()
 }
 
-export async function getUserById(userId) {
-  const userResponse = await fetch(`/api/user/${userId}`)
-  if (userResponse.status !== 200) {
+export async function getUserById(id) {
+  const userResponse = await fetch(`/api/profile/${id}`)
+  console.log(userResponse)
+  if (!userResponse.ok) {
     console.log(userResponse)
-    throw Error("Invalid user information...")
+    throw new Error(`An error occurred. Status: ${userResponse.status}`)
   }
+  console.log(`User: ${userResponse}`)
   return userResponse.json()
 }
 
 export async function updateUser(update) {
-  const updateResponse = await fetch("/api/user", {
+  const updateResponse = await fetch("/api/profile", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -28,8 +30,8 @@ export async function updateUser(update) {
   })
   if (updateResponse.status !== 200) {
     console.log(updateResponse)
-    throw Error(
-      "Unable to edit user information..Try again or contact client care."
+    throw new Error(
+      `Unable to edit user information..Try again or contact client care. Error: ${updateResponse.status}`
     )
   }
 }
