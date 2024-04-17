@@ -39,16 +39,64 @@ img {
   height: auto;
 } */
 
+/* .App {
+  font-family: sans-serif;
+  text-align: center;
+  color: #212121;
+} */
+
+.changeMonth {
+  margin: 0px 20px;
+}
+
 .header {
   display: flex;
   align-items: center;
-  background-color: black;
+}
+
+.currentMonth {
+  margin-left: 24px;
+  font-size: 24px;
+}
+
+.weekContainer {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.day {
+  margin: 12px;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.weekNames {
+  color: #9e9e9e;
+  cursor: default;
+}
+
+.inactiveDay {
+  color: #9e9e9e;
+}
+.today {
+  background: #efefee;
+  border-radius: 50%;
+}
+
+.selectedDay {
+  color: white;
+  background: #3366ff;
+  border-radius: 50%;
 }
 
 .navIcon {
   width: 20px;
   height: 20px;
-  padding: 8px;
   cursor: pointer;
 }
 
@@ -63,4 +111,8 @@ img {
   padding: 8px 16px;
   cursor: pointer;
   margin-right: 8px;
+}
+
+.todayButton:hover {
+  background: #efefef;
 }

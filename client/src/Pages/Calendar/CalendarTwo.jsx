@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import {
+  ChevronDoubleLeftIcon,
+  ChevronDoubleRightIcon,
+} from "@heroicons/react/20/solid";
 import { format } from "date-fns";
 
 const Calendar = () => {
@@ -12,8 +15,8 @@ const Calendar = () => {
     return (
       <div className="header">
         <div className="todayButton">Today</div>
-        <AiOutlineLeft className="navIcon" />
-        <AiOutlineRight className="navIcon" />
+        <ChevronDoubleLeftIcon className="navIcon" />
+        <ChevronDoubleRightIcon className="navIcon" />
         <h2 className="currentMonth">{format(activeDate, "MMM yyyy")}</h2>
       </div>
     );
