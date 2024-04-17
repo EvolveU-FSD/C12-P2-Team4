@@ -5,7 +5,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { format, startOfWeek, addDays } from "date-fns";
 
-const Calendar = () => {
+export const Calendar = () => {
   //Keeps track of selected date
   const [selectedDate, setSelectedDate] = useState(new Date());
   //Renders the dates in the currently visible month
@@ -45,5 +45,3 @@ const Calendar = () => {
     </section>
   );
 };
-
-export default Calendar;
