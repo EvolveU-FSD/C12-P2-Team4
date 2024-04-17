@@ -22,6 +22,7 @@ const Calendar = () => {
       </div>
     );
   };
+  //populates the days of the week.
   const getWeekDaysNames = () => {
     const weekStartDate = startOfWeek(activeDate);
     const weekDays = [];
