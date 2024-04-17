@@ -3,7 +3,16 @@ import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
 } from "@heroicons/react/20/solid";
-import { format, startOfWeek, addDays } from "date-fns";
+import {
+  format,
+  startOfWeek,
+  addDays,
+  startOfMonth,
+  endOfMonth,
+  endOfWeek,
+  isSameMonth,
+  isSameDay,
+} from "date-fns";
 
 const Calendar = () => {
   //Keeps track of selected date
@@ -11,7 +20,6 @@ const Calendar = () => {
   //Renders the dates in the currently visible month
   const [activeDate, setActiveDate] = useState(new Date());
 
-  <getHeader />;
   const getHeader = () => {
     return (
       <div className="header">
