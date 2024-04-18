@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Button } from '@mui/material';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "@mui/material";
 import "./calgarymap.css";
 
 const containerStyle = {
@@ -43,7 +43,9 @@ function CalgaryMap() {
     if (searchValue) {
       try {
         const response = await fetch(
-          `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(searchValue + ', Calgary')}&key=`
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+            searchValue + ", Calgary"
+          )}&key=`
         );
         const data = await response.json();
         if (data.status === "OK" && data.results.length > 0) {
@@ -69,25 +71,29 @@ function CalgaryMap() {
   };
 
   useEffect(() => {
-    fetch('/api/public-art')
-      .then(response => response.json())
-      .then(data => setMarkersData(data.map(item => ({
-        lat: item.point.coordinates[1],
-        lng: item.point.coordinates[0],
-        title: item.title,
-        imageUrl: `/assets/${item.imgpath}`,
-      }))))
-  }, [])
+    fetch("/api/public-art")
+      .then((response) => response.json())
+      .then((data) =>
+        setMarkersData(
+          data.map((item) => ({
+            lat: item.point.coordinates[1],
+            lng: item.point.coordinates[0],
+            title: item.title,
+            imageUrl: `/assets/${item.imgpath}`,
+          }))
+        )
+      );
+  }, []);
 
   const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center)
-    map.fitBounds(bounds)
-    setMap(map)
-  }, [])
+    const bounds = new window.google.maps.LatLngBounds(center);
+    map.fitBounds(bounds);
+    setMap(map);
+  }, []);
 
   const onUnmount = React.useCallback(function callback(map) {
-    setMap(null)
-  }, [])
+    setMap(null);
+  }, []);
 
   return isLoaded ? (
     <>
