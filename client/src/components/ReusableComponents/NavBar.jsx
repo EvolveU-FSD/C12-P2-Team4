@@ -12,7 +12,9 @@ function NavBar() {
   return (
     <nav className="bg-white text-black gap-4 flex flex-row px-8 py-6">
       <div className="font-bold">
-        <Link to="/">Logo</Link>
+        <Link to="/">
+          <i className="fa-solid fa-house text-3xl"></i>
+        </Link>
       </div>
       <div className="container mx-auto flex justify-around text-3xl">
         {!isLoggedIn ? (
@@ -35,7 +37,9 @@ function NavBar() {
               </li>
             )}
             <li>
-              <button onClick={() => setIsLoggedIn(false)}>Logout</button>
+              <button onClick={() => setIsLoggedIn(false)}>
+                <i className="fa-solid fa-arrow-right-from-bracket"> Logout</i>
+              </button>
             </li>
           </ul>
         )}
