@@ -46,6 +46,7 @@ function DayView() {
           </li>
         ))}
       </ol>
+      {/* Add form for adding events */}
     </div>
   );
 }

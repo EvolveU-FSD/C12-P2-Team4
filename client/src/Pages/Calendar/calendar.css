@@ -75,6 +75,12 @@ img {
   border-radius: 50%;
 }
 
+.day:hover {
+  background: #c8102e;
+  color: white;
+  opacity: 0.5;
+}
+
 .weekNames {
   color: #9e9e9e;
   cursor: default;
@@ -87,7 +93,7 @@ img {
   background: #efefee;
   border-radius: 50%;
 }
-
+/* ADD ON HOVER EFFECT TO THE CURSOR AS IT HOVERS OVER EACH DAY  */
 .selectedDay {
   color: white;
   background: #c8102e;
