@@ -26,7 +26,7 @@ const Calendar = () => {
   //Function to navigate to the previous month
   const getHeader = () => {
     return (
-      <div className="header flex gap-2">
+      <div className="header">
         <div
           className="todayButton"
           onClick={() => {
@@ -44,7 +44,7 @@ const Calendar = () => {
           className="navIcon"
           onClick={() => setActiveDate(addMonths(activeDate, 1))}
         />
-        <h2 className="currentMonth flex">{format(activeDate, "MMM yyyy")}</h2>
+        <h2 className="currentMonth">{format(activeDate, "MMM yyyy")}</h2>
       </div>
     )
   }
@@ -54,7 +54,7 @@ const Calendar = () => {
     const weekDays = []
     for (let day = 0; day < 7; day++) {
       weekDays.push(
-        <div className="day weekNames">
+        <div key={day} className="day weekNames">
           {format(addDays(weekStartDate, day), "E")}
         </div>
       )
@@ -70,6 +70,7 @@ const Calendar = () => {
       const cloneDate = currentDate
       week.push(
         <div
+          key={day}
           className={`day ${
             isSameMonth(currentDate, activeDate) ? "" : "inactiveDay"
           } ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
@@ -93,28 +94,33 @@ const Calendar = () => {
     const endDate = endOfWeek(endOfTheSelectedMonth)
 
     let currentDate = startDate
+    let weekIndex = 0
 
     const allWeeks = []
 
     while (currentDate <= endDate) {
       allWeeks.push(
-        generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)
+        <div key={weekIndex}>
+          {generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)}
+        </div>
       )
       currentDate = addDays(currentDate, 7)
+      weekIndex++
     }
 
     return <div className="weekContainer">{allWeeks}</div>
   }
 
   return (
-    <>
-      <section className="calender">
+    <div style={{ display: "flex" }}>
+      <section>
         {getHeader()}
         {getWeekDaysNames()}
         {getDates()}
       </section>
+
       {/* <DayView /> */}
-    </>
+    </div>
   )
 }
 
