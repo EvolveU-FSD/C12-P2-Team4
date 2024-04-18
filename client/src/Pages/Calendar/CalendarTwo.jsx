@@ -94,14 +94,18 @@ const Calendar = () => {
     const endDate = endOfWeek(endOfTheSelectedMonth);
 
     let currentDate = startDate;
+    let weekIndex = 0;
 
     const allWeeks = [];
 
     while (currentDate <= endDate) {
       allWeeks.push(
-        generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)
+        <div key={weekIndex}>
+          {generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)}
+        </div>
       );
       currentDate = addDays(currentDate, 7);
+      weekIndex++;
     }
 
     return <div className="weekContainer">{allWeeks}</div>;
