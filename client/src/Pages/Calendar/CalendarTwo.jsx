@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DayView from "../Calendar/DayView";
 import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
@@ -105,11 +106,14 @@ const Calendar = () => {
   };
 
   return (
-    <section>
-      {getHeader()}
-      {getWeekDaysNames()}
-      {getDates()}
-    </section>
+    <div style={{ display: "flex" }}>
+      <section>
+        {getHeader()}
+        {getWeekDaysNames()}
+        {getDates()}
+      </section>
+      <DayView />
+    </div>
   );
 };
 
