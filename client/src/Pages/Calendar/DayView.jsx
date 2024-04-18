@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 function DayView() {
+  //replace with actual events
+  const [events, setEvents] = useState([
+    { hour: 9, event: "Meeting with team" },
+    { hour: 14, event: "Project presentation" },
+    // Add more events as needed
+  ]);
+
   const hours = [];
   for (let i = 0; i < 24; i++) {
     hours.push(i);
   }
-
-  //replace with actual events
-  const events = [
-    { hour: 9, event: "Meeting with team" },
-    { hour: 14, event: "Project presentation" },
-    // Add more events as needed
-  ];
 
   return (
     <div>
