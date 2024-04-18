@@ -13,7 +13,7 @@ function NavBar() {
         <div className="font-bold">
           <Link to="/">Logo</Link>
         </div>
-        <div className="container mx-auto flex justify-around">
+        <div className="container mx-auto flex justify-around text-3xl">
           <>
             <UserSignIn />
             <SignUp />
@@ -22,7 +22,9 @@ function NavBar() {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/profile">Profile</Link>
+                <Link to="/profile">
+                  <i className="fa-regular fa-user"></i>
+                </Link>
               </li>
             </ul>
             <div className="flex space-x-4">
@@ -44,19 +46,5 @@ function NavBar() {
     </>
   )
 }
-
-// function NavBar() {
-//     return (
-//       <nav className="bg-white text-black p-4">
-//         <div className="container mx-auto flex justify-between items-center">
-//           <div className="font-bold">Logo</div>
-//           <div className="flex space-x-4">
-//             <SignIn />
-//             <SignUp />
-//           </div>
-//         </div>
-//       </nav>
-//     );
-//   }
 
 export default NavBar
