@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
-import UserSignIn from "../SignIn/SignIn"
-import SignUp from "../SignUp/SignUp"
+
+import UserAuth from "../SignIn/SignIn"
 
 function NavBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -19,8 +19,7 @@ function NavBar() {
       <div className="container mx-auto flex justify-around text-3xl">
         {!isLoggedIn ? (
           <>
-            <UserSignIn onLogin={() => setIsLoggedIn(true)} />
-            <SignUp />
+            <UserAuth onLogin={() => setIsLoggedIn(true)} />
           </>
         ) : (
           <ul className="link flex flex-row gap-12">
