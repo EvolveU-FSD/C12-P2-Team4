@@ -60,7 +60,7 @@ export default function SignUp() {
             <span className="close" onClick={closeModal}>
               &times;
             </span>
-            <h2>Sign Up</h2>
+
             {loadError && <div className="error">{loadError}</div>}
             <form id="signUpForm" onSubmit={handleSignUp}>
               <label htmlFor="firstname">First Name:</label>

@@ -35,10 +35,13 @@
 
 .close:hover,
 .close:focus {
-  color: black;
+  color: rgb(227, 27, 27);
   text-decoration: none;
 }
 
+i {
+  cursor: pointer;
+}
 /* Form Styles */
 form {
   display: grid;
@@ -47,7 +50,7 @@ form {
 
 label {
   font-weight: bold;
-  color: black;
+  color: rgb(221, 28, 28);
 }
 
 input[type="email"],
@@ -58,12 +61,12 @@ button[type="submit"] {
   padding: 10px;
   border: 1px solid #f2eeed;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 25px;
   background-color: #f0f0f0;
 }
 
 button[type="submit"] {
-  background-color: white;
+  background-color: rgb(30, 234, 61);
   outline: 2px solid #f1be48;
   color: black;
   border: none;

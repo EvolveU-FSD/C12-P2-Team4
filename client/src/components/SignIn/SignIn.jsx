@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { AuthContext } from "../Auth/AuthProvider"
 import "./signin.css"
 
-const UserSignIn = () => {
+const UserSignIn = ({ onLogin }) => {
   const { setAuth } = useContext(AuthContext)
   const [modalOpen, setModalOpen] = useState(false)
   const [credentials, setCredentials] = useState({ username: "", password: "" })
@@ -29,6 +29,7 @@ const UserSignIn = () => {
         const data = await response.json()
         setAuth({ email: data.email, accessToken: data.accessToken })
         toggleModal()
+        onLogin()
       } else {
         const errorData = await response.json()
         alert(`Error: ${errorData.error}`)
@@ -51,7 +52,7 @@ const UserSignIn = () => {
             <span className="close" onClick={toggleModal}>
               &times;
             </span>
-            <h2>Sign In</h2>
+
             <form id="signInForm" onSubmit={handleSignIn}>
               <label htmlFor="signInUsername">Username:</label>
               <input
