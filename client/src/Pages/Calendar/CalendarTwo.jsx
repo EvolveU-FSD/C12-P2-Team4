@@ -12,6 +12,8 @@ import {
   endOfWeek,
   isSameMonth,
   isSameDay,
+  subMonths,
+  addMonths,
 } from "date-fns";
 
 const Calendar = () => {
@@ -19,11 +21,19 @@ const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   //Renders the dates in the currently visible month
   const [activeDate, setActiveDate] = useState(new Date());
-
+  //Function to navigate to the previous month
   const getHeader = () => {
     return (
       <div className="header">
-        <div className="todayButton">Today</div>
+        <div
+          className="todayButton"
+          onClick={() => {
+            setSelectedDate(new Date());
+            setActiveDate(new Date());
+          }}
+        >
+          Today
+        </div>
         <ChevronDoubleLeftIcon className="navIcon" />
         <ChevronDoubleRightIcon className="navIcon" />
         <h2 className="currentMonth">{format(activeDate, "MMM yyyy")}</h2>
@@ -44,7 +54,7 @@ const Calendar = () => {
     //need a key for each child element
     return <div className="weekContainer">{weekDays}</div>;
   };
-
+  //generates the dates for the current week and highlights today's date.
   const generateDatesForCurrentWeek = (date, selectedDate, activeDate) => {
     let currentDate = date;
     const week = [];
@@ -67,7 +77,7 @@ const Calendar = () => {
     }
     return <>{week}</>;
   };
-
+  //checks the start and end of the week and generates the start of the next month.
   const getDates = () => {
     const startOfTheSelectedMonth = startOfMonth(activeDate);
     const endOfTheSelectedMonth = endOfMonth(activeDate);
