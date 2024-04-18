@@ -38,7 +38,10 @@ const Calendar = () => {
           className="navIcon"
           onClick={() => setActiveDate(subMonths(activeDate, 1))}
         />
-        <ChevronDoubleRightIcon className="navIcon" />
+        <ChevronDoubleRightIcon
+          className="navIcon"
+          onClick={() => setActiveDate(addMonths(activeDate, 1))}
+        />
         <h2 className="currentMonth">{format(activeDate, "MMM yyyy")}</h2>
       </div>
     );
