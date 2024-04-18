@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DayView from "../Calendar/DayView";
+import "./calendar.css";
 import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
@@ -98,9 +99,7 @@ const Calendar = () => {
 
     while (currentDate <= endDate) {
       allWeeks.push(
-        <div key={currentDate.toString()}>
-          generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)
-        </div>
+        generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)
       );
       currentDate = addDays(currentDate, 7);
     }
