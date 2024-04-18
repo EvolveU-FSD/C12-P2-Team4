@@ -1,64 +1,54 @@
 import { useContext, useState } from "react"
 import { AuthContext } from "../Auth/AuthProvider"
-
 import "./signin.css"
 
 const UserSignIn = () => {
-  const { auth, setAuth } = useContext(AuthContext)
-
+  const { setAuth } = useContext(AuthContext)
   const [modalOpen, setModalOpen] = useState(false)
-  // const [form, setForm] = useState({
-  //   username:"",
-  //   password:"",
-  //
-  // })
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const [credentials, setCredentials] = useState({ username: "", password: "" })
 
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
+  const toggleModal = () => setModalOpen(!modalOpen)
+
+  const handleChange = (event) => {
+    const { name, value } = event.target
+    setCredentials((prev) => ({ ...prev, [name]: value }))
+  }
 
   const handleSignIn = async (event) => {
-    event.preventDefault() // Prevent the default form submission
+    event.preventDefault()
+    const { username, password } = credentials
 
     try {
       const response = await fetch("/api/signin", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }), // Send username and password as JSON in the request body
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
       })
 
       if (response.ok) {
         const data = await response.json()
         setAuth({ email: data.email, accessToken: data.accessToken })
-        closeModal() // Close the modal on success
-        // console.log(
-        //   `SignIn response: ${JSON.stringify(
-        //     auth.email
-        //   )},  token:${JSON.stringify(auth.accessToken)}`
-        // ) // Log or handle the response data
+        toggleModal()
       } else {
         const errorData = await response.json()
-        alert(errorData.error) // Display error message from response
+        alert(`Error: ${errorData.error}`)
       }
     } catch (error) {
       console.error("Signin Error:", error)
-      alert("A SignIn error occurred. Please try again.", error) // Display error message
+      alert("A SignIn error occurred. Please try again.")
     }
   }
 
   return (
     <>
-      <a id="openSignInModal" className="openModal" onClick={openModal}>
-        <i className=" fas fa-sign-in-alt text-3xl"></i>
-      </a>
+      <button id="openSignInModal" className="openModal" onClick={toggleModal}>
+        <i className="fa-solid fa-right-to-bracket text-3xl"></i>
+      </button>
 
       {modalOpen && (
         <div id="signInModal" className="modal">
           <div className="modal-content">
-            <span className="close" onClick={closeModal}>
+            <span className="close" onClick={toggleModal}>
               &times;
             </span>
             <h2>Sign In</h2>
@@ -71,8 +61,8 @@ const UserSignIn = () => {
                 required
                 minLength="6"
                 maxLength="32"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={credentials.username}
+                onChange={handleChange}
               />
               <label htmlFor="signInPassword">Password:</label>
               <input
@@ -82,8 +72,8 @@ const UserSignIn = () => {
                 required
                 minLength="9"
                 maxLength="64"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={credentials.password}
+                onChange={handleChange}
               />
               <button type="submit">Sign In</button>
             </form>
