@@ -191,10 +191,8 @@ app.post("/api/signin", async (req, res) => {
   }
 })
 
-//               SIGNUP HANDLING                  //
+//---------------------------------  SIGNUP HANDLING  ------------------------------------ //
 app.post("/api/signup", async (req, res) => {
-  console.log("Made it Into SignUp...")
-  console.log(req.body)
   const salt = await bcrypt.genSalt(10)
   const secPass = await bcrypt.hash(req.body.password, salt)
   console.log(secPass)

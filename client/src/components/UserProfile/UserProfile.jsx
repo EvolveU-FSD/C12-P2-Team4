@@ -1,21 +1,19 @@
 import { useEffect, useState, useContext } from "react"
-import { PaperClipIcon } from "@heroicons/react/20/solid"
-import { getUserById } from "../../api"
-import { useParams } from "react-router-dom"
 import { AuthContext } from "../Auth/AuthProvider"
 
 function UserProfile() {
   const { auth } = useContext(AuthContext)
-  console.log("from profile auth:", auth)
+  // console.log("from profile auth:", auth)
   const [user, setUser] = useState({
+    firstname: "",
+    lastname: "",
     username: "",
     email: "",
+    address: "",
+    bio: "",
+    password: "",
   })
   const [loadError, setLoadError] = useState(null)
-  const { id } = useParams()
-
-  console.log(`Here with id ${id}`)
-  console.log(`User: ${user.username}`)
 
   const fetchUser = async () => {
     try {
@@ -29,11 +27,19 @@ function UserProfile() {
 
       if (response.ok) {
         const data = await response.json()
-        setUser({ email: data.email, username: data.username })
-        console.log(data)
-        console.log(
-          `UserProfile fetchUser response: email: ${data.email}, User Name: ${data.username}`
-        ) // Log or handle the response data
+        setUser({
+          firstname: data.firstname,
+          lastname: data.lastname,
+          email: data.email,
+          username: data.username,
+          address: data.address,
+          bio: data.bio,
+          password: data.password,
+        })
+        // console.log(data)
+        // console.log(
+        //   `UserProfile fetchUser response: email: ${data.email}, User Name: ${data.username}`
+        // ) // Log or handle the response data
       } else {
         const errorData = await response.json()
         setLoadError(errorData)
@@ -47,14 +53,12 @@ function UserProfile() {
   }
 
   useEffect(() => {
-    // getUserById(id).then(setUser).catch(setLoadError)
-    fetchUser()
+    fetchUser().then(() => {
+      console.log("fetching.....", user.lastname)
+    })
   }, [])
-
-  // useEffect(() => {
-  //   getUserById(id).then(setUser).catch(setLoadError)
-  // }, [])
-
+  console.log("UserProfile :", user.firstname)
+  console.log("UserProfile: ", user)
   return (
     <div>
       {loadError && <div>Error: {loadError.message}</div>}
@@ -74,10 +78,10 @@ function UserProfile() {
           <dl className="divide-y divide-gray-100">
             <div className="bg-gray-50 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
               <dt className="text-sm font-medium leading-6 text-gray-900">
-                Full name
+                Full name : {user.firstname}
               </dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                <span>Place Holder</span>
+                <span>Firstname: {user.firstname}</span>
               </dd>
             </div>
             <div className="bg-white px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
