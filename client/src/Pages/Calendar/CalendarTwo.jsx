@@ -53,7 +53,7 @@ const Calendar = () => {
     const weekDays = [];
     for (let day = 0; day < 7; day++) {
       weekDays.push(
-        <div className="day weekNames">
+        <div key={day} className="day weekNames">
           {format(addDays(weekStartDate, day), "E")}
         </div>
       );
@@ -69,6 +69,7 @@ const Calendar = () => {
       const cloneDate = currentDate;
       week.push(
         <div
+          key={day}
           className={`day ${
             isSameMonth(currentDate, activeDate) ? "" : "inactiveDay"
           } ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
@@ -97,7 +98,9 @@ const Calendar = () => {
 
     while (currentDate <= endDate) {
       allWeeks.push(
-        generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)
+        <div key={currentDate.toString()}>
+          generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)
+        </div>
       );
       currentDate = addDays(currentDate, 7);
     }
@@ -112,6 +115,7 @@ const Calendar = () => {
         {getWeekDaysNames()}
         {getDates()}
       </section>
+
       <DayView />
     </div>
   );
