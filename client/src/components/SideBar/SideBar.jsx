@@ -13,14 +13,14 @@ import {
 import Calendar from "../../Pages/Calendar/Calendar"
 
 const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Photos", href: "#", icon: PhotoIcon, current: false },
+  { name: "Explore", href: "/", icon: HomeIcon, current: false },
+  { name: "Public Art", href: "/publicart", icon: PhotoIcon, current: false },
   { name: "Places", href: "#", icon: MapIcon, current: false },
   { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
   { name: "Events", href: "#", icon: GlobeAmericasIcon, current: false },
-  { name: "Social", href: "#", icon: UsersIcon, current: false },
+  { name: "Profile", href: "/profile", icon: UsersIcon, current: true },
 ]
-const teams = [
+const recommendations = [
   { id: 1, name: "BMO Center", href: "#", initial: "BC", current: false },
   { id: 2, name: "Calgary Tower", href: "#", initial: "CT", current: false },
   { id: 3, name: "Chinook Center", href: "#", initial: "CC", current: false },
@@ -102,7 +102,7 @@ export default function SideBar() {
                       <img
                         className="h-8 w-auto"
                         src="https://i0.wp.com/xinra.org/wp-content/uploads/2021/03/Xinra_Logo_BG_TP.png?zoom=2&resize=600%2C600&ssl=1"
-                        alt="Xinra Inc"
+                        alt="Profile"
                       />
                     </div>
                     <nav className="flex flex-1 flex-col">
@@ -137,10 +137,10 @@ export default function SideBar() {
                         </li>
                         <li>
                           <div className="text-xs font-semibold leading-6 text-gray-400">
-                            Recent Places
+                            Recommended Places
                           </div>
                           <ul role="list" className="-mx-2 mt-2 space-y-1">
-                            {teams.map((team) => (
+                            {recommendations.map((team) => (
                               <li key={team.name}>
                                 <a
                                   href={team.href}
@@ -219,10 +219,10 @@ export default function SideBar() {
                 </li>
                 <li>
                   <div className="text-xs font-semibold leading-6 text-gray-400">
-                    Recent Places
+                    Recommended Places
                   </div>
                   <ul role="list" className="-mx-2 mt-2 space-y-1">
-                    {teams.map((team) => (
+                    {recommendations.map((team) => (
                       <li key={team.name}>
                         <a
                           href={team.href}
