@@ -131,18 +131,21 @@ app.get("/api/users", (req, res) => {
   res.send(users)
 })
 
-pp.get("/api/dayplan/", async (req, res) => {
-  //authenticateToken,
-  try {
-    let profile = await User.findOne({ email: req.body.email })
+// app.get("/api/dayplan/:event_id", async (req, res) => {
+//   //authenticateToken,
+//   try {
+//     let event = await Event.findOne({ email: req.body.email })
 
-    const username = profile.username
-    const email = profile.email
-    res.status(201).send({ username, email })
-  } catch (error) {
-    console.log("Something is not right...In Profile...")
-  }
-})
+//     const username = event.username
+//     const email = event.email
+//     const time = event.time
+//     const description = event.description
+
+//     res.status(201).send({ username, email })
+//   } catch (error) {
+//     console.log("Something is not right...In Profile...")
+//   }
+// })
 
 app.post("/api/profile", async (req, res) => {
   //authenticateToken,
@@ -266,6 +269,3 @@ app.delete("/api/itinerary/:id", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Running on http://localhost:${PORT}`)
 })
-
-//---------- DISCONNECT FROM DATABASE ----------//
-//           mongoose.disconnect();            //

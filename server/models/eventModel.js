@@ -25,10 +25,7 @@ const eventSchema = new Schema({
     type: Date,
     required: [true, "Event time required"],
   },
-  title: {
-    type: String,
-    required: [true, "Locationd name required"],
-  },
+
   description: {
     type: String,
     required: [true, "Enter a description"],
@@ -37,22 +34,25 @@ const eventSchema = new Schema({
 
 const Event = mongoose.model("event", eventSchema)
 
-export async function getAllItinerarys() {
+export async function getAllEvents() {
   return await Event.find()
 }
 
-export async function getItineraryById(id) {
+export async function getEventById(id) {
   return await Event.findById(id)
 }
 
-export async function deleteItinerary(id) {
+export async function deleteEvent(id) {
   await Event.findByIdAndDelete(id)
 }
 
 export async function addEvent(newEventData) {
-  const created = new Event(newItineraryData)
+  const created = new Event(newEventData)
   await created.save()
   return created
 }
+
+//---------- DISCONNECT FROM DATABASE ----------//
+mongoose.disconnect() //
 
 export default Event

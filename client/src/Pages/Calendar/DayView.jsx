@@ -68,12 +68,14 @@ function DayView({ selectedDate }) {
                       >
                         Delete
                       </button>
+
                       <button
                         className="eventButton"
                         onClick={() => setEditingEvent(event)}
                       >
                         <i className="fa-solid fa-pen-to-square">Edit</i>
                       </button>
+
                       {editingEvent === event && (
                         <div>
                           <input
