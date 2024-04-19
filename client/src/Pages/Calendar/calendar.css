@@ -50,6 +50,10 @@ img {
   background-size: cover;
 } */
 
+body {
+  background-color: #9e9e9e;
+}
+
 .changeMonth {
   margin: 0px 20px;
 }
@@ -136,7 +140,15 @@ img {
 .dayView {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  margin-top: 24px;
-  margin-left: 10%;
+  align-items: flex-start;
+  padding-left: 5%;
+  /* margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 10%; */
+  margin: 1% 10% 1% 10%;
+  width: 100%;
+  background-color: white;
+  border-radius: 5%;
+  color: black;
+  row-gap: 2em;
 }
