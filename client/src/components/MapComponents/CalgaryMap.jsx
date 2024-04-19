@@ -29,7 +29,7 @@ const center = {
 function CalgaryMap() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "", // Add your Google Maps API key here
+    googleMapsApiKey: "AIzaSyCIC_vfw1KByMvwLXmgHdY5ZKfA8NorD5w", // Add your Google Maps API key here
     libraries: ["places"],
   });
 
@@ -43,9 +43,9 @@ function CalgaryMap() {
     if (searchValue) {
       try {
         const response = await fetch(
-          `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-            searchValue + ", Calgary"
-          )}&key=`
+          `https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=${encodeURIComponent(
+            searchValue
+          )}&key=AIzaSyCIC_vfw1KByMvwLXmgHdY5ZKfA8NorD5w`
         );
         const data = await response.json();
         if (data.status === "OK" && data.results.length > 0) {
