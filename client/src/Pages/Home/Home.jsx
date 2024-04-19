@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+// import "./Home.css";
 import NavBar from "../../components/ReusableComponents/NavBar";
 import ItineraryCard from "../../components/ItineraryCard/ItineraryCard";
 import ItineraryContext from "../../contexts/ItineraryContext";
 import CalgaryMap from "../../components/MapComponents/CalgaryMap";
 import Calendar from "../Calendar/CalendarTwo";
-
 import Footer from "../../components/Footer/Footer";
+// import SideBar from "../../components/SideBar/SideBar";
 
 export default function Home() {
   const [selectedMarker, setSelectedMarker] = useState(null);
@@ -20,7 +21,7 @@ export default function Home() {
         <div className="calendar">
           <Calendar />
         </div>
-        <div className="map-container">
+        {/* <div className="map-container">
           <div className="itinerary">
             <ItineraryCard />
           </div>
@@ -30,7 +31,7 @@ export default function Home() {
               <CalgaryMap />
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="footer">
           <Footer />

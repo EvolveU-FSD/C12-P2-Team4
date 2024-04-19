@@ -148,6 +148,9 @@ body {
 } */
 
 /*Day view styling*/
+.singleDayView {
+  margin-left: 20%;
+}
 .dayView {
   display: flex;
   flex-direction: column;
