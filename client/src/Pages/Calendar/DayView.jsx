@@ -29,7 +29,7 @@ function DayView() {
   };
 
   return (
-    <div>
+    <div className="dayView">
       <h2>Day View</h2>
       <ol>
         {hours.map((hour) => (
