@@ -2,6 +2,16 @@ import React, { useContext, useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom" // Import useNavigate
 import UserAuth from "../SignIn/SignIn"
 import { AuthContext } from "../Auth/AuthProvider"
+import {
+  Bars3Icon,
+  CalendarIcon,
+  PhotoIcon,
+  GlobeAmericasIcon,
+  MapIcon,
+  HomeIcon,
+  UsersIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline"
 import "../SignIn/signin.css"
 
 function NavBar() {
@@ -53,7 +63,7 @@ function NavBar() {
             {onProfilePage && (
               <li>
                 <Link to="/">
-                  <i className="fa-solid fa-house text-3xl"> HOME</i>
+                  <i className="fa-solid fa-house text-3xl"> Explore</i>
                 </Link>
               </li>
             )}
