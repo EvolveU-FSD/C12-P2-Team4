@@ -63,14 +63,19 @@ const Calendar = () => {
     return <div className="weekContainer1">{weekDays}</div>;
   };
   //generates the dates for the current week and highlights today's date.
-  const generateDatesForCurrentWeek = (date, selectedDate, activeDate) => {
+  const generateDatesForCurrentWeek = (
+    date,
+    selectedDate,
+    activeDate,
+    weekIndex
+  ) => {
     let currentDate = date;
     const week = [];
     for (let day = 0; day < 7; day++) {
       const cloneDate = currentDate;
       week.push(
         <div
-          key={day}
+          key={`${weekIndex}-${day}`}
           className={`day ${
             isSameMonth(currentDate, activeDate) ? "" : "inactiveDay"
           } ${isSameDay(currentDate, selectedDate) ? "selectedDay" : ""}
@@ -97,16 +102,21 @@ const Calendar = () => {
 
     const allWeeks = [];
 
+    let weekIndex = 0;
     while (currentDate <= endDate) {
       allWeeks.push(
-        <div key={currentDate.toString()}>
-          {generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)}
-        </div>
+        generateDatesForCurrentWeek(
+          currentDate,
+          selectedDate,
+          activeDate,
+          weekIndex
+        )
       );
       currentDate = addDays(currentDate, 7);
+      weekIndex++;
     }
 
-    return <div className="weekContainer2">{allWeeks}</div>;
+    return <div className="weekContainer2">{allWeeks.flat()}</div>;
   };
 
   return (
