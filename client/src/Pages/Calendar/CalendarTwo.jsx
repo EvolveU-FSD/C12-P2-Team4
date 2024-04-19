@@ -60,7 +60,7 @@ const Calendar = () => {
       );
     }
     //need a key for each child element
-    return <div className="weekContainer">{weekDays}</div>;
+    return <div className="weekContainer1">{weekDays}</div>;
   };
   //generates the dates for the current week and highlights today's date.
   const generateDatesForCurrentWeek = (date, selectedDate, activeDate) => {
@@ -97,6 +97,7 @@ const Calendar = () => {
 
     const allWeeks = [];
 
+    let weekIndex = 0;
     while (currentDate <= endDate) {
       allWeeks.push(
         generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)
@@ -104,7 +105,7 @@ const Calendar = () => {
       currentDate = addDays(currentDate, 7);
     }
 
-    return <div className="weekContainer">{allWeeks}</div>;
+    return <div className="weekContainer2">{allWeeks}</div>;
   };
 
   return (
