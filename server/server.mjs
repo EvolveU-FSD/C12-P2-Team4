@@ -133,13 +133,17 @@ app.get("/api/users", (req, res) => {
 
 app.post("/api/profile", async (req, res) => {
   //authenticateToken,
-  console.log("Printing Authen Token: ", req.body.email)
-  let profile = await User.findOne({ email: req.body.email })
+  try {
+    console.log("Printing Authen Token: ", req.body.email)
+    let profile = await User.findOne({ email: req.body.email })
 
-  console.log(`1. Pulling profile ${profile}`)
-  const username = profile.username
-  const email = profile.email
-  res.status(201).send({ username, email })
+    console.log(`1. Pulling profile ${profile}`)
+    const username = profile.username
+    const email = profile.email
+    res.status(201).send({ username, email })
+  } catch (error) {
+    console.log("Something is not right......")
+  }
 })
 
 //----------------- POST API ROUTE --------------//
