@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { format } from "date-fns";
 import DeleteButton from "../../components/ReusableComponents/Delete";
-function DayView() {
+function DayView({ selectedDate }) {
   //replace with actual events
   const [events, setEvents] = useState([
     { hour: 9, event: "Meeting with team" },
@@ -30,7 +31,7 @@ function DayView() {
 
   return (
     <div className="dayView">
-      <h2>Day View</h2>
+      <h2>Current Day: {format(selectedDate, "MMMM, d, yyyy")}</h2>
       <ol>
         {hours.map((hour) => (
           <li key={hour}>

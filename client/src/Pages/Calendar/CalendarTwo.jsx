@@ -115,7 +115,7 @@ const Calendar = () => {
         {getDates()}
       </section>
 
-      <DayView />
+      <DayView selectedDate={selectedDate} />
     </div>
   );
 };
