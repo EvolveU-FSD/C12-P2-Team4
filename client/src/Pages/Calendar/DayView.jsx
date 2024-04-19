@@ -46,47 +46,53 @@ function DayView({ selectedDate }) {
   };
 
   return (
-    <div className="dayView">
+    <>
       <h2 className="selectedDate">
         Current Day: {format(selectedDate, "MMMM, d, yyyy")}
       </h2>
-      <ol>
-        {hours.map((hour) => (
-          <li key={hour} className="dayView">
-            {hour}:00
-            {events
-              .filter((event) => event.hour === hour)
-              .map((event) => (
-                <div key={event.id}>
-                  {event.event}
-                  <button onClick={() => deleteEvent(event.id)}>Delete</button>
-                  <button onClick={() => setEditingEvent(event)}>Edit</button>
-                  {editingEvent === event && (
-                    <div>
-                      <input
-                        type="text"
-                        value={editingEventText}
-                        onChange={(e) => setEditingEventText(e.target.value)}
-                      />
-                      <button
-                        onClick={() => {
-                          editEvent(editingEvent.id, editingEvent);
-                          saveEditingEvent();
-                          setEditingEvent(null);
-                          setEditingEventText("");
-                        }}
-                      >
-                        Save
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ))}
-          </li>
-        ))}
-      </ol>
-      {/* Add form for adding events */}
-    </div>
+
+      <div className="dayView">
+        <ol>
+          {hours.map((hour) => (
+            <li key={hour} className="dayView">
+              {hour}:00
+              {events
+                .filter((event) => event.hour === hour)
+                .map((event) => (
+                  <div key={event.id}>
+                    {event.event}
+                    <button onClick={() => deleteEvent(event.id)}>
+                      Delete
+                    </button>
+                    <button onClick={() => setEditingEvent(event)}>Edit</button>
+                    {editingEvent === event && (
+                      <div>
+                        <input
+                          type="text"
+                          value={editingEventText}
+                          onChange={(e) => setEditingEventText(e.target.value)}
+                        />
+                        <button
+                          onClick={() => {
+                            editEvent(editingEvent.id, editingEvent);
+                            saveEditingEvent();
+                            setEditingEvent(null);
+                            setEditingEventText("");
+                          }}
+                        >
+                          Save
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ))}
+            </li>
+          ))}
+        </ol>
+        {/* Add form for adding events */}
+      </div>
+    </>
   );
 }
+
 export default DayView;
