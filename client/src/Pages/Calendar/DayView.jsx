@@ -31,7 +31,9 @@ function DayView({ selectedDate }) {
 
   return (
     <div className="dayView">
-      <h2>Current Day: {format(selectedDate, "MMMM, d, yyyy")}</h2>
+      <h2 className="selectedDate">
+        Current Day: {format(selectedDate, "MMMM, d, yyyy")}
+      </h2>
       <ol>
         {hours.map((hour) => (
           <li key={hour}>

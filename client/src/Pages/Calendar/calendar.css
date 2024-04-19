@@ -142,13 +142,14 @@ body {
   flex-direction: column;
   align-items: flex-start;
   padding-left: 5%;
-  /* margin-top: 1%;
-  margin-bottom: 1%;
-  margin-left: 10%; */
-  margin: 1% 10% 1% 10%;
+  margin: 1% 10%;
   width: 100%;
   background-color: white;
   border-radius: 5%;
   color: black;
   row-gap: 2em;
+}
+.selectedDate {
+  color: hsla(42, 86%, 61%, 1);
+  font-weight: bold;
 }
