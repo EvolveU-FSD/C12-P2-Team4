@@ -10,7 +10,6 @@ function UserProfile() {
     username: "",
     email: "",
     address: "",
-    bio: "",
     password: "",
   })
   const [loadError, setLoadError] = useState(null)
@@ -22,7 +21,7 @@ function UserProfile() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: auth.email }), // Send username and password as JSON in the request body
+        body: JSON.stringify({ email: auth.email }),
       })
 
       if (response.ok) {
@@ -36,14 +35,10 @@ function UserProfile() {
           bio: data.bio,
           password: data.password,
         })
-        // console.log(data)
-        // console.log(
-        //   `UserProfile fetchUser response: email: ${data.email}, User Name: ${data.username}`
-        // ) // Log or handle the response data
       } else {
         const errorData = await response.json()
         setLoadError(errorData)
-        alert(errorData.error) // Display error message from response
+        alert(errorData.error)
       }
     } catch (error) {
       console.error("Error:", error)

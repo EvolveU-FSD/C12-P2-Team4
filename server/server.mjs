@@ -162,7 +162,7 @@ app.post("/api/itinerary", async (req, res) => {
   }
 })
 
-//            SIGNIN HANDLING                    //
+//-------------------- SIGNIN HANDLING ----------------------//
 app.post("/api/signin", async (req, res) => {
   try {
     let user = await User.findOne({ username: req.body.username })
@@ -186,16 +186,13 @@ app.post("/api/signin", async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET
     )
     res.json({ email, accessToken })
-    //accessToken: accessToken
-
-    console.log(`Logged in as ${user.email}, AccessToken:${accessToken}`)
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: "Internal server error =(" })
   }
 })
 
-//---------------------------------  SIGNUP HANDLING  ------------------------------------ //
+//------------------------------  SIGNUP HANDLING  -------------------------------- //
 app.post("/api/signup", async (req, res) => {
   const salt = await bcrypt.genSalt(10)
   const secPass = await bcrypt.hash(req.body.password, salt)
@@ -207,12 +204,10 @@ app.post("/api/signup", async (req, res) => {
     // Check if the user already exists
     const existingUser = await User.findOne({ email })
     if (existingUser) {
-      return res
-        .status(400)
-        .json({ error: "User already exists, Please Signin" })
+      return res.status(400).json({ error: "User exists, Please Signin" })
     }
 
-    // Create a new user
+    //------------- Create a new user --------------//
     const newUser = new User({
       firstname,
       lastname,
@@ -231,8 +226,8 @@ app.post("/api/signup", async (req, res) => {
   }
 })
 
-// -------- Retriver User Data ------------//
-app.get("/api/users/:email", async (req, res) => {
+//-------------- Retriver User Data ------------//
+app.get("/api/profile/:email", async (req, res) => {
   try {
     let user = await User.findOne({ email: req.params.email })
     console.log(user)
@@ -246,7 +241,7 @@ app.get("/api/users/:email", async (req, res) => {
 })
 
 //------------- DELETE API ROUTE ---------------//
-app.delete("/api/users/:name", (req, res) => {
+app.delete("/api/profile/:name", (req, res) => {
   const name = req.params.name
   UserData.delete(name)
   res.status(200).send("ok")

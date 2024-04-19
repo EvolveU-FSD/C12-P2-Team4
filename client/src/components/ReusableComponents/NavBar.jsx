@@ -43,7 +43,7 @@ function NavBar() {
               <button onClick={() => openModal("signup")}>
                 <i className="fas fa-user-plus text-3xl">
                   {" "}
-                  <span>SIGNOUT</span>
+                  <span>SIGNUP</span>
                 </i>
               </button>
             </>
