@@ -142,14 +142,16 @@ body {
 .todayButton:hover {
   background: #efefef;
 }
-h2.selectedDate {
-}
+/* h2.selectedDate {
+  display: flex;
+  justify-content: center;
+} */
 
 .dayView {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   margin: 1% 0% 1% 0%;
   width: 40em;
   height: auto;
@@ -171,6 +173,8 @@ h2.selectedDate {
 .selectedDate {
   color: hsla(42, 86%, 61%, 1);
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
 }
 
 .li.dayView {
