@@ -68,13 +68,15 @@ body {
   font-size: 24px;
 }
 
-.weekContainer {
+.weekContainer1,
+.weekContainer2 {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   margin-left: 10%;
   width: 100%;
   background-color: white;
-  border-radius: 5%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 3%;
   color: black;
 }
 
@@ -107,7 +109,7 @@ body {
   background: #efefee;
   border-radius: 50%;
 }
-/* ADD ON HOVER EFFECT TO THE CURSOR AS IT HOVERS OVER EACH DAY  */
+
 .selectedDay {
   color: white;
   background: #c8102e;
@@ -142,13 +144,21 @@ body {
   flex-direction: column;
   align-items: flex-start;
   padding-left: 5%;
-  margin: 1% 10%;
-  width: 100%;
+  margin: 1% 10% 1% 10%;
+  width: 90%;
+  height: auto;
   background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5%;
   color: black;
   row-gap: 2em;
 }
+
+.dayViewRow {
+  display: flex;
+  border-top: 1px solid grey;
+}
+
 .selectedDate {
   color: hsla(42, 86%, 61%, 1);
   font-weight: bold;
