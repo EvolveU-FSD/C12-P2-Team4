@@ -131,18 +131,29 @@ app.get("/api/users", (req, res) => {
   res.send(users)
 })
 
-app.post("/api/profile", async (req, res) => {
+pp.get("/api/dayplan/", async (req, res) => {
   //authenticateToken,
   try {
-    console.log("Printing Authen Token: ", req.body.email)
     let profile = await User.findOne({ email: req.body.email })
 
-    console.log(`1. Pulling profile ${profile}`)
     const username = profile.username
     const email = profile.email
     res.status(201).send({ username, email })
   } catch (error) {
-    console.log("Something is not right......")
+    console.log("Something is not right...In Profile...")
+  }
+})
+
+app.post("/api/profile", async (req, res) => {
+  //authenticateToken,
+  try {
+    let profile = await User.findOne({ email: req.body.email })
+
+    const username = profile.username
+    const email = profile.email
+    res.status(201).send({ username, email })
+  } catch (error) {
+    console.log("Something is not right...In Profile...")
   }
 })
 

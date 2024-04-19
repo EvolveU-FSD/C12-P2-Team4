@@ -1,0 +1,1 @@
+curl -d @sampleAddress.json -H "Content-Type: application/json" -i "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyB_UR7f4TsK9TSAQZX5rP8r1boPr_0crR8"
