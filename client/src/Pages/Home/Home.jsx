@@ -1,41 +1,41 @@
 import React, { useState } from "react";
 import NavBar from "../../components/ReusableComponents/NavBar";
 import ItineraryCard from "../../components/ItineraryCard/ItineraryCard";
-import ItineraryContext from "../../contexts/ItineraryContext";
 import CalgaryMap from "../../components/MapComponents/CalgaryMap";
 import Calendar from "../Calendar/CalendarTwo";
-
+import { MapContext } from "../../contexts/MapContext";
 import Footer from "../../components/Footer/Footer";
+import "./Home.css";
 
 export default function Home() {
   const [selectedMarker, setSelectedMarker] = useState(null);
+  const [markers, setMarkers] = useState([]);
+
+  const handleAddMarker = (art) => {
+    setMarkers((prevMarkers) => [
+      ...prevMarkers,
+      { lat: art.lat, lng: art.lng },
+    ]);
+  };
 
   return (
     <div className="home-container">
-      <ItineraryContext.Provider value={{ selectedMarker, setSelectedMarker }}>
+      <MapContext.Provider value={{ markers, handleAddMarker }}>
         <div className="nav-bar">
           <NavBar />
         </div>
-        <div className="side-bar">{/* <SideBar /> */}</div>
-        <div className="calendar">
-          <Calendar />
-        </div>
+
         <div className="map-container">
-          <div className="itinerary">
-            <ItineraryCard />
-          </div>
-          <div className="map-container">
-            <div className="search-bar"></div>
-            <div className="map">
-              <CalgaryMap />
-            </div>
+          <ItineraryCard />
+          <div className="map">
+            <CalgaryMap />
           </div>
         </div>
 
         <div className="footer">
           <Footer />
         </div>
-      </ItineraryContext.Provider>
+      </MapContext.Provider>
     </div>
   );
 }

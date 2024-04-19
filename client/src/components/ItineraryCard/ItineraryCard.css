@@ -1,14 +1,11 @@
 #card {
   position: relative;
   background-color: gray;
-  width: 400px;
-  height: 150px;
+  width: 550px;
+  height: 650px;
   border-radius: 10px;
   padding: 10px;
 }
-.itinerary {
-}
-
 .weather-info {
   display: flex;
   flex-direction: column-reverse;

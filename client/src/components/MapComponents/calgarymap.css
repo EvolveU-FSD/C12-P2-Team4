@@ -2,17 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.main-container {
-  display: flex;
-  justify-content: center;
-  flex-grow: 1;
-  border: 2px solid black;
-  width: 100%;
-  height: auto;
-  background-color: #f0f0f0;
-  border: none;
-}
-
 .info-window {
   width: 350px;
   height: 250px;
@@ -36,24 +25,6 @@
   max-height: 185px;
   border-radius: 5px;
   margin-bottom: 1em;
-}
-
-.map-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-.search-bar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 10%;
-  background-color: #f0f0f0;
 }
 
 .map {

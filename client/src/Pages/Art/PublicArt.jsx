@@ -18,6 +18,24 @@ function PublicArt() {
     fetchArtData();
   }, []);
 
+  const handleAddToItinerary = async (art) => {
+    // Create a new object with only the title and coordinates
+    const artToSave = {
+      title: art.title,
+      lat: art.point.coordinates[1],
+      lng: art.point.coordinates[0],
+    };
+
+    // Add the selected art to the itinerary
+    const response = await fetch("/api/itinerary", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(artToSave),
+    });
+    const data = await response.json();
+    console.log(data); // Log the saved itinerary item
+  };
+
   return (
     <div className="wrapper">
       <div className="gallery">
@@ -38,7 +56,7 @@ function PublicArt() {
               </div>
             </div>
 
-            <button>+ Add</button>
+            <button onClick={() => handleAddToItinerary(art)}>+ Add</button>
           </div>
         ))}
       </div>

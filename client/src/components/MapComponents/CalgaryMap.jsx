@@ -8,7 +8,8 @@ import "./calgarymap.css";
 const containerStyle = {
   position: "relative",
   width: "100%",
-  height: "700px",
+  height: "650px",
+  borderRadius: "15px",
 };
 
 const searchBoxStyle = {
@@ -21,30 +22,78 @@ const searchBoxStyle = {
   borderRadius: "4px",
 };
 
-const center = {
-  lat: 51.05,
-  lng: -114.07,
+function getCurrentLocation() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) {
+      reject(new Error("Geolocation is not supported by your browser"));
+    } else {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        () => {
+          reject(new Error("Unable to retrieve your location"));
+        }
+      );
+    }
+  });
+}
+
+let center = {
+  lat: 0,
+  lng: 0,
 };
 
+getCurrentLocation()
+  .then((location) => {
+    console.log(location); // { lat: ..., lng: ... }
+    center = {
+      lat: location.lat,
+      lng: location.lng,
+    };
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+const libraries = ["places"];
 function CalgaryMap() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyCIC_vfw1KByMvwLXmgHdY5ZKfA8NorD5w", // Add your Google Maps API key here
-    libraries: ["places"],
+    libraries,
   });
-
   const [map, setMap] = useState(null);
   const [markersData, setMarkersData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
-  const [mapCenter, setMapCenter] = useState(center);
   const [searchResult, setSearchResult] = useState(null);
+  const [mapCenter, setMapCenter] = useState({
+    lat: 0,
+    lng: 0,
+  });
+
+  useEffect(() => {
+    getCurrentLocation()
+      .then((location) => {
+        console.log(location);
+        setMapCenter({
+          lat: location.lat,
+          lng: location.lng,
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   const handleSearch = async () => {
     if (searchValue) {
       try {
         const response = await fetch(
-          `https://maps.googleapis.com/maps/api/place/nearbysearch/json?keyword=${encodeURIComponent(
-            searchValue
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+            searchValue + ", Calgary"
           )}&key=AIzaSyCIC_vfw1KByMvwLXmgHdY5ZKfA8NorD5w`
         );
         const data = await response.json();
@@ -70,24 +119,7 @@ function CalgaryMap() {
     }
   };
 
-  useEffect(() => {
-    fetch("/api/public-art")
-      .then((response) => response.json())
-      .then((data) =>
-        setMarkersData(
-          data.map((item) => ({
-            lat: item.point.coordinates[1],
-            lng: item.point.coordinates[0],
-            title: item.title,
-            imageUrl: `/assets/${item.imgpath}`,
-          }))
-        )
-      );
-  }, []);
-
   const onLoad = React.useCallback(function callback(map) {
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
     setMap(map);
   }, []);
 
@@ -115,7 +147,7 @@ function CalgaryMap() {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={mapCenter}
-          zoom={12}
+          zoom={14}
           onLoad={onLoad}
           onUnmount={onUnmount}
         >
