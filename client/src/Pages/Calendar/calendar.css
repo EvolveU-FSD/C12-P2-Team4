@@ -147,6 +147,7 @@ body {
   justify-content: center;
 } */
 
+/*Day view styling*/
 .dayView {
   display: flex;
   flex-direction: column;
@@ -177,11 +178,11 @@ body {
   flex-direction: column;
 }
 
-.li.dayView {
+.dayView li div {
   /* margin-left: 20%; */
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 /*input box for edit button on dayView*/
 input[type="text"] {
@@ -192,4 +193,20 @@ input[type="text"] {
   border-radius: 3px;
   font-size: 15px;
   padding: 5px;
+}
+
+button[type="submit"] {
+  background-color: white;
+  outline: 2px solid #f1be48;
+  color: black;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 15px;
+}
+
+button[type="submit"]:hover {
+  background-color: #f1be48;
+  text: white;
 }

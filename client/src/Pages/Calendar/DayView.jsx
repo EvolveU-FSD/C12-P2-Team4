@@ -72,6 +72,7 @@ function DayView({ selectedDate }) {
                           onChange={(e) => setEditingEventText(e.target.value)}
                         />
                         <button
+                          type="submit"
                           onClick={() => {
                             editEvent(editingEvent.id, editingEvent);
                             saveEditingEvent();
