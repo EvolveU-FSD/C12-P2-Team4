@@ -62,7 +62,11 @@ img {
 .weekContainer {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  width: 50%;
+  margin-left: 10%;
+  width: 100%;
+  background-color: white;
+  border-radius: 5%;
+  color: black;
 }
 
 .day {
