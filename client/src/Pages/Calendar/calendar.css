@@ -183,3 +183,13 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+/*input box for edit button on dayView*/
+input[type="text"] {
+  background-color: #f0f0f0;
+  border: 1px solid #f2eeed;
+  outline: 2px solid #f1be48;
+  color: black;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 5px;
+}
