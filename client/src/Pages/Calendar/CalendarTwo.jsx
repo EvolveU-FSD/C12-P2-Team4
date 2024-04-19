@@ -84,7 +84,7 @@ const Calendar = () => {
       );
       currentDate = addDays(currentDate, 1);
     }
-    return <>{week}</>;
+    return week;
   };
   //checks the start and end of the week and generates the start of the next month.
   const getDates = () => {
@@ -97,10 +97,11 @@ const Calendar = () => {
 
     const allWeeks = [];
 
-    let weekIndex = 0;
     while (currentDate <= endDate) {
       allWeeks.push(
-        generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)
+        <div key={currentDate.toString()}>
+          {generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)}
+        </div>
       );
       currentDate = addDays(currentDate, 7);
     }
