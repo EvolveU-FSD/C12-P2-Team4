@@ -126,8 +126,9 @@ const Calendar = () => {
         {getWeekDaysNames()}
         {getDates()}
       </section>
-
-      <DayView selectedDate={selectedDate} />
+      <div className="singleDayView">
+        <DayView selectedDate={selectedDate} />
+      </div>
     </div>
   );
 };

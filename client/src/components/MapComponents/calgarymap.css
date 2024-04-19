@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+<<<<<<< HEAD
+=======
+.main-container {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  border: 2px solid black;
+  width: 75%;
+  height: auto;
+  background-color: #f0f0f0;
+  border: none;
+}
+
+>>>>>>> d87842be6921da4d11c2d836695d07588b9c6aa4
 .info-window {
   width: 350px;
   height: 250px;
