@@ -55,7 +55,7 @@ app.use(express.json())
 
 const itineraryItemSchema = new mongoose.Schema(
   {
-    tit: String,
+    title: String,
     lat: Number,
     lng: Number,
   },

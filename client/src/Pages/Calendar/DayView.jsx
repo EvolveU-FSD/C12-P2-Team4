@@ -55,40 +55,50 @@ function DayView({ selectedDate }) {
         <ol>
           {hours.map((hour) => (
             <li key={hour} className="dayView">
-              {hour}:00
-              {events
-                .filter((event) => event.hour === hour)
-                .map((event) => (
-                  <div className="" key={event.id}>
-                    {event.event}
-                    <button onClick={() => deleteEvent(event.id)}>
-                      {"   "}Delete
-                    </button>
-                    <button onClick={() => setEditingEvent(event)}>
-                      <i className="fa-solid fa-pen-to-square">Edit</i>
-                    </button>
-                    {editingEvent === event && (
-                      <div>
-                        <input
-                          type="text"
-                          value={editingEventText}
-                          onChange={(e) => setEditingEventText(e.target.value)}
-                        />
-                        <button
-                          type="submit"
-                          onClick={() => {
-                            editEvent(editingEvent.id, editingEvent)
-                            saveEditingEvent()
-                            setEditingEvent(null)
-                            setEditingEventText("")
-                          }}
-                        >
-                          Save
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                ))}
+              <div className="hourEventContainer">
+                <span>{hour}:00</span>
+                {events
+                  .filter((event) => event.hour === hour)
+                  .map((event) => (
+                    <div key={event.id}>
+                      <span>{event.event}</span>
+                      <button
+                        className="eventButton"
+                        onClick={() => deleteEvent(event.id)}
+                      >
+                        Delete
+                      </button>
+                      <button
+                        className="eventButton"
+                        onClick={() => setEditingEvent(event)}
+                      >
+                        <i className="fa-solid fa-pen-to-square">Edit</i>
+                      </button>
+                      {editingEvent === event && (
+                        <div>
+                          <input
+                            type="text"
+                            value={editingEventText}
+                            onChange={(e) =>
+                              setEditingEventText(e.target.value)
+                            }
+                          />
+                          <button
+                            type="submit"
+                            onClick={() => {
+                              editEvent(editingEvent.id, editingEvent)
+                              saveEditingEvent()
+                              setEditingEvent(null)
+                              setEditingEventText("")
+                            }}
+                          >
+                            Save
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+              </div>
             </li>
           ))}
         </ol>
