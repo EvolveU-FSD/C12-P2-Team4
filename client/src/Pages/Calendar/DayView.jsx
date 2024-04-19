@@ -4,8 +4,8 @@ import DeleteButton from "../../components/ReusableComponents/Delete";
 function DayView({ selectedDate }) {
   //replace with actual events
   const [events, setEvents] = useState([
-    { hour: 9, event: "Meeting with team" },
-    { hour: 14, event: "Project presentation" },
+    { id: 1, hour: 9, event: "Meeting with team" },
+    { id: 2, hour: 14, event: "Project presentation" },
     // Add more events as needed
   ]);
 
@@ -36,7 +36,7 @@ function DayView({ selectedDate }) {
       </h2>
       <ol>
         {hours.map((hour) => (
-          <li key={hour}>
+          <li key={hour} className="dayView">
             {hour}:00
             {events
               .filter((event) => event.hour === hour)
