@@ -1,10 +1,17 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../Auth/AuthProvider"
 import "./signin.css" // Assuming sign-up styles are included here as well
 
-const UserAuth = ({ onLogin }) => {
-  const { setAuth } = useContext(AuthContext)
-  const [modalType, setModalType] = useState(null) // 'signin', 'signup', or null
+const UserAuth = ({
+  onLogin,
+  showModal,
+  setShowModal,
+  modalType,
+  setModalType,
+}) => {
+  const { auth, setAuth } = useContext(AuthContext)
+
+  // const [modalType, setModalType] = useState(null) // 'signin', 'signup', or null
   const [credentials, setCredentials] = useState({ username: "", password: "" })
   const [signUpData, setSignUpData] = useState({
     firstname: "",
@@ -15,12 +22,20 @@ const UserAuth = ({ onLogin }) => {
   })
   const [loadError, setLoadError] = useState(null)
 
-  const openModal = (type) => {
-    setLoadError(null) // Reset errors when opening any modal
-    setModalType(type)
-  }
+  useEffect(() => {
+    const savedAuth = localStorage.getItem("auth")
+    if (savedAuth) {
+      setAuth(JSON.parse(savedAuth))
+    }
+  }, [auth])
+
+  // const openModal = (type) => {
+  //   setLoadError(null) // Reset errors when opening any modal
+  //   setModalType(type)
+  // }
   const closeModal = () => {
     setModalType(null)
+    setShowModal(false)
     setLoadError(null) // Clear errors on modal close
   }
 
@@ -47,6 +62,10 @@ const UserAuth = ({ onLogin }) => {
       if (response.ok) {
         const data = await response.json()
         setAuth({ email: data.email, accessToken: data.accessToken })
+        localStorage.setItem(
+          "auth",
+          JSON.stringify({ email: data.email, accessToken: data.accessToken })
+        )
         closeModal()
         onLogin()
       } else {
@@ -73,7 +92,12 @@ const UserAuth = ({ onLogin }) => {
         throw new Error(errorData.error || "Failed to sign up")
       }
 
-      console.log(await response.json()) // Process or log the data
+      const data = await response.json()
+      setAuth({ email: data.email, accessToken: data.accessToken }) // Process or log the data
+      localStorage.setItem(
+        "auth",
+        JSON.stringify({ email: data.email, accessToken: data.accessToken })
+      ) //Storage
       closeModal() // Close the modal on success
     } catch (error) {
       setLoadError(error.message)
@@ -83,18 +107,8 @@ const UserAuth = ({ onLogin }) => {
 
   return (
     <>
-      {modalType === null && (
-        <>
-          <button className="openModal" onClick={() => openModal("signin")}>
-            <i className="fa-solid fa-right-to-bracket text-3xl"></i>
-          </button>
-          <button className="openModal" onClick={() => openModal("signup")}>
-            <i className="fas fa-user-plus text-3xl"></i>
-          </button>
-        </>
-      )}
-
-      {modalType === "signin" && (
+      {showModal && modalType === "signin" && (
+        // Modal for sign in
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={closeModal}>
@@ -129,7 +143,8 @@ const UserAuth = ({ onLogin }) => {
         </div>
       )}
 
-      {modalType === "signup" && (
+      {showModal && modalType === "signup" && (
+        // Modal for sign up
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={closeModal}>
@@ -202,3 +217,137 @@ const UserAuth = ({ onLogin }) => {
 }
 
 export default UserAuth
+
+// import { useContext, useState, useEffect } from "react"
+// import { AuthContext } from "../Auth/AuthProvider"
+// import "./signin.css"
+
+// const UserAuth = ({ onLogin }) => {
+//   const { auth, setAuth } = useContext(AuthContext)
+//   const [modalType, setModalType] = useState(null) // 'signin', 'signup', or null
+//   const [credentials, setCredentials] = useState({ username: "", password: "" })
+//   const [signUpData, setSignUpData] = useState({
+//     firstname: "",
+//     lastname: "",
+//     username: "",
+//     email: "",
+//     password: "",
+//   })
+//   const [loadError, setLoadError] = useState(null)
+
+//   useEffect(() => {
+//     const savedAuth = localStorage.getItem("auth")
+//     if (savedAuth) {
+//       setAuth(JSON.parse(savedAuth))
+//     }
+//   }, [setAuth])
+
+//   const openModal = (type) => {
+//     setLoadError(null)
+//     setModalType(type)
+//   }
+
+//   const closeModal = () => {
+//     setModalType(null)
+//     setLoadError(null)
+//   }
+
+//   const handleInputChange = (event, formType) => {
+//     const { name, value } = event.target
+//     if (formType === "signup") {
+//       setSignUpData((prev) => ({ ...prev, [name]: value }))
+//     } else {
+//       setCredentials((prev) => ({ ...prev, [name]: value }))
+//     }
+//   }
+
+//   const handleSignIn = async (event) => {
+//     event.preventDefault()
+//     const { username, password } = credentials
+
+//     try {
+//       const response = await fetch("/api/signin", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ username, password }),
+//       })
+
+//       if (response.ok) {
+//         const data = await response.json()
+//         setAuth({ email: data.email, accessToken: data.accessToken })
+//         localStorage.setItem(
+//           "auth",
+//           JSON.stringify({ email: data.email, accessToken: data.accessToken })
+//         )
+//         closeModal()
+//         onLogin()
+//       } else {
+//         const errorData = await response.json()
+//         throw new Error(errorData.error || "Failed to sign in")
+//       }
+//     } catch (error) {
+//       console.error("Signin Error:", error)
+//       alert(error.message)
+//     }
+//   }
+
+//   const handleSignUp = async (event) => {
+//     event.preventDefault()
+//     try {
+//       const response = await fetch("/api/signup", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(signUpData),
+//       })
+
+//       if (!response.ok) {
+//         const errorData = await response.json()
+//         throw new Error(errorData.error || "Failed to sign up")
+//       }
+
+//       const data = await response.json() // Process or log the data
+//       setAuth({ email: data.email, accessToken: data.accessToken })
+//       localStorage.setItem(
+//         "auth",
+//         JSON.stringify({ email: data.email, accessToken: data.accessToken })
+//       )
+//       closeModal() // Close the modal on success
+//     } catch (error) {
+//       setLoadError(error.message)
+//       console.error("SignUp Error:", error)
+//     }
+//   }
+
+//   return (
+//     <>
+//       {modalType === null && (
+//         <>
+//           <button className="openModal" onClick={() => openModal("signin")}>
+//             <i className="fa-solid fa-right-to-bracket text-3xl"> Log In</i>
+//           </button>
+//           <button className="openModal" onClick={() => openModal("signup")}>
+//             <i className="fas fa-user-plus text-3xl"> Sign Up</i>
+//           </button>
+//         </>
+//       )}
+//       {modalType === "signin" && (
+//         <SignInModal
+//           {...{ closeModal, handleInputChange, handleSignIn, credentials }}
+//         />
+//       )}
+//       {modalType === "signup" && (
+//         <SignUpModal
+//           {...{
+//             closeModal,
+//             handleInputChange,
+//             handleSignUp,
+//             signUpData,
+//             loadError,
+//           }}
+//         />
+//       )}
+//     </>
+//   )
+// }
+
+// export default UserAuth

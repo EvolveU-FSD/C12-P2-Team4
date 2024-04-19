@@ -1,18 +1,21 @@
 .calendar {
+  display: flex;
   background-color: beige;
   color: red;
+  gap: 5;
 }
 /* Modal Styles */
 
 .modal {
   z-index: 9999;
-  align-items: center;
-  justify-content: center;
-  left: 0;
-  /* top: -5em; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 50%;
   height: auto;
-  overflow: auto;
+  overflow: none;
 }
 
 .modal-content {
