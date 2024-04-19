@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { format } from "date-fns";
 import DeleteButton from "../../components/ReusableComponents/Delete";
 function DayView({ selectedDate }) {
@@ -8,6 +9,20 @@ function DayView({ selectedDate }) {
     { id: 2, hour: 14, event: "Project presentation" },
     // Add more events as needed
   ]);
+  const [editingEvent, setEditingEvent] = useState(null);
+  const [editingEventText, setEditingEventText] = useState("");
+  const handleEventChange = (e) => {
+    setEditingEvent((prevEvent) => [...prevEvent, event, e.target.value]);
+  };
+
+  const saveEditingEvent = async () => {
+    try {
+      const response = await axios.post("/api/events", editingEvent);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const hours = [];
   for (let i = 0; i < 24; i++) {
@@ -23,6 +38,7 @@ function DayView({ selectedDate }) {
     setEvents((prevEvents) =>
       prevEvents.map((event) => (event.id === id ? updatedEvent : event))
     );
+    setEditingEvent(null);
   };
 
   const deleteEvent = (id) => {
@@ -44,6 +60,26 @@ function DayView({ selectedDate }) {
                 <div key={event.id}>
                   {event.event}
                   <button onClick={() => deleteEvent(event.id)}>Delete</button>
+                  <button onClick={() => setEditingEvent(event)}>Edit</button>
+                  {editingEvent === event && (
+                    <div>
+                      <input
+                        type="text"
+                        value={editingEventText}
+                        onChange={(e) => setEditingEventText(e.target.value)}
+                      />
+                      <button
+                        onClick={() => {
+                          editEvent(editingEvent.id, editingEvent);
+                          saveEditingEvent();
+                          setEditingEvent(null);
+                          setEditingEventText("");
+                        }}
+                      >
+                        Save
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
           </li>
