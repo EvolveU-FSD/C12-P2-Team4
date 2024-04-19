@@ -12,9 +12,6 @@ import {
 } from "@heroicons/react/24/outline"
 import Calendar from "../../Pages/Calendar/Calendar"
 
-import SignUp from "../SignUp/SignUp"
-import SignIn from "../SignIn/SignIn"
-
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
   { name: "Photos", href: "#", icon: PhotoIcon, current: false },
@@ -271,7 +268,7 @@ export default function SideBar() {
           </div>
         </div>
 
-        <div className="sticky top-0 z-40 flex w-1/2 items-center gap-x-6 bg-white px-4 py-4 shadow-sm sm:px-6 lg:hidden">
+        <div className="sticky top-0 z-40 flex w-full items-center gap-x-6 bg-white px-4 py-4 shadow-sm sm:px-6 lg:hidden">
           <button
             type="button"
             className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
