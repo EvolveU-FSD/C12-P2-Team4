@@ -139,8 +139,8 @@ app.get("/api/dayevent/:eventTitle", async (req, res) => {
       return res.status(404).send("Event not found.")
     }
 
-    const { user, date, day, eventTime, eventTitle, place } = event
-    res.status(200).send({ user, date, day, eventTime, eventTitle, place })
+    const { email, date, eventTime, eventTitle, place } = event
+    res.status(200).send({ email, date, eventTime, eventTitle, place })
   } catch (error) {
     console.log("Error in dayEvent endpoint: ", error)
     res.status(500).send("An error occurred while retrieving the event.")
@@ -149,18 +149,18 @@ app.get("/api/dayevent/:eventTitle", async (req, res) => {
 
 app.post("/api/dayevent", async (req, res) => {
   try {
-    const { user, date, day, eventTime, eventTitle, place } = req.body
+    const { email, date, eventTime, eventTitle, place } = req.body
 
-    // Validate or transform data as necessary
-    if (!eventTitle || !user) {
-      res.status(400).send("Event title and user are required")
+    console.log(email)
+    if (!eventTitle || !email) {
+      // Simple validation example
+      res.status(400).send("Event title and email are required")
       return
     }
 
     const newEvent = new DayEvent({
-      user,
-      date: date || new Date(), // Use provided date or default to now
-      day: day || new Date(), // Use provided day or default to now
+      email,
+      date: date || new Date(),
       eventTime,
       eventTitle,
       place,
@@ -175,9 +175,8 @@ app.post("/api/dayevent", async (req, res) => {
 })
 
 app.post("/api/profile", async (req, res) => {
-  //authenticateToken,
   try {
-    const profile = await User.findOne({ email: req.body.email })
+    profile = await User.findOne({ email: req.body.email })
 
     const username = profile.username
     const email = profile.email

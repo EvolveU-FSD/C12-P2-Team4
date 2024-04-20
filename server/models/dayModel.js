@@ -1,12 +1,12 @@
-import mongoose from "mongoose"
+import mongoose, { Collection } from "mongoose"
 await mongoose.connect("mongodb://localhost:27017/equinox")
 
 const Schema = mongoose.Schema
 
 // Define a Mongoose schema for dayEvent
 const dayEventSchema = new Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
+  email: {
+    type: Email,
     ref: "user",
     required: true,
   },
@@ -16,12 +16,9 @@ const dayEventSchema = new Schema({
     required: [true, "Date is required"],
   },
 
-  day: {
-    type: String,
-    required: [true, "Day is required"],
-  },
   eventTime: {
-    type: Date,
+    type: TimeRanges,
+    required: true,
   },
   eventTitle: {
     type: String,
@@ -32,9 +29,11 @@ const dayEventSchema = new Schema({
     type: String,
     required: [true, "Please select a destination"],
   },
+
+  Collection: "user",
 })
 
-const DayEvent = mongoose.model("day", dayEventSchema)
+const DayEvent = mongoose.model("day", dayEventSchema, "events")
 
 export async function getAllDayEvent() {
   return await DayEvent.find()
@@ -49,7 +48,8 @@ export async function deleteDayEvent(eventTitle) {
 }
 
 export async function addDayEvent(newDayEventData) {
-  const created = new DayEvent(newDayEventData)
+  const created = await new DayEvent(newDayEventData)
+  console.log(DayEvent)
   await created.save()
   return created
 }

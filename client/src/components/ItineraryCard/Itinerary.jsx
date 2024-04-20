@@ -8,7 +8,8 @@ function Itinerary() {
   const [modalType, setModalType] = useState(null)
   const [eventData, setEventData] = useState({
     date: "",
-    day: "",
+    email: "",
+    username: "",
     eventTime: "",
     eventTitle: "",
     place: "",
@@ -29,10 +30,17 @@ function Itinerary() {
       return
     }
     try {
+      console.log("EventData: ", eventData)
+      console.log("User:", eventData.user)
+
       const response = await fetch("/api/dayevent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...eventData, user: auth.user }),
+        body: JSON.stringify({
+          ...eventData,
+          eventTitle: eventData.eventTitle,
+          email: eventData.email,
+        }),
       })
       if (!response.ok) {
         throw new Error("Event creation failed...")
@@ -62,7 +70,6 @@ function Itinerary() {
               SignUp or SignIn to Continue...
             </section>
             {loadError && <div className="error">{loadError}</div>}
-            {/* Authentication form should be here */}
           </div>
         </div>
       )}
@@ -75,7 +82,6 @@ function Itinerary() {
             id="eventTitle"
             name="eventTitle"
             required
-            minLength="3"
             maxLength="100"
             value={eventData.eventTitle}
             onChange={handleInputChange}
@@ -89,7 +95,42 @@ function Itinerary() {
             value={eventData.date}
             onChange={handleInputChange}
           />
-          {/* Additional fields like time, day, place */}
+          <label htmlFor="date">Event Time:</label>
+          <input
+            type="time"
+            id="eventTime"
+            name="eventTime"
+            required
+            value={eventData.eventTime}
+            onChange={handleInputChange}
+          />
+          <label htmlFor="date">Place:</label>
+          <input
+            type="text"
+            id="place"
+            name="place"
+            required
+            value={eventData.place}
+            onChange={handleInputChange}
+          />
+          <label htmlFor="date">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            required
+            value={eventData.username}
+            onChange={handleInputChange}
+          />
+          <label htmlFor="date">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            value={eventData.email}
+            onChange={handleInputChange}
+          />
           <button className="eventButton" onClick={handleEventCreation}>
             <i className="fa-solid fa-pen-to-square "> Create Event</i>
           </button>
