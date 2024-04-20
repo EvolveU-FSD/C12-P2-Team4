@@ -40,7 +40,7 @@ export async function getAllDayEvent() {
   return await DayEvent.find()
 }
 
-export async function getDayEventBy(eventTitle) {
+export async function getDayEventByTitle(eventTitle) {
   return await DayEvent.findOne(eventTitle)
 }
 
