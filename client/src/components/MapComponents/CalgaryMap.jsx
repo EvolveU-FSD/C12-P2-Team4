@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "@mui/material";
-import "./calgarymap.css";
+import React, { useState, useEffect } from "react"
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faSearch } from "@fortawesome/free-solid-svg-icons"
+import { Button } from "@mui/material"
+import "./calgarymap.css"
 
 const containerStyle = {
   position: "relative",
   width: "100%",
   height: "650px",
   borderRadius: "15px",
-};
+}
 
 const searchBoxStyle = {
   position: "absolute",
@@ -20,73 +20,73 @@ const searchBoxStyle = {
   backgroundColor: "white",
   padding: "10px",
   borderRadius: "4px",
-};
+}
 
 function getCurrentLocation() {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
-      reject(new Error("Geolocation is not supported by your browser"));
+      reject(new Error("Geolocation is not supported by your browser"))
     } else {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           resolve({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
-          });
+          })
         },
         () => {
-          reject(new Error("Unable to retrieve your location"));
+          reject(new Error("Unable to retrieve your location"))
         }
-      );
+      )
     }
-  });
+  })
 }
 
 let center = {
   lat: 0,
   lng: 0,
-};
+}
 
 getCurrentLocation()
   .then((location) => {
-    console.log(location); // { lat: ..., lng: ... }
+    console.log(location) // { lat: ..., lng: ... }
     center = {
       lat: location.lat,
       lng: location.lng,
-    };
+    }
   })
   .catch((error) => {
-    console.error(error);
-  });
-const libraries = ["places"];
+    console.error(error)
+  })
+const libraries = ["places"]
 function CalgaryMap() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyCIC_vfw1KByMvwLXmgHdY5ZKfA8NorD5w", // Add your Google Maps API key here
+    googleMapsApiKey: "YOUR_API_KEY", // Add your Google Maps API key here
     libraries,
-  });
-  const [map, setMap] = useState(null);
-  const [markersData, setMarkersData] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
-  const [searchResult, setSearchResult] = useState(null);
+  })
+  const [map, setMap] = useState(null)
+  const [markersData, setMarkersData] = useState([])
+  const [searchValue, setSearchValue] = useState("")
+  const [searchResult, setSearchResult] = useState(null)
   const [mapCenter, setMapCenter] = useState({
     lat: 0,
     lng: 0,
-  });
+  })
 
   useEffect(() => {
     getCurrentLocation()
       .then((location) => {
-        console.log(location);
+        console.log(location)
         setMapCenter({
           lat: location.lat,
           lng: location.lng,
-        });
+        })
       })
       .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+        console.error(error)
+      })
+  }, [])
 
   const handleSearch = async () => {
     if (searchValue) {
@@ -94,38 +94,38 @@ function CalgaryMap() {
         const response = await fetch(
           `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
             searchValue + ", Calgary"
-          )}&key=AIzaSyCIC_vfw1KByMvwLXmgHdY5ZKfA8NorD5w`
-        );
-        const data = await response.json();
+          )}&key=YOUR_API_KEY`
+        )
+        const data = await response.json()
         if (data.status === "OK" && data.results.length > 0) {
-          const { lat, lng } = data.results[0].geometry.location;
-          setMapCenter({ lat, lng });
-          setSearchResult({ lat, lng });
+          const { lat, lng } = data.results[0].geometry.location
+          setMapCenter({ lat, lng })
+          setSearchResult({ lat, lng })
         } else {
-          console.log("No results found for the search query.");
-          setSearchResult(null);
+          console.log("No results found for the search query.")
+          setSearchResult(null)
         }
       } catch (error) {
-        console.error("Error occurred while searching:", error);
-        setSearchResult(null);
+        console.error("Error occurred while searching:", error)
+        setSearchResult(null)
       }
     }
-  };
+  }
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      e.preventDefault();
-      handleSearch();
+      e.preventDefault()
+      handleSearch()
     }
-  };
+  }
 
   const onLoad = React.useCallback(function callback(map) {
-    setMap(map);
-  }, []);
+    setMap(map)
+  }, [])
 
   const onUnmount = React.useCallback(function callback(map) {
-    setMap(null);
-  }, []);
+    setMap(null)
+  }, [])
 
   return isLoaded ? (
     <>
@@ -173,7 +173,7 @@ function CalgaryMap() {
     </>
   ) : (
     <div>Loading...</div>
-  );
+  )
 }
 
-export default CalgaryMap;
+export default CalgaryMap
