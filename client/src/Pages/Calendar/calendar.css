@@ -65,6 +65,7 @@ body {
 .header {
   display: flex;
   align-items: center;
+  margin-left: 10%;
 }
 
 .currentMonth {
@@ -84,6 +85,7 @@ body {
 }
 
 .weekContainer1 {
+  margin-top: 1em;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   height: 3em;
