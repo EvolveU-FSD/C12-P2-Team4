@@ -8,6 +8,7 @@ import bcrypt from "bcrypt"
 import { fileURLToPath } from "url"
 import { config as dotenvConfig } from "dotenv"
 import User from "./models/userModel.js"
+import DayEvent from "./models/dayModel.js"
 import cors from "cors"
 import { authenticateToken } from "./middleware/token.js"
 import jwt from "jsonwebtoken"
@@ -149,9 +150,10 @@ app.get("/api/dayevent/:eventTitle", async (req, res) => {
 
 app.post("/api/dayevent", async (req, res) => {
   try {
-    const { email, date, eventTime, eventTitle, place } = req.body
+    const { user, email, date, eventTime, eventTitle, place } = req.body
 
     console.log(email)
+    console.log(user)
     if (!eventTitle || !email) {
       // Simple validation example
       res.status(400).send("Event title and email are required")
@@ -159,6 +161,7 @@ app.post("/api/dayevent", async (req, res) => {
     }
 
     const newEvent = new DayEvent({
+      user,
       email,
       date: date || new Date(),
       eventTime,
