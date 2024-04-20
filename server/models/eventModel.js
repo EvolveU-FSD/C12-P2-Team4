@@ -3,7 +3,7 @@ await mongoose.connect("mongodb://localhost:27017/equinox")
 
 const Schema = mongoose.Schema
 
-// Define a Mongoose schema for itinerary
+// Define a Mongoose schema for event
 const eventSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,

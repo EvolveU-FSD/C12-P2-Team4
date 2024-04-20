@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react"
 import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api"
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { Button } from "@mui/material"
 import "./calgarymap.css"
+
+const YOUR_MAP_KEY = import.meta.env.VITE_APP_GOOGLE_MAP_API_KEY
 
 const containerStyle = {
   position: "relative",
@@ -62,7 +65,7 @@ const libraries = ["places"]
 function CalgaryMap() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "YOUR_API_KEY", // Add your Google Maps API key here
+    googleMapsApiKey: YOUR_MAP_KEY, // Add your Google Maps API key here
     libraries,
   })
   const [map, setMap] = useState(null)
@@ -94,7 +97,7 @@ function CalgaryMap() {
         const response = await fetch(
           `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
             searchValue + ", Calgary"
-          )}&key=YOUR_API_KEY`
+          )}&key=${YOUR_MAP_KEY}`
         )
         const data = await response.json()
         if (data.status === "OK" && data.results.length > 0) {
