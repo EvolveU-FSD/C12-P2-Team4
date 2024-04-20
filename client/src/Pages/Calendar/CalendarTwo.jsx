@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import NavBar from "../../components/ReusableComponents/NavBar";
+import Footer from "../../components/Footer/Footer";
 import DayView from "../Calendar/DayView";
 import "./calendar.css";
 import {
@@ -120,16 +122,19 @@ const Calendar = () => {
   };
 
   return (
-    <div style={{ display: "flex" }}>
-      <section>
-        {getHeader()}
-        {getWeekDaysNames()}
-        {getDates()}
-      </section>
-      <div className="singleDayView">
-        <DayView selectedDate={selectedDate} />
+    <>
+      <NavBar />;
+      <div style={{ display: "flex" }}>
+        <section>
+          {getHeader()}
+          {getWeekDaysNames()}
+          {getDates()}
+        </section>
+        <div className="singleDayView">
+          <DayView selectedDate={selectedDate} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
