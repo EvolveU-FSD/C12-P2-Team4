@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react"
 import { AuthContext } from "../Auth/AuthProvider"
-import "../SignIn/signin.css"
+import "./ItineraryCard.css"
 
 function Itinerary() {
   const { auth } = useContext(AuthContext)
@@ -52,15 +52,15 @@ function Itinerary() {
 
   return (
     <>
-      <button className="eventButton" onClick={handleEventCreation}>
-        <i className="fa-solid fa-pen-to-square">Add Event</i>
-      </button>
       {showModal && modalType === "signin" && (
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={closeModal}>
               &times;
             </span>
+            <section className="flex w-full text-center flex-row justify-center text-primary-night">
+              SignUp or SignIn to Continue...
+            </section>
             {loadError && <div className="error">{loadError}</div>}
             {/* Authentication form should be here */}
           </div>
@@ -90,7 +90,9 @@ function Itinerary() {
             onChange={handleInputChange}
           />
           {/* Additional fields like time, day, place */}
-          <button type="submit">Create Event</button>
+          <button className="eventButton" onClick={handleEventCreation}>
+            <i className="fa-solid fa-pen-to-square "> Create Event</i>
+          </button>
         </form>
       </div>
     </>
