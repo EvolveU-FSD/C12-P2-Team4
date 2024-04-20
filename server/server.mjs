@@ -132,20 +132,20 @@ app.get("/api/users", (req, res) => {
 })
 
 //-------------------  DAY PLAN API  -----------------//
-app.get("/api/dayplan/:eventId", async (req, res) => {
+app.get("/api/dayevent/:eventTitle", async (req, res) => {
   try {
-    eventId = await Event.findOne({ event: req.params._id })
-    console.log("eventId from api/dayplan: ", eventId)
-    const username = eventId.username
-    const email = eventId.email
-    const date = eventId.date
-    const day = eventId.day
-    const eventTime = eventId.eventTime
-    const description = eventId.description
+    eventTitle = await Event.findOne({ event: req.params.eventTitle })
+    console.log("eventTitle from api/dayevent: ", eventTitle)
+    const username = eventTitle.username
+    const title = eventTitle.eventTitle
+    const date = eventTitle.date
+    const day = eventTitle.day
+    const eventTime = eventTitle.eventTime
+    const description = eventTitle.description
 
-    res.status(201).send({ username, email, date, day, eventTime, description })
+    res.status(201).send({ username, title, date, day, eventTime, description })
   } catch (error) {
-    console.log("Something is not right...In Profile...")
+    console.log("Something is not right...In day Event...")
   }
 })
 
