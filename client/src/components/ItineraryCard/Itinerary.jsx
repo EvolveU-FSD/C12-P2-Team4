@@ -1,52 +1,97 @@
-import React, { useEffect, useState } from "react"
-import { ItineraryCard } from "../ItineraryCard/ItineraryCard"
-import "./itinerary.css"
+import React, { useContext, useState } from "react"
+import { AuthContext } from "../Auth/AuthProvider"
+import "../SignIn/signin.css"
 
 function Itinerary() {
-  const [weather, setWeather] = useState(null)
+  const { auth } = useContext(AuthContext)
+  const [showModal, setShowModal] = useState(false)
+  const [modalType, setModalType] = useState(null)
+  const [eventData, setEventData] = useState({
+    date: "",
+    day: "",
+    eventTime: "",
+    eventTitle: "",
+    place: "",
+  })
+  const [loadError, setLoadError] = useState(null)
 
-  useEffect(() => {
-    const YOUR_WEATHER_API_KEY = import.meta.env.VITE_APP_WEATHER_API_KEY
+  const closeModal = () => {
+    setModalType(null)
+    setShowModal(false)
+    setLoadError(null)
+  }
 
-    const city = "Calgary"
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${YOUR_WEATHER_API_KEY}`
+  const handleEventCreation = async (event) => {
+    event.preventDefault()
+    if (!auth || !auth.accessToken) {
+      setModalType("signin")
+      setShowModal(true)
+      return
+    }
+    try {
+      const response = await fetch("/api/dayevent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...eventData, user: auth.user }),
+      })
+      if (!response.ok) {
+        throw new Error("Event creation failed...")
+      }
+      console.log("Event created successfully:", await response.json())
+      closeModal()
+    } catch (error) {
+      console.error("Event creation error:", error)
+      setLoadError(error.message)
+    }
+  }
 
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch weather data")
-        }
-        return response.json()
-      })
-      .then((data) => {
-        const temperatureInCelsius = Math.round(data.main.temp - 273.15)
-        const weatherInfo = {
-          icon: data.weather[0].icon,
-          temperature: temperatureInCelsius,
-        }
-        setWeather(weatherInfo)
-      })
-      .catch((error) => {
-        console.error("Error fetching weather data:", error)
-      })
-  }, []) // Empty dependency array means this effect runs only once, similar to window.onload
+  const handleInputChange = (event) => {
+    const { name, value } = event.target
+    setEventData((prev) => ({ ...prev, [name]: value }))
+  }
 
   return (
     <>
-      <div className="weather-container">
-        {weather && (
-          <div className="weather-info">
-            <img
-              src={`https://openweathermap.org/img/wn/${weather.icon}.png`}
-              alt="Weather icon"
-            />
-            <p>Temperature: {weather.temperature}°C</p>
+      <button className="eventButton" onClick={handleEventCreation}>
+        <i className="fa-solid fa-pen-to-square">Add Event</i>
+      </button>
+      {showModal && modalType === "signin" && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={closeModal}>
+              &times;
+            </span>
+            {loadError && <div className="error">{loadError}</div>}
+            {/* Authentication form should be here */}
           </div>
-        )}
-      </div>
-      <div className="itinerary-container">
-        <ItineraryCard />
-        <ItineraryCard />
+        </div>
+      )}
+      <div className="event-container">
+        {loadError && <div className="error">{loadError}</div>}
+        <form onSubmit={handleEventCreation}>
+          <label htmlFor="eventTitle">Event Title:</label>
+          <input
+            type="text"
+            id="eventTitle"
+            name="eventTitle"
+            required
+            minLength="3"
+            maxLength="100"
+            value={eventData.eventTitle}
+            onChange={handleInputChange}
+          />
+          <label htmlFor="date">Date:</label>
+          <input
+            type="date"
+            id="date"
+            name="date"
+            required
+            value={eventData.date}
+            onChange={handleInputChange}
+          />
+          {/* Additional fields like time, day, place */}
+          <button type="submit">Create Event</button>
+        </form>
       </div>
     </>
   )

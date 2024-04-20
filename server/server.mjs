@@ -147,10 +147,37 @@ app.get("/api/dayevent/:eventTitle", async (req, res) => {
   }
 })
 
+app.post("/api/dayevent", async (req, res) => {
+  try {
+    const { user, date, day, eventTime, eventTitle, place } = req.body
+
+    // Validate or transform data as necessary
+    if (!eventTitle || !user) {
+      res.status(400).send("Event title and user are required")
+      return
+    }
+
+    const newEvent = new DayEvent({
+      user,
+      date: date || new Date(), // Use provided date or default to now
+      day: day || new Date(), // Use provided day or default to now
+      eventTime,
+      eventTitle,
+      place,
+    })
+
+    await newEvent.save()
+    res.status(201).send(newEvent)
+  } catch (error) {
+    console.log("Error creating new event:", error)
+    res.status(500).send("Failed to create new event")
+  }
+})
+
 app.post("/api/profile", async (req, res) => {
   //authenticateToken,
   try {
-    let profile = await User.findOne({ email: req.body.email })
+    const profile = await User.findOne({ email: req.body.email })
 
     const username = profile.username
     const email = profile.email

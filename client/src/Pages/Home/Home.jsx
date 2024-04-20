@@ -1,12 +1,16 @@
-import React, { useState } from "react";
-import NavBar from "../../components/ReusableComponents/NavBar";
-import ItineraryCard from "../../components/ItineraryCard/ItineraryCard";
-import CalgaryMap from "../../components/MapComponents/CalgaryMap";
-import Calendar from "../Calendar/CalendarTwo";
-import Footer from "../../components/Footer/Footer";
-import "./Home.css";
+import React, { useState } from "react"
+import NavBar from "../../components/ReusableComponents/NavBar"
+import ItineraryCard from "../../components/ItineraryCard/ItineraryCard"
+import CalgaryMap from "../../components/MapComponents/CalgaryMap"
+import Calendar from "../Calendar/CalendarTwo"
+import Footer from "../../components/Footer/Footer"
+import "./Home.css"
+import Itinerary from "../../components/ItineraryCard/Itinerary"
 
 export default function Home() {
+  const [modalType, setModalType] = useState(null)
+  const [showModal, setShowModal] = useState(false)
+
   return (
     <div className="home-container">
       <div className="nav-bar">
@@ -14,6 +18,7 @@ export default function Home() {
       </div>
 
       <div className="map-container">
+        <Itinerary setModalType={setModalType} setShowModal={setShowModal} />
         <ItineraryCard />
         <div className="map">
           <CalgaryMap />
@@ -24,5 +29,5 @@ export default function Home() {
         <Footer />
       </div>
     </div>
-  );
+  )
 }

@@ -24,12 +24,14 @@ const userSchema = new Schema({
     required: true,
     minLength: 6,
     maxLength: 20,
+    unique: true,
   },
   email: {
     type: String,
     required: true,
     minLength: 6,
     maxLength: 32,
+    unique: true,
   },
   password: {
     type: String,

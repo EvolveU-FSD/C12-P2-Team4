@@ -8,13 +8,16 @@
   padding: 10px;
   font-weight: 400;
 }
-/* }
-.weather-info {
+
+.eventButton {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+
   color: black;
 }
+/*
 
 .weather-info img {
   width: 70px;
