@@ -166,7 +166,8 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  margin: 1% 0% 1% 0%;
+  /* margin: 1% 0% 1% 0%; */
+  margin: 0% 1% 0% 1%;
   width: 40em;
   height: auto;
   background-color: white;
@@ -197,6 +198,7 @@ body {
   font-weight: bold;
   display: flex;
   flex-direction: column;
+  align-self: center;
 }
 
 .dayView li div {
