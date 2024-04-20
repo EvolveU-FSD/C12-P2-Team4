@@ -8,6 +8,7 @@ import bcrypt from "bcrypt"
 import { fileURLToPath } from "url"
 import { config as dotenvConfig } from "dotenv"
 import User from "./models/userModel.js"
+import DayEvent from "./models/dayModel.js"
 import cors from "cors"
 import { authenticateToken } from "./middleware/token.js"
 import jwt from "jsonwebtoken"
@@ -131,18 +132,60 @@ app.get("/api/users", (req, res) => {
   res.send(users)
 })
 
-app.post("/api/profile", async (req, res) => {
-  //authenticateToken,
+//-------------------  DAY PLAN API  -----------------//
+app.get("/api/dayevent/:eventTitle", async (req, res) => {
   try {
-    console.log("Printing Authen Token: ", req.body.email)
-    let profile = await User.findOne({ email: req.body.email })
+    const event = await getDayEventByTitle(req.params.eventTitle)
+    if (!event) {
+      return res.status(404).send("Event not found.")
+    }
 
-    console.log(`1. Pulling profile ${profile}`)
+    const { email, date, eventTime, eventTitle, place } = event
+    res.status(200).send({ email, date, eventTime, eventTitle, place })
+  } catch (error) {
+    console.log("Error in dayEvent endpoint: ", error)
+    res.status(500).send("An error occurred while retrieving the event.")
+  }
+})
+
+app.post("/api/dayevent", async (req, res) => {
+  try {
+    const { user, email, date, eventTime, eventTitle, place } = req.body
+
+    console.log(email)
+    console.log(user)
+    if (!eventTitle || !email) {
+      // Simple validation example
+      res.status(400).send("Event title and email are required")
+      return
+    }
+
+    const newEvent = new DayEvent({
+      user,
+      email,
+      date: date || new Date(),
+      eventTime,
+      eventTitle,
+      place,
+    })
+
+    await newEvent.save()
+    res.status(201).send(newEvent)
+  } catch (error) {
+    console.log("Error creating new event:", error)
+    res.status(500).send("Failed to create new event")
+  }
+})
+
+app.post("/api/profile", async (req, res) => {
+  try {
+    profile = await User.findOne({ email: req.body.email })
+
     const username = profile.username
     const email = profile.email
     res.status(201).send({ username, email })
   } catch (error) {
-    console.log("Something is not right......")
+    console.log("Something is not right...In Profile...")
   }
 })
 
@@ -255,6 +298,3 @@ app.delete("/api/itinerary/:id", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Running on http://localhost:${PORT}`)
 })
-
-//---------- DISCONNECT FROM DATABASE ----------//
-//           mongoose.disconnect();            //

@@ -16,7 +16,7 @@ const navigation = [
   { name: "Explore", href: "/", icon: HomeIcon, current: false },
   { name: "Public Art", href: "/publicart", icon: PhotoIcon, current: false },
   { name: "Places", href: "#", icon: MapIcon, current: false },
-  { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
+  { name: "Calendar", href: "/calendar", icon: CalendarIcon, current: false },
   { name: "Events", href: "#", icon: GlobeAmericasIcon, current: false },
   { name: "Profile", href: "/profile", icon: UsersIcon, current: true },
 ]

@@ -1,24 +1,17 @@
 #card {
   position: relative;
-  background-color: rgb(249, 241, 241);
-  color: #111111ff;
+  background-color: rgb(231, 242, 219);
   width: 550px;
   height: 650px;
   border-radius: 10px;
   padding: 10px;
-  font-weight: 400;
 }
-
-.eventButton {
+.weather-info {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: column-reverse;
   align-items: center;
-  gap: 2;
-
   color: black;
 }
-/*
 
 .weather-info img {
   width: 70px;
@@ -29,4 +22,4 @@
 .weather-info p {
   margin: 0;
   font-size: 14px;
-} */
+}
