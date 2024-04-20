@@ -134,18 +134,16 @@ app.get("/api/users", (req, res) => {
 //-------------------  DAY PLAN API  -----------------//
 app.get("/api/dayevent/:eventTitle", async (req, res) => {
   try {
-    eventTitle = await Event.findOne({ event: req.params.eventTitle })
-    console.log("eventTitle from api/dayevent: ", eventTitle)
-    const username = eventTitle.username
-    const title = eventTitle.eventTitle
-    const date = eventTitle.date
-    const day = eventTitle.day
-    const eventTime = eventTitle.eventTime
-    const description = eventTitle.description
+    const event = await getDayEventByTitle(req.params.eventTitle)
+    if (!event) {
+      return res.status(404).send("Event not found.")
+    }
 
-    res.status(201).send({ username, title, date, day, eventTime, description })
+    const { user, date, day, eventTime, eventTitle, place } = event
+    res.status(200).send({ user, date, day, eventTime, eventTitle, place })
   } catch (error) {
-    console.log("Something is not right...In day Event...")
+    console.log("Error in dayEvent endpoint: ", error)
+    res.status(500).send("An error occurred while retrieving the event.")
   }
 })
 

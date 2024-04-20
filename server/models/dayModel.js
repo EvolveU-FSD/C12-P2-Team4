@@ -7,7 +7,7 @@ const Schema = mongoose.Schema
 const dayEventSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Day",
+    ref: "user",
     required: true,
   },
   date: {
@@ -17,8 +17,7 @@ const dayEventSchema = new Schema({
   },
 
   day: {
-    type: Date,
-    default: Date.now,
+    type: String,
     required: [true, "Day is required"],
   },
   eventTime: {
@@ -27,6 +26,7 @@ const dayEventSchema = new Schema({
   eventTitle: {
     type: String,
     required: [true, "Event name is required"],
+    unique: true,
   },
   place: {
     type: String,
@@ -41,11 +41,11 @@ export async function getAllDayEvent() {
 }
 
 export async function getDayEventByTitle(eventTitle) {
-  return await DayEvent.findOne(eventTitle)
+  return await DayEvent.findOne({ eventTitle: eventTitle })
 }
 
 export async function deleteDayEvent(eventTitle) {
-  await DayEvent.findOneAndDelete(eventTitle)
+  await DayEvent.findOneAndDelete({ eventTitle: eventTitle })
 }
 
 export async function addDayEvent(newDayEventData) {
@@ -55,6 +55,6 @@ export async function addDayEvent(newDayEventData) {
 }
 
 //---------- DISCONNECT FROM DATABASE ----------//
-mongoose.disconnect()
+// mongoose.disconnect()
 
 export default DayEvent

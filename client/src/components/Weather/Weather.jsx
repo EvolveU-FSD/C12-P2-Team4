@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react"
-import { ItineraryCard } from "../ItineraryCard/ItineraryCard"
-import "./itinerary.css"
+// import ItineraryCard from "../ItineraryCard/ItineraryCard"
 
-function Itinerary() {
+import "./weather.css"
+
+export default function Weather() {
   const [weather, setWeather] = useState(null)
 
   useEffect(() => {
@@ -29,7 +30,7 @@ function Itinerary() {
       .catch((error) => {
         console.error("Error fetching weather data:", error)
       })
-  }, []) // Empty dependency array means this effect runs only once, similar to window.onload
+  }, [])
 
   return (
     <>
@@ -44,12 +45,10 @@ function Itinerary() {
           </div>
         )}
       </div>
-      <div className="itinerary-container">
+      {/* <div className="itinerary-container">
         <ItineraryCard />
         <ItineraryCard />
-      </div>
+      </div> */}
     </>
   )
 }
-
-export default Itinerary

@@ -53,6 +53,6 @@ export async function addEvent(newEventData) {
 }
 
 //---------- DISCONNECT FROM DATABASE ----------//
-mongoose.disconnect() //
+//mongoose.disconnect() //
 
 export default Event

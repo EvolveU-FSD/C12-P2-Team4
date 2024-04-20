@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import ArtItem from "./ArtItem";
-import "./ItineraryCard.css";
+import React, { useEffect, useState } from "react"
+import ArtItem from "./ArtItem"
+import "./ItineraryCard.css"
 
-function ItineraryCard() {
-  const [data, setData] = useState([]);
+export default function ItineraryCard() {
+  const [data, setData] = useState([])
 
   useEffect(() => {
     fetch("/api/itinerary")
       .then((response) => response.json())
       .then((data) => setData(data))
-      .catch((error) => console.error(error));
-  }, []);
+      .catch((error) => console.error(error))
+  }, [])
 
   return (
     <div id="card">
@@ -18,7 +18,7 @@ function ItineraryCard() {
         <ArtItem key={index} data={item} />
       ))}
     </div>
-  );
+  )
 }
 
-export default ItineraryCard;
+// export default ItineraryCard
