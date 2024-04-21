@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react"
 import { AuthContext } from "../Auth/AuthProvider"
 import "./ItineraryCard.css"
+import "../../global.css"
 
 function Itinerary() {
   const { auth } = useContext(AuthContext)
@@ -74,7 +75,7 @@ function Itinerary() {
           </div>
         </div>
       )}
-      <div className="event-container">
+      <div className="event-container flex  m-4 gap-2 p-2.5">
         {loadError && <div className="error">{loadError}</div>}
         <form onSubmit={handleEventCreation}>
           <label htmlFor="eventTitle">Event Title:</label>
@@ -125,6 +126,7 @@ function Itinerary() {
           />
           <label htmlFor="date">Email:</label>
           <input
+            className="bg-green-200 border-solid text-wrap text-black "
             type="email"
             id="email"
             name="email"
