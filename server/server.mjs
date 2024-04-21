@@ -179,15 +179,16 @@ app.post("/api/dayevent", async (req, res) => {
 
 app.post("/api/profile", async (req, res) => {
   try {
-    profile = await User.findOne({ email: req.body.email })
-
+    const profile = await User.findOne({ email: req.body.email })
+    console.log("Printing out api/profile data: ", profile)
     const username = profile.username
     const email = profile.email
     const _id = profile._id
-    console.log("profile _id: ", _id)
-    res.status(201).send({ username, email })
+
+    res.status(201).send({ username, email, _id })
+    console.log("server sent _id:... ..:")
   } catch (error) {
-    console.log("Something is not right...In Profile...")
+    console.log("Something is not right...In Profile...", error)
   }
 })
 

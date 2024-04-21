@@ -11,6 +11,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline"
 import Calendar from "../../Pages/Calendar/Calendar"
+import { Link } from "react-router-dom"
 
 const navigation = [
   { name: "Explore", href: "/", icon: HomeIcon, current: false },
@@ -99,11 +100,15 @@ export default function SideBar() {
                   {/* Sidebar component, swap this element with another sidebar if you like */}
                   <div className="flex grow flex-col gap-y-5 overflow-y-auto text-primary-red bg-secondary-gold px-6 pb-2">
                     <div className="flex h-16 shrink-0 items-center">
-                      <img
-                        className="h-8 w-auto"
-                        src="https://i0.wp.com/xinra.org/wp-content/uploads/2021/03/Xinra_Logo_BG_TP.png?zoom=2&resize=600%2C600&ssl=1"
-                        alt="Profile"
-                      />
+                      <div className="font-bold">
+                        <Link to="/">
+                          <i className="fa-solid fa- text-3xl m-1 mt-8">
+                            EH{" "}
+                            <i className="fa-solid fa-plane text-5xl text-primary-red "></i>{" "}
+                            Traveller
+                          </i>
+                        </Link>
+                      </div>
                     </div>
                     <nav className="flex flex-1 flex-col">
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -180,12 +185,16 @@ export default function SideBar() {
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col bg-secondary-gold text-primary-red">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-secondary-gold px-6 text-primary-red">
-            <div className="flex h-16 shrink-0 items-center">
-              <img
-                className="h-8 w-auto"
-                src="https://i0.wp.com/xinra.org/wp-content/uploads/2021/03/Xinra_Logo_BG_TP.png?zoom=2&resize=600%2C600&ssl=1"
-                alt="Xinra Inc"
-              />
+            <div className="flex h-16 shrink-0 items-center m-2 mt-4">
+              <div className="font-bold">
+                <Link to="/">
+                  <i className="fa-solid fa- text-3xl">
+                    EH{" "}
+                    <i className="fa-solid fa-plane text-5xl text-primary-red "></i>{" "}
+                    Traveller
+                  </i>
+                </Link>
+              </div>
             </div>
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">

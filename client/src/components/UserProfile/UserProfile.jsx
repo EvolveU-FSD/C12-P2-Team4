@@ -3,7 +3,7 @@ import { AuthContext } from "../Auth/AuthProvider"
 
 function UserProfile() {
   const { auth } = useContext(AuthContext)
-  // console.log("from profile auth:", auth)
+  console.log("from userprofile auth:", auth)
   const [user, setUser] = useState({
     firstname: "",
     lastname: "",
@@ -16,43 +16,45 @@ function UserProfile() {
 
   const fetchUser = async () => {
     try {
+      console.log("Sending request with:", auth.email, auth._id)
       const response = await fetch("/api/profile", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: auth.email }),
+        body: JSON.stringify({ email: auth.email, _id: auth._id }),
       })
-
+      console.log("Response received:", response)
       if (response.ok) {
         const data = await response.json()
+        console.log("Data received:", data)
         setUser({
-          firstname: data.firstname,
-          lastname: data.lastname,
-          email: data.email,
-          username: data.username,
-          address: data.address,
-          bio: data.bio,
-          password: data.password,
+          firstname: data.firstname || "",
+          lastname: data.lastname || "",
+          username: data.username || "",
+          email: data.email || "",
+          address: data.address || "",
+          bio: data.bio || "",
+          password: data.password || "",
         })
       } else {
         const errorData = await response.json()
         setLoadError(errorData)
-        alert(errorData.error)
+        alert(`Error: ${errorData.error}`)
       }
     } catch (error) {
       console.error("Error:", error)
       setLoadError(error)
-      alert("An error occurred. Please try again.", error) // Display error message
+      alert(`An error occurred. Please try again. ${error}`)
     }
   }
 
   useEffect(() => {
     fetchUser().then(() => {
-      console.log("fetching.....", user.lastname)
+      console.log("Fetch complete for:", auth.lastname)
     })
-  }, [])
-  console.log("UserProfile :", user.firstname)
+  }, [auth.email, auth._id])
+  console.log("UserProfile :", auth.firstname)
   console.log("UserProfile: ", user)
   return (
     <div>
