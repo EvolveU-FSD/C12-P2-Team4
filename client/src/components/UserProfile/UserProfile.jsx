@@ -61,7 +61,7 @@ function UserProfile() {
     <div>
       {loadError && <div>Error: {loadError.message}</div>}
 
-      <div className="text-base font-semibold leading-7 justify-center text-green-300 ">
+      <div className="text-3xl font-bold leading-7 justify-center text-primary-red ">
         <div className="px-4 sm:px-0">
           <h1>{user.username && <span>PROFILE</span>}</h1>
         </div>
