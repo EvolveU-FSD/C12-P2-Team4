@@ -40,7 +40,7 @@ function PublicArt() {
   return (
     <>
       <NavBar />
-      <div className="wrapper">
+      <div className="wrapper bg-secondary-gold">
         <div className="gallery">
           {artData.map((art) => (
             <div className="publicart__card" key={art.title}>

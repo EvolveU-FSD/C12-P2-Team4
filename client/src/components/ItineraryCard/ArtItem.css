@@ -15,3 +15,7 @@
   justify-content: flex-start;
   align-items: center;
 }
+#card {
+  margin: 2rem;
+  padding: 0;
+}

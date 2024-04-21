@@ -97,7 +97,7 @@ export default function SideBar() {
                     </div>
                   </Transition.Child>
                   {/* Sidebar component, swap this element with another sidebar if you like */}
-                  <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
+                  <div className="flex grow flex-col gap-y-5 overflow-y-auto text-primary-red bg-secondary-gold px-6 pb-2">
                     <div className="flex h-16 shrink-0 items-center">
                       <img
                         className="h-8 w-auto"
@@ -177,9 +177,9 @@ export default function SideBar() {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+        <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col bg-secondary-gold text-primary-red">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
+          <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-secondary-gold px-6 text-primary-red">
             <div className="flex h-16 shrink-0 items-center">
               <img
                 className="h-8 w-auto"
@@ -268,7 +268,7 @@ export default function SideBar() {
           </div>
         </div>
 
-        <div className="sticky top-0 z-40 flex w-full items-center gap-x-6 bg-white px-4 py-4 shadow-sm sm:px-6 lg:hidden">
+        <div className="sticky top-0 z-40 flex w-full items-center gap-x-6 bg-secondary-gold px-4 py-4 shadow-sm sm:px-6 lg:hidden">
           <button
             type="button"
             className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
@@ -292,8 +292,7 @@ export default function SideBar() {
 
         <main className="lg:pl-72">
           <div className="xl:pl-96">
-            {/* <Calendar /> */}
-            <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
+            <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6 bg-secondary-gold">
               {/* Main area */}
             </div>
           </div>

@@ -90,6 +90,7 @@ function Itinerary() {
           />
           <label htmlFor="date">Date:</label>
           <input
+            className="bg-[#F0F0F0] text-primary-night flex justify-center"
             type="date"
             id="date"
             name="date"
@@ -99,6 +100,7 @@ function Itinerary() {
           />
           <label htmlFor="date">Event Time:</label>
           <input
+            className="flex justify-center bg-[#f0f0f0] text-primary-night"
             type="time"
             id="eventTime"
             name="eventTime"
@@ -126,7 +128,7 @@ function Itinerary() {
           />
           <label htmlFor="date">Email:</label>
           <input
-            className="bg-green-200 border-solid text-wrap text-black "
+            className="bg-secondary-gold border-solid text-wrap text-black "
             type="email"
             id="email"
             name="email"
@@ -134,8 +136,14 @@ function Itinerary() {
             value={eventData.email}
             onChange={handleInputChange}
           />
-          <button className="eventButton" onClick={handleEventCreation}>
-            <i className="fa-solid fa-pen-to-square "> Create Event</i>
+          <button
+            className="eventButton bg-secondary-gold text-2xl justify-items-center ml-3"
+            onClick={handleEventCreation}
+          >
+            <i className="fa-solid fa-pen-to-square text-primary-orange hover:text-primary-red">
+              {" "}
+              Create Event
+            </i>
           </button>
         </form>
       </div>

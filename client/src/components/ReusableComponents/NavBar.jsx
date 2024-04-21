@@ -18,6 +18,7 @@ function NavBar() {
   const { auth, _id, logout } = useContext(AuthContext)
   const [showModal, setShowModal] = useState(false)
   const [modalType, setModalType] = useState(null)
+  const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -37,11 +38,12 @@ function NavBar() {
   }
 
   return (
-    <nav className="bg-black text-green-300 gap-4 flex flex-row px-8 py-6">
+    <nav className="sticky top-0 z-40 bg-primary-night text-secondary-gold gap-4 flex flex-row px-8 py-6 ">
       <div className="font-bold">
         <Link to="/">
           <i className="fa-solid fa- text-3xl">
-            EH <i className="fa-solid fa-plane text-3xl"></i> Traveller
+            EH <i className="fa-solid fa-plane text-5xl text-primary-red "></i>{" "}
+            Traveller
           </i>
         </Link>
       </div>
@@ -59,6 +61,17 @@ function NavBar() {
                 <i className="fas fa-user-plus text-3xl">
                   <span> SIGNUP</span>
                 </i>
+              </button>
+              <button
+                type="button"
+                className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
+                onClick={() => setMenuOpen(true)}
+              >
+                <span className="sr-only">Open Menu</span>
+                <Bars3Icon
+                  className="h-8 w-8 text-primary-red"
+                  aria-hidden="true"
+                />
               </button>
             </>
           )
