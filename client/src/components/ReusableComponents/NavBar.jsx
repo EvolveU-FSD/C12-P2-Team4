@@ -40,7 +40,7 @@ function NavBar() {
     <nav className="bg-black text-green-300 gap-4 flex flex-row px-8 py-6">
       <div className="font-bold">
         <Link to="/">
-          <i className="fa-solid fa-house text-3xl"></i>
+          <i className="fa-solid fa-plane text-3xl"></i>
         </Link>
       </div>
       <div className="mx-auto flex gap-12 justify-around text-3xl">
@@ -55,7 +55,7 @@ function NavBar() {
               </button>
               <button onClick={() => openModal("signup")}>
                 <i className="fas fa-user-plus text-3xl">
-                  2 <span>SIGNUP</span>
+                  <span> SIGNUP</span>
                 </i>
               </button>
             </>
@@ -66,12 +66,12 @@ function NavBar() {
               <>
                 <li>
                   <Link to="/">
-                    <i className="fa-solid fa-house text-3xl"> Explore</i>
+                    <i className="fa-solid fa-map text-3xl"> Explore</i>
                   </Link>
                 </li>
                 <li>
                   <Link to="/publicart">
-                    <i className="fa-solid fa-house text-3xl"> Art</i>
+                    <i className="fa-solid fa-image text-3xl"> Art</i>
                   </Link>
                 </li>
               </>
@@ -89,17 +89,17 @@ function NavBar() {
               <>
                 <li>
                   <Link to="/">
-                    <i className="fa-solid fa-house text-3xl"> explore</i>
+                    <i className="fa-solid fa-map text-3xl"> explore</i>
                   </Link>
                 </li>
                 <li>
                   <Link to="/publicart">
-                    <i className="fa-solid fa-house text-3xl"> Art</i>
+                    <i className="fa-solid fa-image text-3xl"> Art</i>
                   </Link>
                 </li>
                 <li>
                   <Link to="/profile">
-                    <i className="fa-solid fa-house text-3xl"> Profile</i>
+                    <i className="fa-solid fa-user text-3xl"> Profile</i>
                   </Link>
                 </li>
               </>
@@ -108,17 +108,17 @@ function NavBar() {
               <>
                 <li>
                   <Link to="/">
-                    <i className="fa-solid fa-house text-3xl"> Explore</i>
+                    <i className="fa-solid fa-map text-3xl"> Explore</i>
                   </Link>
                 </li>
                 <li>
                   <Link to="/profile">
-                    <i className="fa-solid fa-house text-3xl"> Profile</i>
+                    <i className="fa-solid fa-user text-3xl"> Profile</i>
                   </Link>
                 </li>
                 <li>
                   <Link to="/calendar">
-                    <i className="fa-solid fa-house text-3xl"> Calendar</i>
+                    <i className="fa-solid fa-calendar text-3xl"> Calendar</i>
                   </Link>
                 </li>
               </>
