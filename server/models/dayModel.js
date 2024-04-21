@@ -28,18 +28,13 @@ const dayEventSchema = new Schema({
     type: String,
     required: [true, "Please select a destination"],
   },
-  email: {
-    type: String,
-    required: true,
-  },
   description: {
     type: String,
     required: true,
-    maxLength: 140,
   },
 })
 
-const DayEvent = mongoose.model("day", dayEventSchema)
+const DayEvent = mongoose.model("event", dayEventSchema)
 
 export async function getAllDayEvent() {
   return await DayEvent.find()
@@ -65,9 +60,14 @@ export async function deleteDayEvent(eventTitle) {
 }
 
 export async function addDayEvent(newDayEventData) {
-  const created = new DayEvent(newDayEventData)
-  await created.save()
-  return created
+  try {
+    const created = new DayEvent(newDayEventData)
+    await created.save()
+    return created
+  } catch (error) {
+    console.error("Failed to add new day event:", error)
+    throw error
+  }
 }
 
 //---------- DISCONNECT FROM DATABASE ----------//

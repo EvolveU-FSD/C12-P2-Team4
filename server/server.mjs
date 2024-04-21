@@ -150,18 +150,20 @@ app.get("/api/dayevent/:eventTitle", async (req, res) => {
 
 app.post("/api/dayevent", async (req, res) => {
   try {
-    const { user, email, date, eventTime, eventTitle, place } = req.body
+    const user = await User.findOne({ username: req.body.username })
+
+    const { email, date, eventTime, eventTitle, place, description } = req.body
 
     console.log(email)
     console.log(user)
-    if (!eventTitle || !email) {
-      // Simple validation example
+    if (!eventTitle || !user) {
       res.status(400).send("Event title and email are required")
       return
     }
 
     const newEvent = new DayEvent({
-      email,
+      user: user._id,
+      email: user.email,
       date: date || new Date(),
       eventTime,
       eventTitle,

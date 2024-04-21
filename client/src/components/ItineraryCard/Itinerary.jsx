@@ -10,7 +10,6 @@ function Itinerary() {
   const [modalType, setModalType] = useState(null)
   const [eventData, setEventData] = useState({
     date: "",
-    email: "",
     username: "",
     eventTime: "",
     eventTitle: "",
@@ -43,7 +42,6 @@ function Itinerary() {
           ...eventData,
           eventTitle: eventData.eventTitle,
           email: eventData.email,
-          user: auth.user,
         }),
       })
       if (!response.ok) {
@@ -100,7 +98,7 @@ function Itinerary() {
             value={eventData.date}
             onChange={handleInputChange}
           />
-          <label htmlFor="date">Event Time:</label>
+          <label htmlFor="eventTime">Event Time:</label>
           <input
             className="flex justify-center bg-[#f0f0f0] text-primary-night"
             type="time"
@@ -110,8 +108,9 @@ function Itinerary() {
             value={eventData.eventTime}
             onChange={handleInputChange}
           />
-          <label htmlFor="date">Place:</label>
+          <label htmlFor="place">Place:</label>
           <input
+            className="flex justify-center bg-[#f0f0f0] text-primary-night"
             type="text"
             id="place"
             name="place"
@@ -119,8 +118,9 @@ function Itinerary() {
             value={eventData.place}
             onChange={handleInputChange}
           />
-          <label htmlFor="date">Username:</label>
+          <label htmlFor="username">Username:</label>
           <input
+            className="flex justify-center bg-[#f0f0f0] text-primary-night"
             type="text"
             id="username"
             name="username"
@@ -128,12 +128,12 @@ function Itinerary() {
             value={eventData.username}
             onChange={handleInputChange}
           />
-          <label htmlFor="date">Email:</label>
+          <label htmlFor="description">Description:</label>
           <input
-            className="bg-secondary-gold border-solid text-wrap text-black "
-            type="email"
-            id="email"
-            name="email"
+            className="border-solid bg-primary-white  text-primary-night "
+            type="string"
+            id="description"
+            name="description"
             required
             value={eventData.email}
             onChange={handleInputChange}
