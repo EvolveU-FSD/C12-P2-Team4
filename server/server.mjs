@@ -27,20 +27,20 @@ const apiKey = process.env.GOOGLEMAPS_API_KEY
 //-------------- MONGOOSE CONNECTION ------------//
 mongoose
   .connect(uri)
-  .then(() => console.log("MongoDB Connected..."))
-  .catch((err) => console.log(err))
+  .then(() => console.log("18...MongoDB Connected..."))
+  .catch((err) => console.log("17...connection error", err))
 
 const db = mongoose.connection
 
-db.on("error", console.error.bind(console, "connection error:"))
+db.on("error", console.error.bind(console, "16...connection error:"))
 db.once("open", function () {
-  console.log("Connected to MongoDB")
+  console.log("15..Connected to MongoDB..")
 })
 
 //-------------- SERVER FUNCTIONS ----------------//
 app.use(cors())
 app.use("*", (req, res, next) => {
-  console.log(req.originalUrl)
+  console.log("14. current route...:..", req.originalUrl)
   next()
 })
 app.use((err, req, res, next) => {
@@ -143,46 +143,49 @@ app.get("/api/dayevent/:eventTitle", async (req, res) => {
     const { email, date, eventTime, eventTitle, place } = event
     res.status(200).send({ email, date, eventTime, eventTitle, place })
   } catch (error) {
-    console.log("Error in dayEvent endpoint: ", error)
+    console.log("13. Error in dayevent/eventTitle endpoint: ", error)
     res.status(500).send("An error occurred while retrieving the event.")
   }
 })
 
+//vulnerability discovered, add validation to confirm user sending information credentials match username entered...
 app.post("/api/dayevent", async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username })
 
-    const { email, date, eventTime, eventTitle, place, description } = req.body
+    const { username, email, date, eventTime, eventTitle, place, description } =
+      req.body
 
-    console.log(email)
-    console.log(user)
+    console.log("12. dayevent post email:...", email)
+    console.log("11. dayevent post user....:..", user)
     if (!eventTitle || !user) {
       res.status(400).send("Event title and email are required")
       return
+    } else if (username === user.username) {
+      const newEvent = new DayEvent({
+        user: user._id,
+        email: user.email,
+        date: date || new Date(),
+        eventTime,
+        eventTitle,
+        place,
+        description,
+      })
+      await newEvent.save()
+      res.status(201).send(newEvent)
+    } else {
+      res.status(401).send("Unauthorized action... ")
     }
-
-    const newEvent = new DayEvent({
-      user: user._id,
-      email: user.email,
-      date: date || new Date(),
-      eventTime,
-      eventTitle,
-      place,
-      description,
-    })
-
-    await newEvent.save()
-    res.status(201).send(newEvent)
   } catch (error) {
-    console.log("Error creating new event:", error)
-    res.status(500).send("Failed to create new event")
+    console.log("10. Error creating new event:", error)
+    res.status(501).send("Failed to create new event")
   }
 })
 
 app.post("/api/profile", async (req, res) => {
   try {
     const profile = await User.findOne({ email: req.body.email })
-    console.log("Printing out api/profile data: ", profile)
+    console.log("9. Printing out api/profile data: ", profile)
     const username = profile.username
     const email = profile.email
     const _id = profile._id
@@ -191,19 +194,19 @@ app.post("/api/profile", async (req, res) => {
 
     res.status(201).send({ username, email, _id, firstname, lastname })
   } catch (error) {
-    console.log("Something is not right...In Profile...", error)
+    console.log("8. Something is not right...In Profile...", error)
   }
 })
 
 //----------------- POST API ROUTE --------------//
 app.post("/api/itinerary", async (req, res) => {
-  console.log("Received POST request to /api/itinerary") // Log when a request is received
+  console.log("7. Received POST request to /api/itinerary") // Log when a request is received
 
   try {
-    console.log("Creating new itinerary item with body:", req.body) // Log the request body
+    console.log("6. Creating new itinerary item with body:", req.body) // Log the request body
     const newItem = new ItineraryItem(req.body)
     const savedItem = await newItem.save()
-    console.log("Saved new itinerary item:", savedItem) // Log the saved item
+    console.log("5. Saved new itinerary item:", savedItem) // Log the saved item
     res.json(savedItem)
   } catch (error) {
     console.error("Error while handling /api/itinerary POST request:", error) // Log any errors
@@ -247,7 +250,7 @@ app.post("/api/signin", async (req, res) => {
 app.post("/api/signup", async (req, res) => {
   const salt = await bcrypt.genSalt(10)
   const secPass = await bcrypt.hash(req.body.password, salt)
-  console.log(secPass)
+  console.log("4. Secured password...:....", secPass)
 
   try {
     const { firstname, lastname, username, email, password } = req.body
@@ -281,7 +284,7 @@ app.post("/api/signup", async (req, res) => {
 app.get("/api/profile/:email", async (req, res) => {
   try {
     let user = await User.findOne({ email: req.params.email })
-    console.log(user)
+    console.log("3. profile/email...get...user info:... ", user)
     if (!user) {
       return res.status(400).json({ error: "Some Error Occurred" })
     }

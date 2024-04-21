@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react"
 import { AuthContext } from "../Auth/AuthProvider"
+import processInput from "../../../../server/controllers/processInput"
 import "./ItineraryCard.css"
 import "../../global.css"
 
