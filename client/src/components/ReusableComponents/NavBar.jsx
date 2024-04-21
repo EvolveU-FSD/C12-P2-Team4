@@ -40,7 +40,9 @@ function NavBar() {
     <nav className="bg-black text-green-300 gap-4 flex flex-row px-8 py-6">
       <div className="font-bold">
         <Link to="/">
-          <i className="fa-solid fa-plane text-3xl"></i>
+          <i className="fa-solid fa- text-3xl">
+            EH <i className="fa-solid fa-plane text-3xl"></i> Traveller
+          </i>
         </Link>
       </div>
       <div className="mx-auto flex gap-12 justify-around text-3xl">
