@@ -24,25 +24,14 @@ export const AuthProvider = ({ children }) => {
     setAuth(data)
   }
 
+  const _id = (data) => {
+    localStorage.setItem("auth", JSON.stringify(data))
+    setAuth(data)
+  }
+
   return (
-    <AuthContext.Provider value={{ auth, login, logout, setAuth }}>
+    <AuthContext.Provider value={{ auth, _id, login, logout, setAuth }}>
       {children}
     </AuthContext.Provider>
   )
 }
-
-// import { createContext, useState } from "react"
-
-// // Create context
-// export const AuthContext = createContext(null)
-
-// export const AuthProvider = ({ children }) => {
-//   const [auth, setAuth] = useState({})
-//   console.log(`AuthProvider auth token: ${auth.email}`)
-
-//   return (
-//     <AuthContext.Provider value={{ auth, setAuth }}>
-//       {children}
-//     </AuthContext.Provider>
-//   )
-// }

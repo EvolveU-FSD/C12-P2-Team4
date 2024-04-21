@@ -161,7 +161,7 @@ app.post("/api/dayevent", async (req, res) => {
     }
 
     const newEvent = new DayEvent({
-      user,
+      user: req.user._id,
       email,
       date: date || new Date(),
       eventTime,
@@ -183,6 +183,8 @@ app.post("/api/profile", async (req, res) => {
 
     const username = profile.username
     const email = profile.email
+    const _id = profile._id
+    console.log("profile _id: ", _id)
     res.status(201).send({ username, email })
   } catch (error) {
     console.log("Something is not right...In Profile...")

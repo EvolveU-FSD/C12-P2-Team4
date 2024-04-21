@@ -15,13 +15,16 @@ import {
 import "../SignIn/signin.css"
 
 function NavBar() {
-  const { auth, logout } = useContext(AuthContext)
+  const { auth, _id, logout } = useContext(AuthContext)
   const [showModal, setShowModal] = useState(false)
   const [modalType, setModalType] = useState(null)
   const location = useLocation()
-  const navigate = useNavigate() // Instantiate useNavigate
-  const onProfilePage = location.pathname === "/profile"
+  const navigate = useNavigate()
+
+  const onArtPage = location.pathname === "/publicart"
+  const onCalendarPage = location.pathname === "/calendar"
   const onHomePage = location.pathname === "/"
+  const onProfilePage = location.pathname === "/profile"
 
   const openModal = (type) => {
     setModalType(type)
@@ -30,7 +33,7 @@ function NavBar() {
 
   const handleLogout = () => {
     logout() // Call the logout function from AuthContext
-    navigate("/") // Navigate to home page after logging out
+    navigate("/")
   }
 
   return (
@@ -52,8 +55,7 @@ function NavBar() {
               </button>
               <button onClick={() => openModal("signup")}>
                 <i className="fas fa-user-plus text-3xl">
-                  {" "}
-                  <span>SIGNUP</span>
+                  2 <span>SIGNUP</span>
                 </i>
               </button>
             </>
@@ -61,18 +63,65 @@ function NavBar() {
         ) : (
           <ul className="link flex flex-row gap-12">
             {onProfilePage && (
-              <li>
-                <Link to="/">
-                  <i className="fa-solid fa-house text-3xl"> Explore</i>
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link to="/">
+                    <i className="fa-solid fa-house text-3xl"> Explore</i>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/publicart">
+                    <i className="fa-solid fa-house text-3xl"> Art</i>
+                  </Link>
+                </li>
+              </>
             )}
             {onHomePage && (
-              <li>
-                <Link to="/profile">
-                  <i className="fa-regular fa-user"> Profile</i>
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link to="/profile">
+                    <i className="fa-regular fa-user"> Profile</i>
+                  </Link>
+                </li>
+              </>
+            )}
+            {onCalendarPage && (
+              <>
+                <li>
+                  <Link to="/">
+                    <i className="fa-solid fa-house text-3xl"> explore</i>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/publicart">
+                    <i className="fa-solid fa-house text-3xl"> Art</i>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/profile">
+                    <i className="fa-solid fa-house text-3xl"> Profile</i>
+                  </Link>
+                </li>
+              </>
+            )}
+            {onArtPage && (
+              <>
+                <li>
+                  <Link to="/">
+                    <i className="fa-solid fa-house text-3xl"> Explore</i>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/profile">
+                    <i className="fa-solid fa-house text-3xl"> Profile</i>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/calendar">
+                    <i className="fa-solid fa-house text-3xl"> Calendar</i>
+                  </Link>
+                </li>
+              </>
             )}
             <li>
               <button onClick={handleLogout}>
