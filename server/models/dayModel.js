@@ -32,6 +32,11 @@ const dayEventSchema = new Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+    maxLength: 140,
+  },
 })
 
 const DayEvent = mongoose.model("day", dayEventSchema)
@@ -41,7 +46,18 @@ export async function getAllDayEvent() {
 }
 
 export async function getDayEventByTitle(eventTitle) {
-  return await DayEvent.findOne({ eventTitle: eventTitle })
+  return await Event.findById(eventTitle)
+    .populate({
+      path: "user",
+      select: "email _id -username",
+    })
+    .exec((err, event) => {
+      if (err) {
+        console.error("Error fetching event with user data....:...", err)
+      } else {
+        console.log("Event with populated user:.....: ", event)
+      }
+    })
 }
 
 export async function deleteDayEvent(eventTitle) {

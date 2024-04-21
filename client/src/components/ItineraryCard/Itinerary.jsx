@@ -15,6 +15,7 @@ function Itinerary() {
     eventTime: "",
     eventTitle: "",
     place: "",
+    description: "",
   })
   const [loadError, setLoadError] = useState(null)
 

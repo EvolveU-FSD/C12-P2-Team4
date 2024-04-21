@@ -161,12 +161,12 @@ app.post("/api/dayevent", async (req, res) => {
     }
 
     const newEvent = new DayEvent({
-      user: req.user._id,
       email,
       date: date || new Date(),
       eventTime,
       eventTitle,
       place,
+      description,
     })
 
     await newEvent.save()
