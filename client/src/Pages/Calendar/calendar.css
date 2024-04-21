@@ -65,6 +65,7 @@ body {
 .header {
   display: flex;
   align-items: center;
+  margin-left: 10%;
 }
 
 .currentMonth {
@@ -80,10 +81,19 @@ body {
   width: 100%;
   background-color: white;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 3%;
   color: black;
 }
 
+.weekContainer1 {
+  margin-top: 1em;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  height: 3em;
+}
+.weekContainer2 {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
 .day {
   margin: 12px;
   height: 30px;
@@ -156,14 +166,14 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  margin: 1% 0% 1% 0%;
+  /* margin: 1% 0% 1% 0%; */
+  margin: 0% 1% 0% 1%;
   width: 40em;
   height: auto;
   background-color: white;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 3%;
   color: black;
-  gap: 0.25rem;
 }
 /*Row of dayView*/
 .dayViewRow {
@@ -188,6 +198,7 @@ body {
   font-weight: bold;
   display: flex;
   flex-direction: column;
+  align-self: center;
 }
 
 .dayView li div {
@@ -221,5 +232,5 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: #f1be48;
-  text: white;
+  color: white;
 }
