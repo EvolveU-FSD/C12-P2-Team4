@@ -11,20 +11,21 @@ function UserProfile() {
     email: "",
     address: "",
     password: "",
+    _id: "",
   })
   const [loadError, setLoadError] = useState(null)
 
   const fetchUser = async () => {
     try {
-      console.log("Sending request with:", auth.email, auth._id)
+      console.log("Sending request with:.....", auth._id)
       const response = await fetch("/api/profile", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email: auth.email, _id: auth._id }),
+        body: JSON.stringify({ email: auth.email }),
       })
-      console.log("Response received:", response)
+
       if (response.ok) {
         const data = await response.json()
         console.log("Data received:", data)
@@ -54,7 +55,7 @@ function UserProfile() {
       console.log("Fetch complete for:", auth.lastname)
     })
   }, [auth.email, auth._id])
-  console.log("UserProfile :", auth.firstname)
+  console.log("UserProfile auth _id :....", auth._id)
   console.log("UserProfile: ", user)
   return (
     <div>
@@ -75,10 +76,10 @@ function UserProfile() {
           <dl className="divide-y divide-gray-100">
             <div className="bg-gray-50 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
               <dt className="text-sm font-medium leading-6 text-gray-900">
-                Full name : {user.firstname}
+                Full name :
               </dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                <span>Firstname: {user.firstname}</span>
+                <span>{user.firstname + " " + user.lastname}</span>
               </dd>
             </div>
             <div className="bg-secondary-gold px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
@@ -94,7 +95,7 @@ function UserProfile() {
                 Email address
               </dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                Place holder Email
+                {user.email}
               </dd>
             </div>
             <div className="bg-white px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">

@@ -184,9 +184,10 @@ app.post("/api/profile", async (req, res) => {
     const username = profile.username
     const email = profile.email
     const _id = profile._id
+    const firstname = profile.firstname
+    const lastname = profile.lastname
 
-    res.status(201).send({ username, email, _id })
-    console.log("server sent _id:... ..:")
+    res.status(201).send({ username, email, _id, firstname, lastname })
   } catch (error) {
     console.log("Something is not right...In Profile...", error)
   }
@@ -211,7 +212,7 @@ app.post("/api/itinerary", async (req, res) => {
 //-------------------- SIGNIN HANDLING ----------------------//
 app.post("/api/signin", async (req, res) => {
   try {
-    let user = await User.findOne({ username: req.body.username })
+    const user = await User.findOne({ username: req.body.username })
 
     if (!user) {
       return res.status(400).json({ error: "Invalid credentials try again" })
@@ -226,12 +227,14 @@ app.post("/api/signin", async (req, res) => {
         .json({ error: "Enter valid credentials to continue." })
     }
     const email = user.email
+    const _id = user.id
+    const username = user.name
 
     const accessToken = jwt.sign(
-      { email: user.email },
+      { email: user.email, username: username, _id: _id, user },
       process.env.ACCESS_TOKEN_SECRET
     )
-    res.json({ email, accessToken })
+    res.json({ email, _id, username, accessToken, user })
   } catch (error) {
     console.error(error)
     res.status(500).json({ error: "Internal server error =(" })

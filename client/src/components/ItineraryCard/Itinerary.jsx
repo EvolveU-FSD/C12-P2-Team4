@@ -5,6 +5,7 @@ import "../../global.css"
 
 function Itinerary() {
   const { auth } = useContext(AuthContext)
+  console.log("Printing itinerary auth value:......:.. ", auth)
   const [showModal, setShowModal] = useState(false)
   const [modalType, setModalType] = useState(null)
   const [eventData, setEventData] = useState({
@@ -14,7 +15,6 @@ function Itinerary() {
     eventTime: "",
     eventTitle: "",
     place: "",
-    user: "",
   })
   const [loadError, setLoadError] = useState(null)
 
@@ -32,8 +32,8 @@ function Itinerary() {
       return
     }
     try {
-      console.log("EventData: ", eventData)
-      console.log("User:", eventData.user)
+      console.log("1. EventData: ", eventData)
+      console.log("2. User:....", auth.user)
 
       const response = await fetch("/api/dayevent", {
         method: "POST",
@@ -42,6 +42,7 @@ function Itinerary() {
           ...eventData,
           eventTitle: eventData.eventTitle,
           email: eventData.email,
+          user: auth.user,
         }),
       })
       if (!response.ok) {

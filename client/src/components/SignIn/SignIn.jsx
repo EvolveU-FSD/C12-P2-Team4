@@ -11,7 +11,11 @@ const UserAuth = ({
 }) => {
   const { auth, setAuth } = useContext(AuthContext)
 
-  const [credentials, setCredentials] = useState({ username: "", password: "" })
+  const [credentials, setCredentials] = useState({
+    username: "",
+    password: "",
+    _id: "",
+  })
   const [signUpData, setSignUpData] = useState({
     firstname: "",
     lastname: "",
@@ -56,10 +60,22 @@ const UserAuth = ({
 
       if (response.ok) {
         const data = await response.json()
-        setAuth({ email: data.email, accessToken: data.accessToken })
+        setAuth({
+          email: data.email,
+          username: username,
+
+          _id: data._id,
+          accessToken: data.accessToken,
+        })
         localStorage.setItem(
           "auth",
-          JSON.stringify({ email: data.email, accessToken: data.accessToken })
+          JSON.stringify({
+            email: data.email,
+            username: data.username,
+
+            _id: data._id,
+            accessToken: data.accessToken,
+          })
         )
         closeModal()
         onLogin()
