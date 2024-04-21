@@ -38,7 +38,7 @@ function NavBar() {
   }
 
   return (
-    <nav className="sticky top-0 z-40 bg-primary-night text-secondary-gold gap-4 flex flex-row px-8 py-6 ">
+    <nav className="sticky top-0 z-40 bg-primary-night w-full text-secondary-gold gap-4 flex flex-row px-8 py-6 ">
       <div className="font-bold">
         <Link to="/">
           <i className="fa-solid fa- text-3xl">
