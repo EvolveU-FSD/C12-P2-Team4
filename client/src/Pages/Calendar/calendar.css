@@ -234,3 +234,6 @@ button[type="submit"]:hover {
   background-color: #f1be48;
   color: white;
 }
+.editInput {
+  margin-right: 20px;
+}

@@ -79,6 +79,7 @@ function DayView({ selectedDate }) {
                       {editingEvent === event && (
                         <div>
                           <input
+                            className="editInput"
                             type="text"
                             value={editingEventText}
                             onChange={(e) =>
@@ -86,6 +87,7 @@ function DayView({ selectedDate }) {
                             }
                           />
                           <button
+                            className="saveButton"
                             type="submit"
                             onClick={() => {
                               editEvent(editingEvent.id, editingEvent);
