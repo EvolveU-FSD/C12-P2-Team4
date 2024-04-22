@@ -76,7 +76,7 @@ function Itinerary() {
           </div>
         </div>
       )}
-      <div className="event-container flex  m-4 gap-2 p-2.5">
+      <div className="event-container flex m-4 gap-2 p-2.5 bg-primary-white rounded shadow-md">
         {loadError && <div className="error">{loadError}</div>}
         <form onSubmit={handleEventCreation}>
           <label htmlFor="eventTitle">Event Title:</label>
