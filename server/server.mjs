@@ -133,7 +133,11 @@ app.get("/api/users", (req, res) => {
 })
 
 //-------------------  DAY PLAN API  -----------------//
-app.get("/api/events", async (req, res) => {
+
+app.get("/api/events", authenticateToken, async (req, res) => {
+  if (!req.user) {
+    return res.sendStatus(401)
+  }
   try {
     const { date } = req.query
     console.log("2. Printing date from events header:", date)
@@ -141,7 +145,10 @@ app.get("/api/events", async (req, res) => {
     //   return res.status(400).json({ message: "User ID is required" })
     // }
 
-    const events = await DayEvent.find({ date: new Date(date) })
+    const events = await DayEvent.find({
+      date: new Date(date),
+      userId: req.user._id,
+    })
 
     events.forEach((event) => {
       console.log("3. Event details:", {
@@ -201,7 +208,7 @@ app.get("/api/dayevent/:eventTitle", async (req, res) => {
 })
 
 //vulnerability discovered, add validation to confirm user sending information credentials match username entered...
-app.post("/api/dayevent", async (req, res) => {
+app.post("/api/dayevent", authenticateToken, async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username })
 
@@ -234,7 +241,7 @@ app.post("/api/dayevent", async (req, res) => {
   }
 })
 
-app.post("/api/profile", async (req, res) => {
+app.post("/api/profile", authenticateToken, async (req, res) => {
   try {
     const profile = await User.findOne({ email: req.body.email })
     console.log("9. Printing out api/profile data: ", profile)

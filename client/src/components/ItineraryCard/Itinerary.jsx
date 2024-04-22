@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react"
 import { AuthContext } from "../Auth/AuthProvider"
 import processInput from "../../../../server/controllers/processInput"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 import "./ItineraryCard.css"
 import "../../global.css"
 
@@ -29,7 +31,7 @@ function Itinerary() {
     event.preventDefault()
     if (!auth || !auth.accessToken) {
       setModalType("signin")
-      setShowModal(true)
+      toast.error("Signin to continue....")
       return
     }
     try {
@@ -63,19 +65,6 @@ function Itinerary() {
 
   return (
     <>
-      {showModal && modalType === "signin" && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={closeModal}>
-              &times;
-            </span>
-            <section className="flex w-full text-center flex-row justify-center text-primary-night">
-              SignUp or SignIn to Continue...
-            </section>
-            {loadError && <div className="error">{loadError}</div>}
-          </div>
-        </div>
-      )}
       <div className="event-container flex  m-4 gap-2 p-2.5">
         {loadError && <div className="error">{loadError}</div>}
         <form onSubmit={handleEventCreation}>
@@ -150,6 +139,7 @@ function Itinerary() {
           </button>
         </form>
       </div>
+      <ToastContainer />
     </>
   )
 }

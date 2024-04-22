@@ -81,7 +81,7 @@ function UserProfile() {
               Address
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              Place Holder Address
+              <input className="w-full h-auto bg-secondary-gold cursor-pointer" />
             </dd>
           </div>
           <div className="rounded-2xl bg-gray-50 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
@@ -93,9 +93,11 @@ function UserProfile() {
             </dd>
           </div>
           <div className="bg-secondary-gold px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Bio</dt>
+            <dt className="text-sm font-medium leading-6 text-gray-900">
+              Traveller Bio
+            </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              Place Holder Bio
+              <input className="w-full h-auto bg-secondary-gold cursor-pointer" />
             </dd>
           </div>
           <div className="bg-gray-50 rounded-2xl px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
