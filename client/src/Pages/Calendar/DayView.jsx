@@ -54,13 +54,13 @@ function DayView({ selectedDate }) {
         </h2>
         <ol>
           {hours.map((hour) => (
-            <li key={hour} className="dayView">
+            <li key={hour} className="dayViewHour">
               <div className="hourEventContainer">
                 <span>{hour}:00</span>
                 {events
                   .filter((event) => event.hour === hour)
                   .map((event) => (
-                    <div key={event.id}>
+                    <div key={event.id} className="eventName">
                       <span>{event.event}</span>
                       <button
                         className="eventButton"
