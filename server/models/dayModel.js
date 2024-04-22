@@ -41,7 +41,7 @@ export async function getAllDayEvent() {
 }
 
 export async function getDayEventByTitle(eventTitle) {
-  return await Event.findById(eventTitle)
+  return await DayEvent.findById(eventTitle)
     .populate({
       path: "user",
       select: "email _id -username",

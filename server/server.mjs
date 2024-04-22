@@ -133,6 +133,44 @@ app.get("/api/users", (req, res) => {
 })
 
 //-------------------  DAY PLAN API  -----------------//
+app.get("/api/events", async (req, res) => {
+  try {
+    const { date } = req.query
+    console.log("2. Printing date from events header..:...", date)
+    const events = await DayEvent.find({ date: new Date(date) })
+
+    console.log("1..Events returned.....", events)
+    res.json(events)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
+app.put("/api/events/:id", async (req, res) => {
+  const { id } = req.params
+  const { event } = req.body
+  try {
+    const updatedEvent = await Event.findByIdAndUpdate(
+      id,
+      { event },
+      { new: true }
+    )
+    res.json(updatedEvent)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
+app.delete("/api/events/:id", async (req, res) => {
+  const { id } = req.params
+  try {
+    await Event.findByIdAndDelete(id)
+    res.status(204).send()
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
 app.get("/api/dayevent/:eventTitle", async (req, res) => {
   try {
     const event = await getDayEventByTitle(req.params.eventTitle)
