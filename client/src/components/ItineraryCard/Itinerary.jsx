@@ -3,8 +3,8 @@ import { AuthContext } from "../Auth/AuthProvider"
 import processInput from "../../../../server/controllers/processInput"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import "./ItineraryCard.css"
-import "../../global.css"
+// import "./ItineraryCard.css"
+// import "../../global.css"
 
 function Itinerary() {
   const { auth } = useContext(AuthContext)
@@ -31,7 +31,7 @@ function Itinerary() {
     event.preventDefault()
     if (!auth || !auth.accessToken) {
       setModalType("signin")
-      toast.error("Signin to continue....")
+      toast.error("Sign In or Sign Up to continue....")
       return
     }
     try {
@@ -65,7 +65,7 @@ function Itinerary() {
 
   return (
     <>
-      <div className="event-container flex  m-4 gap-2 p-2.5">
+      <div className="event-container  flex  m-4 gap-2 p-2.5">
         {loadError && <div className="error">{loadError}</div>}
         <form onSubmit={handleEventCreation}>
           <label htmlFor="eventTitle">Event Title:</label>
@@ -80,7 +80,7 @@ function Itinerary() {
           />
           <label htmlFor="date">Date:</label>
           <input
-            className="bg-[#F0F0F0] text-primary-night flex justify-center"
+            className="bg-secondary-gold text-primary-night flex justify-end w-full"
             type="date"
             id="date"
             name="date"
@@ -90,7 +90,7 @@ function Itinerary() {
           />
           <label htmlFor="eventTime">Event Time:</label>
           <input
-            className="flex justify-center bg-[#f0f0f0] text-primary-night"
+            className="flex justify-end bg-secondary-gold text-primary-night w-full"
             type="time"
             id="eventTime"
             name="eventTime"
@@ -100,7 +100,7 @@ function Itinerary() {
           />
           <label htmlFor="place">Place:</label>
           <input
-            className="flex justify-center bg-[#f0f0f0] text-primary-night"
+            className="flex justify-center bg-[#e43535] text-primary-night"
             type="text"
             id="place"
             name="place"
@@ -110,7 +110,7 @@ function Itinerary() {
           />
           <label htmlFor="username">Username:</label>
           <input
-            className="flex justify-center bg-[#f0f0f0] text-primary-night"
+            className="flex justify-center  bg-primary-white text-primary-night"
             type="text"
             id="username"
             name="username"
