@@ -135,11 +135,11 @@ app.get("/api/users", (req, res) => {
 //-------------------  DAY PLAN API  -----------------//
 app.get("/api/events", async (req, res) => {
   try {
-    const { date, userId } = req.query
-    console.log("2. Printing date from events header:", date, "User ID", userId)
-    if (!userId) {
-      return res.status(400).json({ message: "User ID is required" })
-    }
+    const { date } = req.query
+    console.log("2. Printing date from events header:", date)
+    // if (!userId) {
+    //   return res.status(400).json({ message: "User ID is required" })
+    // }
 
     const events = await DayEvent.find({ date: new Date(date), user: userId })
 
