@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { format, set } from "date-fns";
 import DeleteButton from "../../components/ReusableComponents/Delete";
@@ -49,6 +49,25 @@ function DayView({ selectedDate }) {
   const deleteEvent = (id) => {
     setEvents((prevEvents) => prevEvents.filter((event) => event.id !== id));
   };
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const formattedDate = format(selectedDate, "yyyy-MM-dd");
+        const response = await axios.get(`/api/events/?date=${formattedDate}`);
+        const convertedEvents = response.data.map((event) => ({
+          id: event._id,
+          hour: Number.parseInt(event.eventTime),
+          event: event.eventTitle,
+        }));
+        console.log(convertedEvents);
+        setEvents(convertedEvents);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchEvents();
+  }, [selectedDate]);
 
   return (
     <>

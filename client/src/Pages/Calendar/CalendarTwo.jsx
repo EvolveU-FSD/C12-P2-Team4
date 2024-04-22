@@ -131,7 +131,7 @@ const Calendar = () => {
           {getWeekDaysNames()}
           {getDates()}
         </section>
-        <AddEvent selectedDate={selectedDate} />
+        {/* <AddEvent selectedDate={selectedDate} /> */}
         <div className="singleDayView flex mt-4 gap-2 ">
           <DayView selectedDate={selectedDate} />
         </div>

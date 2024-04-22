@@ -1,13 +1,13 @@
-import { Fragment, useEffect, useRef } from "react"
+import { Fragment, useEffect, useRef } from "react";
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   EllipsisHorizontalIcon,
-} from "@heroicons/react/20/solid"
-import { Menu, Transition } from "@headlessui/react"
+} from "@heroicons/react/20/solid";
+import { Menu, Transition } from "@headlessui/react";
 
-import "./calendar.css"
+import "./calendar.css";
 const days = [
   { date: "2023-12-27" },
   { date: "2023-12-28" },
@@ -51,27 +51,27 @@ const days = [
   { date: "2024-02-04" },
   { date: "2024-02-05" },
   { date: "2024-02-06" },
-]
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ")
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Calendar() {
-  const container = useRef(null)
-  const containerNav = useRef(null)
-  const containerOffset = useRef(null)
+  const container = useRef(null);
+  const containerNav = useRef(null);
+  const containerOffset = useRef(null);
 
   useEffect(() => {
     // Set the container scroll position based on the current time.
-    const currentMinute = new Date().getHours() * 60
+    const currentMinute = new Date().getHours() * 60;
     container.current.scrollTop =
       ((container.current.scrollHeight -
         containerNav.current.offsetHeight -
         containerOffset.current.offsetHeight) *
         currentMinute) /
-      1440
-  }, [])
+      1440;
+  }, []);
 
   return (
     <div className="flex h-full flex-col">
@@ -683,5 +683,5 @@ export default function Calendar() {
         </div>
       </div>
     </div>
-  )
+  );
 }

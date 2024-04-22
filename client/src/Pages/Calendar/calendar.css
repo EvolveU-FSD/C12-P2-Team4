@@ -175,8 +175,13 @@ body {
   border-radius: 3%;
   color: black;
 }
+
+.dayView ol {
+  width: 95%;
+}
 .dayViewHour {
   display: flex;
+  width: 100%;
   height: auto;
   margin: 5px;
   background-color: white;
