@@ -140,7 +140,7 @@ function Itinerary() {
             onChange={handleInputChange}
           />
           <button
-            className="eventButton bg-secondary-gold text-2xl justify-items-center ml-3 rounded shadow-md"
+            className="eventButton bg-secondary-gold text-1xl justify-items-center ml-3 rounded shadow-md"
             onClick={handleEventCreation}
           >
             <i className="fa-solid fa-pen-to-square text-primary-orange hover:text-primary-white bg-secondary-gold">
