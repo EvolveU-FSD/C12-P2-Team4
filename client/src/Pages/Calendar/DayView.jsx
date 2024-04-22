@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 import DeleteButton from "../../components/ReusableComponents/Delete";
 import "../../global.css";
 function DayView({ selectedDate }) {
@@ -10,6 +10,10 @@ function DayView({ selectedDate }) {
     { id: 2, hour: 14, event: "Project presentation" },
     // Add more events as needed
   ]);
+  //useState for Adding events
+  const [hourInput, setHourInput] = useState("");
+  const [eventInput, setEventInput] = useState("");
+  //useState for Editing events
   const [editingEvent, setEditingEvent] = useState(null);
   const [editingEventText, setEditingEventText] = useState("");
   const handleEventChange = (e) => {
@@ -106,8 +110,8 @@ function DayView({ selectedDate }) {
             </li>
           ))}
         </ol>
-        {/* Add form for adding events */}
       </div>
+      <div></div>
     </>
   );
 }
