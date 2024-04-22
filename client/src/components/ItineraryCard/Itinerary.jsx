@@ -1,14 +1,14 @@
-import React, { useContext, useState } from "react"
-import { AuthContext } from "../Auth/AuthProvider"
-import processInput from "../../../../server/controllers/processInput"
-import "./ItineraryCard.css"
-import "../../global.css"
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../Auth/AuthProvider";
+import processInput from "../../../../server/controllers/processInput";
+import "./ItineraryCard.css";
+import "../../global.css";
 
 function Itinerary() {
-  const { auth } = useContext(AuthContext)
-  console.log("Printing itinerary auth value:......:.. ", auth)
-  const [showModal, setShowModal] = useState(false)
-  const [modalType, setModalType] = useState(null)
+  const { auth } = useContext(AuthContext);
+  console.log("Printing itinerary auth value:......:.. ", auth);
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState(null);
   const [eventData, setEventData] = useState({
     date: "",
     username: "",
@@ -16,25 +16,25 @@ function Itinerary() {
     eventTitle: "",
     place: "",
     description: "",
-  })
-  const [loadError, setLoadError] = useState(null)
+  });
+  const [loadError, setLoadError] = useState(null);
 
   const closeModal = () => {
-    setModalType(null)
-    setShowModal(false)
-    setLoadError(null)
-  }
+    setModalType(null);
+    setShowModal(false);
+    setLoadError(null);
+  };
 
   const handleEventCreation = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     if (!auth || !auth.accessToken) {
-      setModalType("signin")
-      setShowModal(true)
-      return
+      setModalType("signin");
+      setShowModal(true);
+      return;
     }
     try {
-      console.log("1. EventData: ", eventData)
-      console.log("2. User:....", auth.user)
+      console.log("1. EventData: ", eventData);
+      console.log("2. User:....", auth.user);
 
       const response = await fetch("/api/dayevent", {
         method: "POST",
@@ -44,22 +44,22 @@ function Itinerary() {
           eventTitle: eventData.eventTitle,
           email: eventData.email,
         }),
-      })
+      });
       if (!response.ok) {
-        throw new Error("Event creation failed...")
+        throw new Error("Event creation failed...");
       }
-      console.log("Event created successfully:", await response.json())
-      closeModal()
+      console.log("Event created successfully:", await response.json());
+      closeModal();
     } catch (error) {
-      console.error("Event creation error:", error)
-      setLoadError(error.message)
+      console.error("Event creation error:", error);
+      setLoadError(error.message);
     }
-  }
+  };
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target
-    setEventData((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = event.target;
+    setEventData((prev) => ({ ...prev, [name]: value }));
+  };
 
   return (
     <>
@@ -151,7 +151,7 @@ function Itinerary() {
         </form>
       </div>
     </>
-  )
+  );
 }
 
-export default Itinerary
+export default Itinerary;
