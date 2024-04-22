@@ -80,19 +80,34 @@ function NavBar() {
             {onProfilePage && (
               <>
                 <li>
-                  <Link to="/">
-                    <i className="fa-solid fa-map text-3xl"> Explore</i>
+                  <Link to="/publicart">
+                    <i className="fa-solid fa-image text-3xl"> Art</i>
                   </Link>
                 </li>
                 <li>
-                  <Link to="/publicart">
-                    <i className="fa-solid fa-image text-3xl"> Art</i>
+                  <Link to="/calendar">
+                    <i className="fa-solid fa-calendar text-3xl"> Calendar</i>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/">
+                    <i className="fa-solid fa-map text-3xl"> Explore</i>
                   </Link>
                 </li>
               </>
             )}
             {onHomePage && (
               <>
+                <li>
+                  <Link to="/publicart">
+                    <i className="fa-solid fa-image text-3xl"> Art</i>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/calendar">
+                    <i className="fa-solid fa-calendar text-3xl"> Calendar</i>
+                  </Link>
+                </li>
                 <li>
                   <Link to="/profile">
                     <i className="fa-regular fa-user"> Profile</i>
@@ -103,13 +118,13 @@ function NavBar() {
             {onCalendarPage && (
               <>
                 <li>
-                  <Link to="/">
-                    <i className="fa-solid fa-map text-3xl"> explore</i>
+                  <Link to="/publicart">
+                    <i className="fa-solid fa-image text-3xl"> Art</i>
                   </Link>
                 </li>
                 <li>
-                  <Link to="/publicart">
-                    <i className="fa-solid fa-image text-3xl"> Art</i>
+                  <Link to="/">
+                    <i className="fa-solid fa-map text-3xl"> explore</i>
                   </Link>
                 </li>
                 <li>
@@ -122,6 +137,11 @@ function NavBar() {
             {onArtPage && (
               <>
                 <li>
+                  <Link to="/calendar">
+                    <i className="fa-solid fa-calendar text-3xl"> Calendar</i>
+                  </Link>
+                </li>
+                <li>
                   <Link to="/">
                     <i className="fa-solid fa-map text-3xl"> Explore</i>
                   </Link>
@@ -129,11 +149,6 @@ function NavBar() {
                 <li>
                   <Link to="/profile">
                     <i className="fa-solid fa-user text-3xl"> Profile</i>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/calendar">
-                    <i className="fa-solid fa-calendar text-3xl"> Calendar</i>
                   </Link>
                 </li>
               </>
