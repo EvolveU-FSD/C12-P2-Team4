@@ -153,7 +153,6 @@ app.get("/api/events", async (req, res) => {
       })
     })
 
-    // Send back the array of events
     res.json(events)
   } catch (error) {
     console.error("Failed to fetch events:", error)
