@@ -135,13 +135,28 @@ app.get("/api/users", (req, res) => {
 //-------------------  DAY PLAN API  -----------------//
 app.get("/api/events", async (req, res) => {
   try {
-    const { date } = req.query
-    console.log("2. Printing date from events header..:...", date)
-    const events = await DayEvent.find({ date: new Date(date) })
+    const { date, userId } = req.query
+    console.log("2. Printing date from events header:", date, "User ID", userId)
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required" })
+    }
 
-    console.log("1..Events returned.....", events)
+    const events = await DayEvent.find({ date: new Date(date), user: userId })
+
+    events.forEach((event) => {
+      console.log("3. Event details:", {
+        eventTitle: event.eventTitle,
+        eventTime: event.eventTime,
+        place: event.place,
+        description: event.description,
+        eventDate: event.date,
+      })
+    })
+
+    // Send back the array of events
     res.json(events)
   } catch (error) {
+    console.error("Failed to fetch events:", error)
     res.status(500).json({ error: error.message })
   }
 })

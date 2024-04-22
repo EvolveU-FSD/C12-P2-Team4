@@ -1,47 +1,20 @@
-// import { Router } from "react-router-dom"
+import axios from "axios"
+import { jwtDecode } from "jwt-decode"
 
-export default async function getAllUsers() {
-  const allUsersResponse = await fetch("/api/users")
-  if (!allUsersResponse.ok) {
-    console.log(allUsersResponse)
-    throw new Error(`Cannot find users. Status ${allUsersResponse.status}`)
-  }
-  return allUsersResponse.json()
-}
+const API = axios.create()
 
-export async function getUserById(id) {
-  const userResponse = await fetch(`/api/profile/${id}`)
-  console.log(userResponse)
-  if (!userResponse.ok) {
-    console.log(userResponse)
-    throw new Error(`An error occurred. Status: ${userResponse.status}`)
-  }
-  console.log(`User: ${userResponse}`)
-  return userResponse.json()
-}
+API.defaults.baseURL = "http://localhost:5173/"
 
-export async function updateUser(update) {
-  const updateResponse = await fetch("/api/profile", {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(update),
-  })
-  if (updateResponse.status !== 200) {
-    console.log(updateResponse)
-    throw new Error(
-      `Unable to edit user information..Try again or contact client care. Error: ${updateResponse.status}`
-    )
+export function setAuthToken(token) {
+  if (token) {
+    API.defaults.headers.common["Authorization"] = `Bearer ${token}`
+  } else {
+    delete API.defaults.headers.common["Authorization"]
   }
 }
 
-export async function deleteUser() {
-  const deleteResponse = await fetch("/api/user", {
-    method: "delete",
-  })
-  if (deleteResponse.status !== 200) {
-    console.log(deleteResponse)
-    throw Error("Unable to Delete user. Try again or contact support...")
-  }
+export function decodeToken(token) {
+  return jwtDecode(token)
 }
+
+export default API
