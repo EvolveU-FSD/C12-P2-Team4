@@ -54,7 +54,9 @@ const UserAuth = ({
     try {
       const response = await fetch("/api/signin", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ username, password }),
       })
 
@@ -94,7 +96,9 @@ const UserAuth = ({
     try {
       const response = await fetch("/api/signup", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(signUpData),
       })
 

@@ -1,73 +1,98 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { format, set } from "date-fns";
-import DeleteButton from "../../components/ReusableComponents/Delete";
-import "../../global.css";
+import React, { useContext, useEffect, useState } from "react"
+import axios from "axios"
+import { format, set } from "date-fns"
+import DeleteButton from "../../components/ReusableComponents/Delete"
+import "../../global.css"
+import { AuthContext } from "../../components/Auth/AuthProvider"
 function DayView({ selectedDate }) {
+  const { auth } = useContext(AuthContext)
+
   //replace with actual events
   const [events, setEvents] = useState([
     { id: 1, hour: 9, event: "Meeting with team" },
     { id: 2, hour: 14, event: "Project presentation" },
     // Add more events as needed
-  ]);
+  ])
   //useState for Adding events
-  const [hourInput, setHourInput] = useState("");
-  const [eventInput, setEventInput] = useState("");
+  const [hourInput, setHourInput] = useState("")
+  const [eventInput, setEventInput] = useState("")
   //useState for Editing events
-  const [editingEvent, setEditingEvent] = useState(null);
-  const [editingEventText, setEditingEventText] = useState("");
+  const [editingEvent, setEditingEvent] = useState(null)
+  const [editingEventText, setEditingEventText] = useState("")
   const handleEventChange = (e) => {
-    setEditingEvent((prevEvent) => [...prevEvent, event, e.target.value]);
-  };
+    setEditingEvent((prevEvent) => [...prevEvent, event, e.target.value])
+  }
 
   const saveEditingEvent = async () => {
     try {
-      const response = await axios.post("/api/events", editingEvent);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+      const response = await fetch("/api/events", editingEvent, {
+        method: "POST",
+        header: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.accessToken,
+        },
+      })
 
-  const hours = [];
+      console.log(response.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  // const saveEditingEvent = async () => {
+  //   try {
+  //     const response = await axios.post("/api/events", editingEvent)
+  //     console.log(response.data)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
+
+  const hours = []
   for (let i = 0; i < 24; i++) {
-    hours.push(i);
+    hours.push(i)
   }
 
   const addEvent = (hour, event) => {
-    const newEvent = { id: Date.now(), hour, event };
-    setEvents((prevEvents) => [...prevEvents, newEvent]);
-  };
+    const newEvent = { id: Date.now(), hour, event }
+    setEvents((prevEvents) => [...prevEvents, newEvent])
+  }
 
   const editEvent = (id, updatedEvent) => {
     setEvents((prevEvents) =>
       prevEvents.map((event) => (event.id === id ? updatedEvent : event))
-    );
-    setEditingEvent(null);
-  };
+    )
+    setEditingEvent(null)
+  }
 
   const deleteEvent = (id) => {
-    setEvents((prevEvents) => prevEvents.filter((event) => event.id !== id));
-  };
+    setEvents((prevEvents) => prevEvents.filter((event) => event.id !== id))
+  }
+  const fetchEvents = async () => {
+    try {
+      const formattedDate = format(selectedDate, "yyyy-MM-dd")
+      const response = await fetch(`/api/events/?date=${formattedDate}`, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: "Bearer " + auth.accessToken,
+        },
+      })
+      const convertedEvents = response.data.map((event) => ({
+        id: event._id,
+        hour: Number.parseInt(event.eventTime),
+        event: event.eventTitle,
+      }))
+      console.log(convertedEvents)
+      setEvents(convertedEvents)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const formattedDate = format(selectedDate, "yyyy-MM-dd");
-        const response = await axios.get(`/api/events/?date=${formattedDate}`);
-        const convertedEvents = response.data.map((event) => ({
-          id: event._id,
-          hour: Number.parseInt(event.eventTime),
-          event: event.eventTitle,
-        }));
-        console.log(convertedEvents);
-        setEvents(convertedEvents);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchEvents();
-  }, [selectedDate]);
+    fetchEvents()
+  }, [selectedDate])
 
   return (
     <>
@@ -113,10 +138,10 @@ function DayView({ selectedDate }) {
                             className="saveButton"
                             type="submit"
                             onClick={() => {
-                              editEvent(editingEvent.id, editingEvent);
-                              saveEditingEvent();
-                              setEditingEvent(null);
-                              setEditingEventText("");
+                              editEvent(editingEvent.id, editingEvent)
+                              saveEditingEvent()
+                              setEditingEvent(null)
+                              setEditingEventText("")
                             }}
                           >
                             Save
@@ -132,7 +157,7 @@ function DayView({ selectedDate }) {
       </div>
       <div></div>
     </>
-  );
+  )
 }
 
-export default DayView;
+export default DayView

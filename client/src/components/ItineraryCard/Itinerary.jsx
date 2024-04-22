@@ -3,14 +3,14 @@ import { AuthContext } from "../Auth/AuthProvider"
 import processInput from "../../../../server/controllers/processInput"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-// import "./ItineraryCard.css"
-// import "../../global.css"
+import "./ItineraryCard.css"
+import "../../global.css"
 
 function Itinerary() {
   const { auth } = useContext(AuthContext)
   console.log("Printing itinerary auth value:......:.. ", auth)
-  const [showModal, setShowModal] = useState(false)
-  const [modalType, setModalType] = useState(null)
+  // const [showModal, setShowModal] = useState(false)
+  // const [modalType, setModalType] = useState(null)
   const [eventData, setEventData] = useState({
     date: "",
     username: "",
@@ -30,7 +30,6 @@ function Itinerary() {
   const handleEventCreation = async (event) => {
     event.preventDefault()
     if (!auth || !auth.accessToken) {
-      setModalType("signin")
       toast.error("Sign In or Sign Up to continue....")
       return
     }
@@ -40,7 +39,10 @@ function Itinerary() {
 
       const response = await fetch("/api/dayevent", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.accessToken,
+        },
         body: JSON.stringify({
           ...eventData,
           eventTitle: eventData.eventTitle,

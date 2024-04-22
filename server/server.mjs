@@ -127,7 +127,7 @@ app.get("/api/places", async (req, res) => {
 })
 
 // ---------------------- API END POINTS --------------------------------------- //
-app.get("/api/users", (req, res) => {
+app.get("/api/users", authenticateToken, (req, res) => {
   const users = UserData.getAllUsers()
   res.send(users)
 })
@@ -140,15 +140,19 @@ app.get("/api/events", authenticateToken, async (req, res) => {
   }
   try {
     const { date } = req.query
+    const user = await req.user
     console.log("2. Printing date from events header:", date)
-    // if (!userId) {
-    //   return res.status(400).json({ message: "User ID is required" })
-    // }
+
+    if (!user) {
+      return res.status(400).json({ message: "User ID is required" })
+    }
 
     const events = await DayEvent.find({
       date: new Date(date),
-      userId: req.user._id,
+      user: req.user,
     })
+
+    console.log("1....UserId....:... ", req.user)
 
     events.forEach((event) => {
       console.log("3. Event details:", {
@@ -167,7 +171,7 @@ app.get("/api/events", authenticateToken, async (req, res) => {
   }
 })
 
-app.put("/api/events/:id", async (req, res) => {
+app.put("/api/events/:id", authenticateToken, async (req, res) => {
   const { id } = req.params
   const { event } = req.body
   try {
@@ -182,7 +186,7 @@ app.put("/api/events/:id", async (req, res) => {
   }
 })
 
-app.delete("/api/events/:id", async (req, res) => {
+app.delete("/api/events/:id", authenticateToken, async (req, res) => {
   const { id } = req.params
   try {
     await Event.findByIdAndDelete(id)
@@ -192,9 +196,9 @@ app.delete("/api/events/:id", async (req, res) => {
   }
 })
 
-app.get("/api/dayevent/:eventTitle", async (req, res) => {
+app.get("/api/dayevent/:eventTitle", authenticateToken, async (req, res) => {
   try {
-    const event = await getDayEventByTitle(req.params.eventTitle)
+    const event = await getDayEventByTitle(req.params.eventTime)
     if (!event) {
       return res.status(404).send("Event not found.")
     }
@@ -209,6 +213,7 @@ app.get("/api/dayevent/:eventTitle", async (req, res) => {
 
 //vulnerability discovered, add validation to confirm user sending information credentials match username entered...
 app.post("/api/dayevent", authenticateToken, async (req, res) => {
+  console.log("11 inside dayevent....:...")
   try {
     const user = await User.findOne({ username: req.body.username })
 
@@ -295,7 +300,7 @@ app.post("/api/signin", async (req, res) => {
     const username = user.name
 
     const accessToken = jwt.sign(
-      { email: user.email, username: username, _id: _id, user },
+      { email: email, username: username, _id: _id, user },
       process.env.ACCESS_TOKEN_SECRET
     )
     res.json({ email, _id, username, accessToken, user })
@@ -330,7 +335,16 @@ app.post("/api/signup", async (req, res) => {
     })
     await newUser.save()
 
-    // Return success response
+    // // Return success response
+    // const email = user.email
+    // const _id = user.id
+    // const username = user.name
+
+    // const accessToken = jwt.sign(
+    //   { email: user.email, username: username, _id: _id, user },
+    //   process.env.ACCESS_TOKEN_SECRET
+    //)
+    // res.json({ email, _id, username, accessToken, user })
 
     res.status(201).json({ message: "User created successfully" })
   } catch (error) {

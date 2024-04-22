@@ -22,6 +22,7 @@ function UserProfile() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.accessToken,
         },
         body: JSON.stringify({ email: auth.email }),
       })
