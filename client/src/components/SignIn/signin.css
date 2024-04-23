@@ -6,6 +6,22 @@
 } */
 /* Modal Styles */
 
+@keyframes plane-animation {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-plane {
+  animation: plane-animation 2s infinite;
+}
+
 .modal {
   z-index: 9999;
   position: absolute;

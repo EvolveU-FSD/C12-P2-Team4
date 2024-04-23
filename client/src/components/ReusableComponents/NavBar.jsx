@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react"
-import { Link, useLocation, useNavigate } from "react-router-dom" // Import useNavigate
-import UserAuth from "../SignIn/SignIn"
-import { AuthContext } from "../Auth/AuthProvider"
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
+import UserAuth from "../SignIn/SignIn";
+import { AuthContext } from "../Auth/AuthProvider";
 import {
   Bars3Icon,
   CalendarIcon,
@@ -11,38 +11,39 @@ import {
   HomeIcon,
   UsersIcon,
   XMarkIcon,
-} from "@heroicons/react/24/outline"
-import "../SignIn/signin.css"
+} from "@heroicons/react/24/outline";
+import "../SignIn/signin.css";
 
 function NavBar() {
-  const { auth, _id, logout } = useContext(AuthContext)
-  const [showModal, setShowModal] = useState(false)
-  const [modalType, setModalType] = useState(null)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const location = useLocation()
-  const navigate = useNavigate()
+  const { auth, _id, logout } = useContext(AuthContext);
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const onArtPage = location.pathname === "/publicart"
-  const onCalendarPage = location.pathname === "/calendar"
-  const onHomePage = location.pathname === "/"
-  const onProfilePage = location.pathname === "/profile"
+  const onArtPage = location.pathname === "/publicart";
+  const onCalendarPage = location.pathname === "/calendar";
+  const onHomePage = location.pathname === "/";
+  const onProfilePage = location.pathname === "/profile";
 
   const openModal = (type) => {
-    setModalType(type)
-    setShowModal(true)
-  }
+    setModalType(type);
+    setShowModal(true);
+  };
 
   const handleLogout = () => {
-    logout() // Call the logout function from AuthContext
-    navigate("/")
-  }
+    logout(); // Call the logout function from AuthContext
+    navigate("/");
+  };
 
   return (
     <nav className="sticky top-0 z-40 bg-primary-night w-full text-secondary-gold gap-4 flex flex-row px-8 py-6 ">
       <div className="font-bold">
         <Link to="/">
           <i className="fa-solid fa- text-3xl">
-            EH <i className="fa-solid fa-plane text-5xl text-primary-red "></i>{" "}
+            EH{" "}
+            <i className="fa-solid fa-plane text-5xl text-primary-red  animate-plane"></i>{" "}
             Traveller
           </i>
         </Link>
@@ -171,7 +172,7 @@ function NavBar() {
         />
       )}
     </nav>
-  )
+  );
 }
 
-export default NavBar
+export default NavBar;
