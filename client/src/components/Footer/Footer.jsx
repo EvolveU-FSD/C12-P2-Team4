@@ -1,5 +1,5 @@
-import Weather from "../Weather/Weather"
-
+import Weather from "../Weather/Weather";
+import React, { useEffect } from "react";
 const navigation = [
   {
     name: "Facebook",
@@ -62,11 +62,25 @@ const navigation = [
       </svg>
     ),
   },
-]
+];
 
 export default function Footer() {
+  useEffect(() => {
+    const footer = document.querySelector(".footer");
+    for (let i = 0; i < 300; i++) {
+      // Change to the number of circles you want
+      const circle = document.createElement("div");
+      circle.className = "circle";
+      circle.style.width = circle.style.height = `${Math.random() * 100}px`; // Change to the maximum size you want for the circles
+      circle.style.top = `${Math.random() * 100}%`;
+      circle.style.left = `${Math.random() * 100}%`;
+      footer.appendChild(circle);
+    }
+  }, []);
+
   return (
     <footer className="bg-white">
+      <div id="circles"></div>
       <Weather />
 
       <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
@@ -89,5 +103,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
