@@ -3,7 +3,7 @@ import { AuthContext } from "../Auth/AuthProvider"
 
 function UserProfile() {
   const { auth } = useContext(AuthContext)
-  console.log("from userprofile auth:", auth)
+  console.log("1. from userprofile auth:", auth)
   const [user, setUser] = useState({
     firstname: "",
     lastname: "",
@@ -53,7 +53,7 @@ function UserProfile() {
 
   useEffect(() => {
     fetchUser().then(() => {
-      console.log("Fetch complete for:", auth.lastname)
+      console.log("Fetch complete for:", auth.email)
     })
   }, [auth.email, auth._id])
   console.log("UserProfile auth _id :....", auth._id)
