@@ -55,6 +55,16 @@ export async function getDayEventByTitle(eventTitle) {
     })
 }
 
+export async function getDayEventById(_id) {
+  return await DayEvent.findById(_id).exec((err, event) => {
+    if (err) {
+      console.error("Error fetching event with id....:...", err)
+    } else {
+      console.log("Event id:.....: ", event)
+    }
+  })
+}
+
 export async function deleteDayEvent(eventTitle) {
   await DayEvent.findOneAndDelete({ eventTitle: eventTitle })
 }

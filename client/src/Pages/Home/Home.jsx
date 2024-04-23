@@ -6,6 +6,7 @@ import Calendar from "../Calendar/CalendarTwo"
 import Footer from "../../components/Footer/Footer"
 import "./Home.css"
 import Itinerary from "../../components/ItineraryCard/Itinerary"
+import Events from "../../components/Events/Events"
 
 export default function Home() {
   const [modalType, setModalType] = useState(null)
@@ -18,7 +19,7 @@ export default function Home() {
       </div>
 
       <div className="map-container">
-        <Itinerary setModalType={setModalType} setShowModal={setShowModal} />
+        <Events />
         <ItineraryCard />
         <div className="map">
           <CalgaryMap />

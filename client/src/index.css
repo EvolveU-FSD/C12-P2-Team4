@@ -13,17 +13,17 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
-  font-weight: 900;
+  font-weight: 1200;
   margin: 0;
 
-  color-scheme: light dark;
+  color-scheme: dark light;
   color: #c8102eff;
   background-color: #ececec;
 
-  font-synthesis: none;
+  /* font-synthesis: style;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale; */
 }
 
 html {

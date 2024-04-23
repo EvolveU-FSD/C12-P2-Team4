@@ -127,31 +127,41 @@ app.get("/api/places", async (req, res) => {
 })
 
 // ---------------------- API END POINTS --------------------------------------- //
-app.get("/api/users", (req, res) => {
+app.get("/api/users", authenticateToken, (req, res) => {
   const users = UserData.getAllUsers()
   res.send(users)
 })
 
 //-------------------  DAY PLAN API  -----------------//
-app.get("/api/events", async (req, res) => {
+
+app.get("/api/events", authenticateToken, async (req, res) => {
+  if (!req.user) {
+    return res.sendStatus(401)
+  }
   try {
     const { date } = req.query
-    console.log("2. Printing date from events header:", date)
-    // if (!userId) {
-    //   return res.status(400).json({ message: "User ID is required" })
-    // }
+    const user = await req.user
 
-    const events = await DayEvent.find({ date: new Date(date) })
+    if (!user) {
+      return res.status(400).json({ message: "User ID is required" })
+    }
 
-    events.forEach((event) => {
-      console.log("3. Event details:", {
-        eventTitle: event.eventTitle,
-        eventTime: event.eventTime,
-        place: event.place,
-        description: event.description,
-        eventDate: event.date,
-      })
+    const events = await DayEvent.find({
+      date: new Date(date),
+      user: req.user._id,
     })
+
+    console.log("1....UserId....:... ", req.user._id)
+
+    // events.forEach((event) => {
+    //   console.log("3. Event details:", {
+    //     eventTitle: event.eventTitle,
+    //     eventTime: event.eventTime,
+    //     place: event.place,
+    //     description: event.description,
+    //     eventDate: event.date,
+    //   })
+    // })
 
     res.json(events)
   } catch (error) {
@@ -160,34 +170,53 @@ app.get("/api/events", async (req, res) => {
   }
 })
 
-app.put("/api/events/:id", async (req, res) => {
+app.put("/api/events/:id", authenticateToken, async (req, res) => {
   const { id } = req.params
   const { event } = req.body
+
+  if (!event) {
+    return res.status(400).json({ message: "Event details are required" })
+  }
+
   try {
-    const updatedEvent = await Event.findByIdAndUpdate(
+    // First, check if the event exists
+    const existingEvent = await DayEvent.findById(id)
+    if (!existingEvent) {
+      return res.status(404).json({ message: "Event not found" })
+    }
+
+    // If the event exists, update it
+    const updatedEvent = await DayEvent.findByIdAndUpdate(
       id,
       { event },
-      { new: true }
+      { new: true, runValidators: true } // Ensure validation rules defined in the schema are applied
     )
+
+    // Check if the event was successfully updated
+    if (!updatedEvent) {
+      return res.status(404).json({ message: "Unable to update the event" })
+    }
+
     res.json(updatedEvent)
   } catch (error) {
+    console.error("Failed to update event:", error)
     res.status(500).json({ error: error.message })
   }
 })
 
-app.delete("/api/events/:id", async (req, res) => {
+app.delete("/api/events/:id", authenticateToken, async (req, res) => {
   const { id } = req.params
   try {
-    await Event.findByIdAndDelete(id)
+    await DayEvent.findByIdAndDelete(id)
     res.status(204).send()
   } catch (error) {
     res.status(500).json({ error: error.message })
   }
 })
 
-app.get("/api/dayevent/:eventTitle", async (req, res) => {
+app.get("/api/dayevent/:eventTitle", authenticateToken, async (req, res) => {
   try {
-    const event = await getDayEventByTitle(req.params.eventTitle)
+    const event = await getDayEventByTitle(req.params.eventTime)
     if (!event) {
       return res.status(404).send("Event not found.")
     }
@@ -201,7 +230,8 @@ app.get("/api/dayevent/:eventTitle", async (req, res) => {
 })
 
 //vulnerability discovered, add validation to confirm user sending information credentials match username entered...
-app.post("/api/dayevent", async (req, res) => {
+app.post("/api/dayevent", authenticateToken, async (req, res) => {
+  console.log("11 inside dayevent....:...")
   try {
     const user = await User.findOne({ username: req.body.username })
 
@@ -234,7 +264,7 @@ app.post("/api/dayevent", async (req, res) => {
   }
 })
 
-app.post("/api/profile", async (req, res) => {
+app.post("/api/profile", authenticateToken, async (req, res) => {
   try {
     const profile = await User.findOne({ email: req.body.email })
     console.log("9. Printing out api/profile data: ", profile)
@@ -288,7 +318,7 @@ app.post("/api/signin", async (req, res) => {
     const username = user.name
 
     const accessToken = jwt.sign(
-      { email: user.email, username: username, _id: _id, user },
+      { email: email, username: username, _id: _id, user },
       process.env.ACCESS_TOKEN_SECRET
     )
     res.json({ email, _id, username, accessToken, user })
@@ -298,7 +328,7 @@ app.post("/api/signin", async (req, res) => {
   }
 })
 
-//------------------------------  SIGNUP HANDLING  -------------------------------- //
+//-----------------------------------------  SIGNUP HANDLING  -------------------------------------------------- //
 app.post("/api/signup", async (req, res) => {
   const salt = await bcrypt.genSalt(10)
   const secPass = await bcrypt.hash(req.body.password, salt)
@@ -323,7 +353,16 @@ app.post("/api/signup", async (req, res) => {
     })
     await newUser.save()
 
-    // Return success response
+    // // Return success response
+    // const email = user.email
+    // const _id = user.id
+    // const username = user.name
+
+    // const accessToken = jwt.sign(
+    //   { email: user.email, username: username, _id: _id, user },
+    //   process.env.ACCESS_TOKEN_SECRET
+    //)
+    // res.json({ email, _id, username, accessToken, user })
 
     res.status(201).json({ message: "User created successfully" })
   } catch (error) {
