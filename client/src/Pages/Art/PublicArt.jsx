@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import "./PublicArt.css"
 import NavBar from "../../components/ReusableComponents/NavBar"
+import Footer from "../../components/Footer/Footer"
 
 function PublicArt() {
   const [artData, setArtData] = useState([])
@@ -68,6 +69,7 @@ function PublicArt() {
           ))}
         </div>
       </div>
+      <Footer />
     </>
   )
 }
