@@ -9,9 +9,10 @@ function DayView({ selectedDate }) {
 
   //replace with actual events
   const [events, setEvents] = useState([
-    { id: 1, hour: 9, event: "Meeting with team" },
-    { id: 2, hour: 14, event: "Project presentation" },
-    // Add more events as needed
+    { id: "", hour: "", event: "" },
+    { id: "", hour: "", event: "" },
+    { id: "", hour: "", event: "" },
+    { id: "", hour: "", event: "" },
   ])
   //useState for Adding events
   const [hourInput, setHourInput] = useState("")
@@ -78,12 +79,13 @@ function DayView({ selectedDate }) {
           Authorization: "Bearer " + auth.accessToken,
         },
       })
-      const convertedEvents = response.data.map((event) => ({
+      const data = await response.json()
+      const convertedEvents = data.map((event) => ({
         id: event._id,
         hour: Number.parseInt(event.eventTime),
         event: event.eventTitle,
       }))
-      console.log(convertedEvents)
+      console.log("2. convertedEvents....:...", convertedEvents)
       setEvents(convertedEvents)
     } catch (error) {
       console.error(error)
