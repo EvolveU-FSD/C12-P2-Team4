@@ -21,11 +21,11 @@ function Itinerary() {
   })
   const [loadError, setLoadError] = useState(null)
 
-  const closeModal = () => {
-    setModalType(null)
-    setShowModal(false)
-    setLoadError(null)
-  }
+  // const closeModal = () => {
+  //   // setModalType(null)
+  //   // setShowModal(false)
+  //   setLoadError(null)
+  // }
 
   const handleEventCreation = async (event) => {
     event.preventDefault()
@@ -53,7 +53,7 @@ function Itinerary() {
         throw new Error("Event creation failed...")
       }
       console.log("Event created successfully:", await response.json())
-      closeModal()
+      // closeModal()
     } catch (error) {
       console.error("Event creation error:", error)
       setLoadError(error.message)
