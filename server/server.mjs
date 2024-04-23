@@ -173,14 +173,33 @@ app.get("/api/events", authenticateToken, async (req, res) => {
 app.put("/api/events/:id", authenticateToken, async (req, res) => {
   const { id } = req.params
   const { event } = req.body
+
+  if (!event) {
+    return res.status(400).json({ message: "Event details are required" })
+  }
+
   try {
-    const updatedEvent = await Event.findByIdAndUpdate(
+    // First, check if the event exists
+    const existingEvent = await DayEvent.findById(id)
+    if (!existingEvent) {
+      return res.status(404).json({ message: "Event not found" })
+    }
+
+    // If the event exists, update it
+    const updatedEvent = await DayEvent.findByIdAndUpdate(
       id,
       { event },
-      { new: true }
+      { new: true, runValidators: true } // Ensure validation rules defined in the schema are applied
     )
+
+    // Check if the event was successfully updated
+    if (!updatedEvent) {
+      return res.status(404).json({ message: "Unable to update the event" })
+    }
+
     res.json(updatedEvent)
   } catch (error) {
+    console.error("Failed to update event:", error)
     res.status(500).json({ error: error.message })
   }
 })
@@ -188,7 +207,7 @@ app.put("/api/events/:id", authenticateToken, async (req, res) => {
 app.delete("/api/events/:id", authenticateToken, async (req, res) => {
   const { id } = req.params
   try {
-    await Event.findByIdAndDelete(id)
+    await DayEvent.findByIdAndDelete(id)
     res.status(204).send()
   } catch (error) {
     res.status(500).json({ error: error.message })
