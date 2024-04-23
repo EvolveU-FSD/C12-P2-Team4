@@ -3,7 +3,7 @@ import { AuthContext } from "../Auth/AuthProvider"
 import processInput from "../../../../server/controllers/processInput"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import "./ItineraryCard.css"
+import "../ItineraryCard/ItineraryCard.css"
 import "../../global.css"
 
 function Events() {

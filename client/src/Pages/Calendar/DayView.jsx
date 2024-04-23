@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react"
-import axios from "axios"
 import { format, set } from "date-fns"
 import DeleteButton from "../../components/ReusableComponents/Delete"
 import "../../global.css"
@@ -111,7 +110,11 @@ function DayView({ selectedDate }) {
                   .filter((event) => event.hour === hour)
                   .map((event) => (
                     <div key={event.id} className="eventName">
-                      <span>{event.event}</span>
+                      <span>
+                        {event.event}
+                        <span>{".....   "}</span>
+                      </span>
+
                       <button
                         className="eventButton"
                         onClick={() => deleteEvent(event.id)}

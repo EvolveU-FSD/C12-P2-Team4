@@ -141,7 +141,6 @@ app.get("/api/events", authenticateToken, async (req, res) => {
   try {
     const { date } = req.query
     const user = await req.user
-    console.log("2. Printing date from events header:", date)
 
     if (!user) {
       return res.status(400).json({ message: "User ID is required" })
@@ -149,20 +148,20 @@ app.get("/api/events", authenticateToken, async (req, res) => {
 
     const events = await DayEvent.find({
       date: new Date(date),
-      user: req.user,
+      user: req.user._id,
     })
 
-    console.log("1....UserId....:... ", req.user)
+    console.log("1....UserId....:... ", req.user._id)
 
-    events.forEach((event) => {
-      console.log("3. Event details:", {
-        eventTitle: event.eventTitle,
-        eventTime: event.eventTime,
-        place: event.place,
-        description: event.description,
-        eventDate: event.date,
-      })
-    })
+    // events.forEach((event) => {
+    //   console.log("3. Event details:", {
+    //     eventTitle: event.eventTitle,
+    //     eventTime: event.eventTime,
+    //     place: event.place,
+    //     description: event.description,
+    //     eventDate: event.date,
+    //   })
+    // })
 
     res.json(events)
   } catch (error) {
@@ -310,7 +309,7 @@ app.post("/api/signin", async (req, res) => {
   }
 })
 
-//------------------------------  SIGNUP HANDLING  -------------------------------- //
+//-----------------------------------------  SIGNUP HANDLING  -------------------------------------------------- //
 app.post("/api/signup", async (req, res) => {
   const salt = await bcrypt.genSalt(10)
   const secPass = await bcrypt.hash(req.body.password, salt)
