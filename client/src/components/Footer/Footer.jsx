@@ -38,7 +38,7 @@ const navigation = [
   },
   {
     name: "GitHub",
-    href: "#",
+    href: "https://github.com/EvolveU-FSD/C12-P2-Team4/tree/maalkum-react-tester",
     icon: (props) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path
