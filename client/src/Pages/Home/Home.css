@@ -1,4 +1,4 @@
-.map-container {
+map-container {
   height: 100%;
   width: 100%;
   display: flex;
@@ -7,7 +7,7 @@
 .footer {
   position: relative;
   height: 200px;
-  background-color: #f9f9f9;
+  background-color: #ececec;
 }
 
 /* .footer::before {
@@ -21,10 +21,3 @@
 /* transform: skewY(-3deg);
   transform-origin: top left; */
 /* } */
-
-.circle {
-  position: absolute;
-  background-color: red;
-  border-radius: 50%;
-  /* box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.1); */
-}
