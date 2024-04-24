@@ -1,9 +1,14 @@
-.home-container {
+home-container {
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #f1be48ff;
+  background-color: #ececec;
+}
+.footer {
+  position: relative;
+  height: 200px;
+  background-color: #ececec;
 }
 
 .main-container {

@@ -6,6 +6,22 @@
 } */
 /* Modal Styles */
 
+@keyframes plane-animation {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-plane {
+  animation: plane-animation 2s infinite;
+}
+
 .modal {
   z-index: 9999;
   position: absolute;
@@ -73,7 +89,7 @@ button[type="submit"] {
 }
 
 button[type="submit"] {
-  background-color: rgb(30, 234, 61);
+  background-color: #f1be48;
   outline: 2px solid #f1be48;
   color: black;
   border: none;

@@ -60,7 +60,7 @@ const libraries = ["places"];
 function CalgaryMap() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyCIC_vfw1KByMvwLXmgHdY5ZKfA8NorD5w", // Add your Google Maps API key here
+    googleMapsApiKey: YOUR_MAP_KEY, // Add your Google Maps API key here
     libraries,
   });
   const [map, setMap] = useState(null);

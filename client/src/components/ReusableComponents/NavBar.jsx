@@ -38,11 +38,12 @@ function NavBar() {
   }
 
   return (
-    <nav className="sticky top-0 z-40 bg-primary-night w-full text-secondary-gold gap-4 flex flex-row px-8 py-6 ">
+    <nav className="sticky top-0 z-40 bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent w-full text-secondary-gold gap-4 flex flex-row px-8 py-6 ">
       <div className="font-bold">
         <Link to="/">
           <i className="fa-solid fa- text-3xl">
-            EH <i className="fa-solid fa-plane text-5xl text-primary-red "></i>{" "}
+            EH{" "}
+            <i className="fa-solid fa-plane text-5xl text-primary-red  animate-plane"></i>{" "}
             Traveller
           </i>
         </Link>

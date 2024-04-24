@@ -16,6 +16,7 @@ export function authenticateToken(req, res, next) {
         .status(403)
         .json({ error: "Session no longer valid, please log-in" })
     }
+
     //if token is valid
     req.user = user
     next()

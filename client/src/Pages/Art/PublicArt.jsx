@@ -103,7 +103,7 @@ function PublicArt() {
           {artData.map((art) => (
             <div className="publicart__card" key={art.title}>
               <div className="top">
-                <div className="publicart__card-imgbox">
+                <div className="publicart__card-imgbox prompt-card">
                   <img src={`/assets/${art.imgpath}`} alt={art.title} />
                   <div className="publicart__card-imgtitle">{art.title}</div>
                 </div>
@@ -126,6 +126,7 @@ function PublicArt() {
           ))}
         </div>
       </div>
+      <Footer />
       <Footer />
     </>
   );

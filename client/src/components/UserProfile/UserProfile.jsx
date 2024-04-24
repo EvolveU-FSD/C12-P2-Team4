@@ -3,7 +3,7 @@ import { AuthContext } from "../Auth/AuthProvider"
 
 function UserProfile() {
   const { auth } = useContext(AuthContext)
-  console.log("from userprofile auth:", auth)
+  console.log("1. from userprofile auth:", auth)
   const [user, setUser] = useState({
     firstname: "",
     lastname: "",
@@ -22,6 +22,7 @@ function UserProfile() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + auth.accessToken,
         },
         body: JSON.stringify({ email: auth.email }),
       })
@@ -52,7 +53,7 @@ function UserProfile() {
 
   useEffect(() => {
     fetchUser().then(() => {
-      console.log("Fetch complete for:", auth.lastname)
+      console.log("Fetch complete for:", auth.email)
     })
   }, [auth.email, auth._id])
   console.log("UserProfile auth _id :....", auth._id)
@@ -81,7 +82,10 @@ function UserProfile() {
               Address
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              Place Holder Address
+              <input
+                className="w-full h-auto bg-secondary-gold cursor-pointer"
+                placeholder="Click to Enter your current Address..."
+              />
             </dd>
           </div>
           <div className="rounded-2xl bg-gray-50 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
@@ -93,9 +97,14 @@ function UserProfile() {
             </dd>
           </div>
           <div className="bg-secondary-gold px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
-            <dt className="text-sm font-medium leading-6 text-gray-900">Bio</dt>
+            <dt className="text-sm font-medium leading-6 text-gray-900">
+              Traveller Bio
+            </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              Place Holder Bio
+              <input
+                className="w-full h-auto bg-secondary-gold cursor-pointer"
+                placeholder="Click to enter your Traveller's Bio..."
+              />
             </dd>
           </div>
           <div className="bg-gray-50 rounded-2xl px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">

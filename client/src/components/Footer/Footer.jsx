@@ -1,5 +1,5 @@
-import Weather from "../Weather/Weather"
-
+import Weather from "../Weather/Weather";
+import React, { useEffect } from "react";
 const navigation = [
   {
     name: "Facebook",
@@ -62,32 +62,102 @@ const navigation = [
       </svg>
     ),
   },
-]
+];
 
 export default function Footer() {
-  return (
-    <footer className="bg-white">
-      <Weather />
+  useEffect(() => {
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    let time = 0;
 
-      <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
-        <div className="flex justify-center space-x-6 md:order-2">
-          {navigation.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="text-gray-400 hover:text-gray-500"
-            >
-              <span className="sr-only">{item.name}</span>
-              <item.icon className="h-6 w-6" aria-hidden="true" />
-            </a>
-          ))}
+    // Function to update the size of the canvas
+    function updateSize() {
+      canvas.width = window.innerWidth;
+      canvas.height = 200; // Adjust as needed
+    }
+
+    // Update the size of the canvas initially
+    updateSize();
+
+    // Update the size of the canvas when the window is resized
+    window.addEventListener("resize", updateSize);
+
+    function drawWave(
+      offset,
+      opacity,
+      reverse = false,
+      direction = 1,
+      startY = canvas.height / 2
+    ) {
+      ctx.beginPath();
+      ctx.moveTo(0, startY);
+      ctx.bezierCurveTo(
+        canvas.width / 3,
+        startY +
+          Math.sin(direction * (reverse ? -time + offset : time + offset)) *
+            100, // Increased amplitude
+        (canvas.width / 3) * 2,
+        startY +
+          Math.cos(direction * (reverse ? -time + offset : time + offset)) *
+            100, // Increased amplitude
+        canvas.width,
+        startY
+      );
+      ctx.lineTo(canvas.width, canvas.height);
+      ctx.lineTo(0, canvas.height);
+      ctx.closePath();
+      ctx.fillStyle = `rgba(200, 16, 46, ${opacity})`;
+
+      ctx.fill();
+    }
+
+    function animate() {
+      // Clear the canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw the waves
+      drawWave(0, 1); // Original wave
+      drawWave(0.5, 0.5, true, -1, canvas.height / 3); // Delayed wave in reverse and opposite direction
+      drawWave(1, 0.3, false, 1, canvas.height / 4); // Another wave
+      drawWave(1.5, 0.2, true, -1, canvas.height / 5); // Yet another wave
+
+      // Update the time
+      time += 0.01;
+
+      // Request the next frame
+      requestAnimationFrame(animate);
+    }
+
+    // Start the animation
+    animate();
+  }, []);
+
+  return (
+    <>
+      <canvas id="canvas"></canvas>
+      <footer className="bg-white">
+        <Weather />
+
+        <div className="w-full pb-4  md:flex md:items-center md:justify-between lg:px-8 bg-primary-red">
+          <div className="flex justify-center space-x-6 md:order-2">
+            {navigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="text-gray-400 hover:text-gray-200"
+              >
+                <span className="sr-only">{item.name}</span>
+                <item.icon className="h-6 w-6" aria-hidden="true" />
+              </a>
+            ))}
+          </div>
+          <div className="mt-8 md:order-1 md:mt-0">
+            <p className="text-center text-xs leading-5 text-gray-300">
+              &copy; 2024 EH-Traveller, Inc. All rights reserved.
+            </p>
+          </div>
         </div>
-        <div className="mt-8 md:order-1 md:mt-0">
-          <p className="text-center text-xs leading-5 text-gray-500">
-            &copy; 2024 Xinra Inc, Inc. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
-  )
+      </footer>
+    </>
+  );
 }

@@ -16,20 +16,21 @@
   font-weight: 900;
   margin: 0;
 
-  color-scheme: light dark;
+  color-scheme: dark light;
   color: #c8102eff;
-  background-color: #f1be48ff;
+  background-color: #ececec;
 
-  font-synthesis: none;
+  /* font-synthesis: style;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -moz-osx-font-smoothing: grayscale; */
 }
 
 html {
   box-sizing: border-box;
   font-size: 16px;
   height: 100%;
+  margin: 0;
 }
 
 *,
