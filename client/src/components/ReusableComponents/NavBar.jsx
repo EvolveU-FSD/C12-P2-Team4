@@ -12,7 +12,9 @@ import {
   UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline"
+import { ToastContainer, toast } from "react-toastify"
 import "../SignIn/signin.css"
+import { css } from "glamor"
 
 function NavBar() {
   const { auth, _id, logout } = useContext(AuthContext)

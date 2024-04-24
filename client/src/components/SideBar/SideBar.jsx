@@ -10,15 +10,19 @@ import {
   UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline"
-// import Calendar from "../../Pages/Calendar/Calendar"
 import { Link } from "react-router-dom"
 
 const navigation = [
   { name: "Explore", href: "/", icon: HomeIcon, current: false },
   { name: "Public Art", href: "/publicart", icon: PhotoIcon, current: false },
-  { name: "Places", href: "#", icon: MapIcon, current: false },
+  { name: "Places", href: "/", icon: MapIcon, current: false },
   { name: "Calendar", href: "/calendar", icon: CalendarIcon, current: false },
-  { name: "Events", href: "#", icon: GlobeAmericasIcon, current: false },
+  {
+    name: "Events",
+    href: "/calendar",
+    icon: GlobeAmericasIcon,
+    current: false,
+  },
   { name: "Profile", href: "/profile", icon: UsersIcon, current: true },
 ]
 const recommendations = [
@@ -83,7 +87,7 @@ export default function SideBar() {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                   >
-                    <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
+                    <div className="absolute left-full top-0 flex w-full justify-center pt-5">
                       <button
                         type="button"
                         className="-m-2.5 p-2.5"
@@ -98,7 +102,7 @@ export default function SideBar() {
                     </div>
                   </Transition.Child>
                   {/* Sidebar component, swap this element with another sidebar if you like */}
-                  <div className="flex grow flex-col gap-y-5 overflow-y-auto text-primary-red bg-secondary-gold px-6 pb-2">
+                  <div className="flex grow flex-col gap-y-5 overflow-y-auto text-primary-red bg-[#ECECEC] px-6 pb-2">
                     <div className="flex h-16 shrink-0 items-center">
                       <div className="font-bold">
                         <Link to="/">
@@ -182,9 +186,9 @@ export default function SideBar() {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col bg-secondary-gold text-primary-red">
+        <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col bg-[#ECECEC] text-primary-red">
           {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-secondary-gold px-6 text-primary-red">
+          <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-[#ECECEC] px-6 text-primary-red">
             <div className="flex h-16 shrink-0 items-center m-2 mt-4">
               <div className="font-bold">
                 <Link to="/">
@@ -263,13 +267,9 @@ export default function SideBar() {
                     href="#"
                     className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50"
                   >
-                    <img
-                      className="h-8 w-8 rounded-full bg-gray-50"
-                      src="https://i0.wp.com/xinra.org/wp-content/uploads/2021/03/MK-Xinra-Development-Print-Lab-Photo.jpeg?resize=600%2C600&ssl=1"
-                      alt="profile"
-                    />
+                    <i className="fa-solid fa-profile"></i>
                     <span className="sr-only">Your profile</span>
-                    <span aria-hidden="true">Maalkum Frater </span>
+                    <span aria-hidden="true"></span>
                   </a>
                 </li>
               </ul>
@@ -277,7 +277,7 @@ export default function SideBar() {
           </div>
         </div>
 
-        <div className="sticky top-0 z-40 flex w-full items-center gap-x-6 bg-secondary-gold px-4 py-4 shadow-sm sm:px-6 lg:hidden">
+        <div className="sticky top-0 z-40 flex w-full items-center gap-x-6 bg-[#ECECEC] px-4 py-4 shadow-sm sm:px-6 lg:hidden">
           <button
             type="button"
             className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
@@ -291,26 +291,19 @@ export default function SideBar() {
           </div>
           <a href="#">
             <span className="sr-only">Your profile</span>
-            <img
-              className="h-8 w-8 rounded-full bg-gray-50"
-              src="https://i0.wp.com/xinra.org/wp-content/uploads/2021/03/MK-Xinra-Development-Print-Lab-Photo.jpeg?resize=600%2C600&ssl=1"
-              alt="profile"
-            />
+            <UsersIcon className="h-6 w-6" aria-hidden="true" />
           </a>
         </div>
 
         <main className="lg:pl-72">
           <div className="xl:pl-96">
-            <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6 bg-secondary-gold">
+            <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6 bg-[#ECECEC]">
               {/* Main area */}
             </div>
           </div>
         </main>
 
         <aside className="fixed inset-y-0 left-72 hidden w-96 overflow-y-auto border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-8 xl:block">
-          {/* <SignUp />
-          <SignIn /> */}
-
           {/* Secondary column (hidden on smaller screens) */}
         </aside>
       </div>

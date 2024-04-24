@@ -98,7 +98,7 @@ function PublicArt() {
         handleClose={() => setShowModal(false)}
         handleConfirm={handleModalConfirm}
       />
-      <div className="wrapper bg-secondary-gold">
+      <div className="wrapper bg-[#ECECEC]">
         <div className="gallery">
           {artData.map((art) => (
             <div className="publicart__card" key={art.title}>
