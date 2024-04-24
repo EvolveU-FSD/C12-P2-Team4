@@ -138,13 +138,13 @@ export default function Footer() {
       <footer className="bg-white">
         <Weather />
 
-        <div className="w-full  md:flex md:items-center md:justify-between lg:px-8 bg-primary-red">
+        <div className="w-full pb-4  md:flex md:items-center md:justify-between lg:px-8 bg-primary-red">
           <div className="flex justify-center space-x-6 md:order-2">
             {navigation.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className="text-gray-400 hover:text-gray-500"
+                className="text-gray-400 hover:text-gray-200"
               >
                 <span className="sr-only">{item.name}</span>
                 <item.icon className="h-6 w-6" aria-hidden="true" />
