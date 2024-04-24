@@ -134,10 +134,9 @@ export default function Footer() {
 
   return (
     <>
+      <Weather />
       <canvas id="canvas"></canvas>
       <footer className="bg-white">
-        <Weather />
-
         <div className="w-full  md:flex md:items-center md:justify-between lg:px-8 bg-primary-red">
           <div className="flex justify-center space-x-6 md:order-2">
             {navigation.map((item) => (
