@@ -4,6 +4,13 @@
   border: 2px solid black;
   padding: 10px;
   margin-bottom: 0.5em;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+}
+
+.card:hover {
+  background-color: #f1be48ff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .card svg {

@@ -1,25 +1,22 @@
-import React, { useState } from "react"
-import NavBar from "../../components/ReusableComponents/NavBar"
-import ItineraryCard from "../../components/ItineraryCard/ItineraryCard"
-import CalgaryMap from "../../components/MapComponents/CalgaryMap"
-import Calendar from "../Calendar/CalendarTwo"
-import Footer from "../../components/Footer/Footer"
-import "./Home.css"
-import Itinerary from "../../components/ItineraryCard/Itinerary"
+import React, { useState } from "react";
+import NavBar from "../../components/ReusableComponents/NavBar";
+import CreateEvent from "../../components/CreateEvent/CreateEvent";
+import CalgaryMap from "../../components/MapComponents/CalgaryMap";
+
+import Footer from "../../components/Footer/Footer";
+import "./Home.css";
 
 export default function Home() {
-  const [modalType, setModalType] = useState(null)
-  const [showModal, setShowModal] = useState(false)
+  const [modalType, setModalType] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="home-container">
       <div className="nav-bar">
         <NavBar />
       </div>
-
-      <div className="map-container">
-        <Itinerary setModalType={setModalType} setShowModal={setShowModal} />
-        <ItineraryCard />
+      <div className="main-container">
+        <CreateEvent setModalType={setModalType} setShowModal={setShowModal} />
         <div className="map">
           <CalgaryMap />
         </div>
@@ -29,5 +26,5 @@ export default function Home() {
         <Footer />
       </div>
     </div>
-  )
+  );
 }

@@ -201,7 +201,7 @@ app.get("/api/dayevent/:eventTitle", async (req, res) => {
 })
 
 //vulnerability discovered, add validation to confirm user sending information credentials match username entered...
-app.post("/api/dayevent", async (req, res) => {
+app.post("/api/dayevent", authenticateToken, async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username })
 
