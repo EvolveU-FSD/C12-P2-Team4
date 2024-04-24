@@ -99,7 +99,7 @@ function DayView({ selectedDate }) {
                         )
                       }
                     >
-                      Delete
+                      <i className="fa-solid fa-trash"> Delete</i>
                     </button>
                     {editingEventId === event.id && (
                       <div>
@@ -113,7 +113,7 @@ function DayView({ selectedDate }) {
                           className="saveButton"
                           onClick={saveEditingEvent}
                         >
-                          Save
+                          <i className="fa-solid fa-save"> Save</i>
                         </button>
                       </div>
                     )}
@@ -122,9 +122,11 @@ function DayView({ selectedDate }) {
               </li>
             ))
           ) : (
-            <div className="flex align-text-bottom justify-center prompt-card text-bold text-primary-orange rounded-3 bg-primary-orange">
+            <div className="flex flex-row justify-center">
               {" "}
-              Looks like there are no events Today...
+              <div className="prompt-card text-bold text-primary-orange rounded-5 mt-5 p-5">
+                Looks like there are no events Today...
+              </div>
             </div>
           )}
         </ol>
