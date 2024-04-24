@@ -18,9 +18,9 @@ export default function Home() {
         <NavBar />
       </div>
 
-      <div className="map-container">
+      <div className="map-container flex flex-row">
         <Events />
-        <ItineraryCard />
+        {/* <ItineraryCard /> */}
         <div className="map">
           <CalgaryMap />
         </div>

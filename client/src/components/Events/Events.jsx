@@ -64,7 +64,7 @@ function Events() {
 
   return (
     <>
-      <div className="event-container  flex  m-4 gap-2 p-2.5">
+      <div className="event-container  flex flex-row  m-4 gap-2 p-2.5">
         {loadError && (
           <div className="error">
             {toast.error("Complete form to continue...")}
