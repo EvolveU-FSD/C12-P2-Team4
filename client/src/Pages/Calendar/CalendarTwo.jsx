@@ -125,14 +125,14 @@ const Calendar = () => {
   return (
     <>
       <NavBar />
-      <div className="flex bg-secondary-gold">
+      <div className="flex bg-[#ECECEC]">
         <section className="calendar-section m-2 font-bold">
           {getHeader()}
           {getWeekDaysNames()}
           {getDates()}
         </section>
         {/* <AddEvent selectedDate={selectedDate} /> */}
-        <div className="singleDayView flex mt-4 gap-2 ">
+        <div className="singleDayView flex mt-4 gap-2 py-6">
           <DayView selectedDate={selectedDate} />
         </div>
       </div>
