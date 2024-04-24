@@ -4,6 +4,7 @@ import NavBar from "../../components/ReusableComponents/NavBar"
 import SideBar from "../../components/SideBar/SideBar"
 import Footer from "../../components/Footer/Footer"
 import UserProfile from "../../components/UserProfile/UserProfile"
+
 import "../../index.css"
 
 export default function Profile() {

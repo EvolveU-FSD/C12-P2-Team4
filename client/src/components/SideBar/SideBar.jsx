@@ -10,15 +10,19 @@ import {
   UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline"
-// import Calendar from "../../Pages/Calendar/Calendar"
 import { Link } from "react-router-dom"
 
 const navigation = [
   { name: "Explore", href: "/", icon: HomeIcon, current: false },
   { name: "Public Art", href: "/publicart", icon: PhotoIcon, current: false },
-  { name: "Places", href: "#", icon: MapIcon, current: false },
+  { name: "Places", href: "/", icon: MapIcon, current: false },
   { name: "Calendar", href: "/calendar", icon: CalendarIcon, current: false },
-  { name: "Events", href: "#", icon: GlobeAmericasIcon, current: false },
+  {
+    name: "Events",
+    href: "/calendar",
+    icon: GlobeAmericasIcon,
+    current: false,
+  },
   { name: "Profile", href: "/profile", icon: UsersIcon, current: true },
 ]
 const recommendations = [
@@ -83,7 +87,7 @@ export default function SideBar() {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                   >
-                    <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
+                    <div className="absolute left-full top-0 flex w-full justify-center pt-5">
                       <button
                         type="button"
                         className="-m-2.5 p-2.5"
@@ -263,13 +267,9 @@ export default function SideBar() {
                     href="#"
                     className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50"
                   >
-                    <img
-                      className="h-8 w-8 rounded-full bg-gray-50"
-                      src="https://i0.wp.com/xinra.org/wp-content/uploads/2021/03/MK-Xinra-Development-Print-Lab-Photo.jpeg?resize=600%2C600&ssl=1"
-                      alt="profile"
-                    />
+                    <i className="fa-solid fa-profile"></i>
                     <span className="sr-only">Your profile</span>
-                    <span aria-hidden="true">Maalkum Frater </span>
+                    <span aria-hidden="true"></span>
                   </a>
                 </li>
               </ul>
@@ -291,11 +291,7 @@ export default function SideBar() {
           </div>
           <a href="#">
             <span className="sr-only">Your profile</span>
-            <img
-              className="h-8 w-8 rounded-full bg-gray-50"
-              src="https://i0.wp.com/xinra.org/wp-content/uploads/2021/03/MK-Xinra-Development-Print-Lab-Photo.jpeg?resize=600%2C600&ssl=1"
-              alt="profile"
-            />
+            <UsersIcon className="h-6 w-6" aria-hidden="true" />
           </a>
         </div>
 
@@ -308,9 +304,6 @@ export default function SideBar() {
         </main>
 
         <aside className="fixed inset-y-0 left-72 hidden w-96 overflow-y-auto border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-8 xl:block">
-          {/* <SignUp />
-          <SignIn /> */}
-
           {/* Secondary column (hidden on smaller screens) */}
         </aside>
       </div>
