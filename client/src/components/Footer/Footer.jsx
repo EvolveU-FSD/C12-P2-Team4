@@ -1,5 +1,5 @@
-import Weather from "../Weather/Weather"
-import React, { useEffect } from "react"
+import Weather from "../Weather/Weather";
+import React, { useEffect } from "react";
 const navigation = [
   {
     name: "Facebook",
@@ -38,7 +38,7 @@ const navigation = [
   },
   {
     name: "GitHub",
-    href: "https://github.com/EvolveU-FSD/C12-P2-Team4/tree/maalkum-react-tester",
+    href: "#",
     icon: (props) => (
       <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
         <path
@@ -62,7 +62,7 @@ const navigation = [
       </svg>
     ),
   },
-]
+];
 
 export default function Footer() {
   useEffect(() => {
@@ -152,17 +152,12 @@ export default function Footer() {
             ))}
           </div>
           <div className="mt-8 md:order-1 md:mt-0">
-            <p className="text-center text-xs leading-5 text-gray-500">
-              &copy; 2024 Xinra Inc, Inc. All rights reserved.
+            <p className="text-center text-xs leading-5 text-gray-300">
+              &copy; 2024 EH-Traveller, Inc. All rights reserved.
             </p>
           </div>
         </div>
-        <div className="mt-8 md:order-1 md:mt-0">
-          <p className="text-center text-xs leading-5 text-gray-500">
-            &copy; 2024 EH-Traveller, Inc. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
-  )
+      </footer>
+    </>
+  );
 }
