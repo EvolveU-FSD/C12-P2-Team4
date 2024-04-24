@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react"
 import { AuthContext } from "../Auth/AuthProvider"
 import processInput from "../../../../server/controllers/processInput"
 import { ToastContainer, toast } from "react-toastify"
+import { css } from "glamor"
 import "react-toastify/dist/ReactToastify.css"
 import "../ItineraryCard/ItineraryCard.css"
 import "../../global.css"
@@ -46,7 +47,10 @@ function Events() {
       if (!response.ok) {
         toast.error("Cannot submit event with missing fields...")
       }
-      toast("Event created successfully:", await response.json())
+      toast.success(
+        "Event Saved to Planner Successfully!!",
+        await response.json()
+      )
       clearFields()
     } catch (error) {
       setLoadError(error.message)
@@ -138,7 +142,13 @@ function Events() {
           </button>
         </form>
       </div>
-      <ToastContainer />
+      <ToastContainer
+        className="toast-container"
+        toastClassName="dark-toast"
+        progressClassName={css({
+          height: "2px",
+        })}
+      />
     </>
   )
 }
