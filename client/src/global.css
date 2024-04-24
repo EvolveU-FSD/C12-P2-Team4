@@ -4,6 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.eventName {
+  justify-content: space-between;
+}
+
+.eventButton-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 /* Tailwind Styles */
 
 .app {

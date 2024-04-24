@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import "./PublicArt.css";
-const [loadError, setLoadError] = useState(null);
+// const [loadError, setLoadError] = useState(null);
 import { AuthContext } from "../../components/Auth/AuthProvider";
 import NavBar from "../../components/ReusableComponents/NavBar";
 import Footer from "../../components/Footer/Footer";
@@ -126,7 +126,6 @@ function PublicArt() {
           ))}
         </div>
       </div>
-      <Footer />
       <Footer />
     </>
   );

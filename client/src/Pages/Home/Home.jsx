@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import NavBar from "../../components/ReusableComponents/NavBar";
-import ItineraryCard from "../../components/ItineraryCard/ItineraryCard";
 import CalgaryMap from "../../components/MapComponents/CalgaryMap";
-import Calendar from "../Calendar/CalendarTwo";
 import Footer from "../../components/Footer/Footer";
 import "./Home.css";
-import Itinerary from "../../components/ItineraryCard/Itinerary";
 import Events from "../../components/Events/Events";
 
 export default function Home() {
@@ -20,7 +17,6 @@ export default function Home() {
 
       <div className="map-container flex flex-row">
         <Events />
-        {/* <ItineraryCard /> */}
         <div className="map">
           <CalgaryMap />
         </div>
