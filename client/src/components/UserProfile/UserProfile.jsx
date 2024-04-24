@@ -82,7 +82,10 @@ function UserProfile() {
               Address
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              <input className="w-full h-auto bg-secondary-gold cursor-pointer" />
+              <input
+                className="w-full h-auto bg-secondary-gold cursor-pointer"
+                placeholder="Click to Enter your current Address..."
+              />
             </dd>
           </div>
           <div className="rounded-2xl bg-gray-50 px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
@@ -98,7 +101,10 @@ function UserProfile() {
               Traveller Bio
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-              <input className="w-full h-auto bg-secondary-gold cursor-pointer" />
+              <input
+                className="w-full h-auto bg-secondary-gold cursor-pointer"
+                placeholder="Click to enter your Traveller's Bio..."
+              />
             </dd>
           </div>
           <div className="bg-gray-50 rounded-2xl px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
