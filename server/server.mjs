@@ -354,14 +354,14 @@ app.post("/api/signup", async (req, res) => {
     await newUser.save()
 
     // // Return success response
-    // const email = user.email
-    // const _id = user.id
+    // const email = newUser.email
+    // const _id = await newUser.id
     // const username = user.name
 
     // const accessToken = jwt.sign(
     //   { email: user.email, username: username, _id: _id, user },
     //   process.env.ACCESS_TOKEN_SECRET
-    //)
+    // )
     // res.json({ email, _id, username, accessToken, user })
 
     res.status(201).json({ message: "User created successfully" })
@@ -372,7 +372,7 @@ app.post("/api/signup", async (req, res) => {
 })
 
 //-------------- Retriver User Data ------------//
-app.get("/api/profile/:email", async (req, res) => {
+app.get("/api/profile/:email", authenticateToken, async (req, res) => {
   try {
     let user = await User.findOne({ email: req.params.email })
     console.log("3. profile/email...get...user info:... ", user)
@@ -386,7 +386,7 @@ app.get("/api/profile/:email", async (req, res) => {
 })
 
 //------------- DELETE API ROUTE ---------------//
-app.delete("/api/profile/:name", (req, res) => {
+app.delete("/api/profile/:name", authenticateToken, (req, res) => {
   const name = req.params.name
   UserData.delete(name)
   res.status(200).send("ok")

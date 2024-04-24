@@ -136,6 +136,7 @@ const Calendar = () => {
           <DayView selectedDate={selectedDate} />
         </div>
       </div>
+      <Footer />
     </>
   )
 }

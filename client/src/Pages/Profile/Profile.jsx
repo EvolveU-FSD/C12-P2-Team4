@@ -10,8 +10,8 @@ export default function Profile() {
   return (
     <>
       <NavBar />
-      <SideBar />
-      <section className="profile bg-secondary-gold flex-1 flex-col gap-6 px-5 py-6">
+      {/* <SideBar /> */}
+      <section className="profile bg-secondary-gold flex-1 flex-col gap-6 px-5 py-6 ">
         <div>
           <i className="fa-solid fa-pen-to-square"></i>
         </div>

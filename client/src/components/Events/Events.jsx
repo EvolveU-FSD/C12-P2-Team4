@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useState, useEffect } from "react"
 import { AuthContext } from "../Auth/AuthProvider"
 import processInput from "../../../../server/controllers/processInput"
 import { ToastContainer, toast } from "react-toastify"
+import { css } from "glamor"
 import "react-toastify/dist/ReactToastify.css"
 import "../ItineraryCard/ItineraryCard.css"
 import "../../global.css"
@@ -9,8 +10,7 @@ import "../../global.css"
 function Events() {
   const { auth } = useContext(AuthContext)
   console.log("1. Printing itinerary auth value:......:.. ", auth)
-  // const [showModal, setShowModal] = useState(false)
-  // const [modalType, setModalType] = useState(null)
+
   const [eventData, setEventData] = useState({
     date: "",
     username: "",
@@ -21,11 +21,9 @@ function Events() {
   })
   const [loadError, setLoadError] = useState(null)
 
-  // const closeModal = () => {
-  //   // setModalType(null)
-  //   // setShowModal(false)
-  //   setLoadError(null)
-  // }
+  const clearFields = () => {
+    setLoadError(null)
+  }
 
   const handleEventCreation = async (event) => {
     event.preventDefault()
@@ -47,12 +45,14 @@ function Events() {
         }),
       })
       if (!response.ok) {
-        throw new Error("Event creation failed...")
+        toast.error("Cannot submit event with missing fields...")
       }
-      console.log("Event created successfully:", await response.json())
-      // closeModal()
+      toast.success(
+        "Event Saved to Planner Successfully!!",
+        await response.json()
+      )
+      clearFields()
     } catch (error) {
-      console.error("Event creation error:", error)
       setLoadError(error.message)
     }
   }
@@ -65,7 +65,11 @@ function Events() {
   return (
     <>
       <div className="event-container  flex  m-4 gap-2 p-2.5">
-        {loadError && <div className="error">{loadError}</div>}
+        {loadError && (
+          <div className="error">
+            {toast.error("Complete form to continue...")}
+          </div>
+        )}
         <form onSubmit={handleEventCreation}>
           <label htmlFor="eventTitle">Event Title:</label>
           <input
@@ -138,7 +142,13 @@ function Events() {
           </button>
         </form>
       </div>
-      <ToastContainer />
+      <ToastContainer
+        className="toast-container"
+        toastClassName="dark-toast"
+        progressClassName={css({
+          height: "2px",
+        })}
+      />
     </>
   )
 }

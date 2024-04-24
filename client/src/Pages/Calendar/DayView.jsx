@@ -81,15 +81,15 @@ function DayView({ selectedDate }) {
           {events.length > 0 ? (
             events.map((event) => (
               <li key={event.id} className="dayViewHour">
-                <div className="hourEventContainer">
+                <div className="hourEventContainer flex text-bold gap-5">
                   <span>{event.hour}:00</span>
-                  <div className="eventName">
+                  <div className="eventName prompt_card">
                     <span>{event.event}</span>
                     <button
                       className="eventButton"
                       onClick={() => handleEditChange(event.id)}
                     >
-                      Edit
+                      <i className="fa-solid fa-pen-to-square"> Edit</i>
                     </button>
                     <button
                       className="eventButton"
@@ -99,7 +99,7 @@ function DayView({ selectedDate }) {
                         )
                       }
                     >
-                      Delete
+                      <i className="fa-solid fa-trash"> Delete</i>
                     </button>
                     {editingEventId === event.id && (
                       <div>
@@ -113,7 +113,7 @@ function DayView({ selectedDate }) {
                           className="saveButton"
                           onClick={saveEditingEvent}
                         >
-                          Save
+                          <i className="fa-solid fa-save"> Save</i>
                         </button>
                       </div>
                     )}
@@ -122,7 +122,12 @@ function DayView({ selectedDate }) {
               </li>
             ))
           ) : (
-            <li>No events for this day.</li>
+            <div className="flex flex-row justify-center">
+              {" "}
+              <div className="prompt-card text-bold text-primary-orange rounded-5 mt-5 p-5">
+                Looks like there are no events Today...
+              </div>
+            </div>
           )}
         </ol>
       </div>
