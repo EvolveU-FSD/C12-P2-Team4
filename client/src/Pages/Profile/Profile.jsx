@@ -4,6 +4,7 @@ import NavBar from "../../components/ReusableComponents/NavBar"
 import SideBar from "../../components/SideBar/SideBar"
 import Footer from "../../components/Footer/Footer"
 import UserProfile from "../../components/UserProfile/UserProfile"
+
 import "../../index.css"
 
 export default function Profile() {
@@ -11,7 +12,7 @@ export default function Profile() {
     <>
       <NavBar />
       {/* <SideBar /> */}
-      <section className="profile bg-secondary-gold flex-1 flex-col gap-6 px-5 py-6 ">
+      <section className="profile bg-[#ECECEC] flex-1 flex-col gap-6 px-5 py-6 ">
         <div>
           <i className="fa-solid fa-pen-to-square"></i>
         </div>

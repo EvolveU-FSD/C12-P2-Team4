@@ -1,16 +1,13 @@
-import React, { useState } from "react"
-import NavBar from "../../components/ReusableComponents/NavBar"
-import ItineraryCard from "../../components/ItineraryCard/ItineraryCard"
-import CalgaryMap from "../../components/MapComponents/CalgaryMap"
-import Calendar from "../Calendar/CalendarTwo"
-import Footer from "../../components/Footer/Footer"
-import "./Home.css"
-import Itinerary from "../../components/ItineraryCard/Itinerary"
-import Events from "../../components/Events/Events"
+import React, { useState } from "react";
+import NavBar from "../../components/ReusableComponents/NavBar";
+import CalgaryMap from "../../components/MapComponents/CalgaryMap";
+import Footer from "../../components/Footer/Footer";
+import "./Home.css";
+import Events from "../../components/Events/Events";
 
 export default function Home() {
-  const [modalType, setModalType] = useState(null)
-  const [showModal, setShowModal] = useState(false)
+  const [modalType, setModalType] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="home-container">
@@ -18,9 +15,8 @@ export default function Home() {
         <NavBar />
       </div>
 
-      <div className="map-container">
+      <div className="map-container flex flex-row">
         <Events />
-        <ItineraryCard />
         <div className="map">
           <CalgaryMap />
         </div>
@@ -30,5 +26,5 @@ export default function Home() {
         <Footer />
       </div>
     </div>
-  )
+  );
 }

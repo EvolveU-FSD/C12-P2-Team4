@@ -2,33 +2,107 @@
 @tailwind components;
 @tailwind utilities;
 
-.main-container {
+.map {
+  width: 82%;
+}
+
+.searchBar {
+  background-color: white;
+  height: 30px;
+}
+.searchButton {
+  margin-left: 0.5em;
+}
+
+.searchForm {
+  margin-left: 1em;
   display: flex;
-  justify-content: center;
-  flex-grow: 1;
-  border: 2px solid black;
-  width: 100%;
-  height: auto;
-  background-color: #f0f0f0;
-  border: none;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.rangeSlider {
+  margin-left: 2em;
 }
 
 .info-window {
-  width: 350px;
-  height: 250px;
+  width: 175px;
+  height: auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-.info-window button {
+.info-window-image {
+  display: flex;
+  aspect-ratio: 4/3;
+  width: 160px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.places-card-container {
+  margin-top: 1em;
+  display: flex;
+  height: 230px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.places-card {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  margin: 0 1rem;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.places-card-text {
   color: black;
-  border: 2px solid black;
+  margin-top: 0.5em;
+  font-size: 12px;
+  text-align: center;
+  text-wrap: wrap;
+}
+
+.places-card-image {
+  width: 200px;
+  height: 120px;
+  border-radius: 8px 8px 0 0;
+}
+
+.places-card-button {
+  width: 100%;
+  height: 40px;
+  border-radius: 0 0 8px 8px;
+  background-color: #03f34b;
+  color: black;
+  font-size: 12px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: background-color 0.3s;
 }
 
 .info-text {
   color: black;
+  margin-top: 0.5em;
+  font-size: 12px;
   text-align: center;
-  font-style: italic;
 }
 
 .info-pic {
@@ -36,11 +110,4 @@
   max-height: 185px;
   border-radius: 5px;
   margin-bottom: 1em;
-}
-
-.map {
-  display: flex;
-  width: 50%;
-  height: 100%;
-  margin: 2rem;
 }

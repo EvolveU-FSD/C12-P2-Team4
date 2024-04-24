@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../Auth/AuthProvider"
 import "./signin.css"
+import { ToastContainer, toast } from "react-toastify"
+import { css } from "glamor"
 
 const UserAuth = ({
   onLogin,
@@ -81,6 +83,7 @@ const UserAuth = ({
         )
         closeModal()
         onLogin()
+        toast.success("Successfully, signed in...")
       } else {
         const errorData = await response.json()
         throw new Error(errorData.error || "Failed to sign in")
@@ -114,6 +117,7 @@ const UserAuth = ({
         JSON.stringify({ email: data.email, accessToken: data.accessToken })
       ) //Storage
       closeModal() // Close the modal on success
+      toast.success("Successfully, Signed Up...")
     } catch (error) {
       setLoadError(error.message)
       console.error("SignUp Error:", error)
@@ -157,7 +161,6 @@ const UserAuth = ({
           </div>
         </div>
       )}
-
       {showModal && modalType === "signup" && (
         // Modal for sign up
         <div className="modal">
@@ -227,6 +230,14 @@ const UserAuth = ({
           </div>
         </div>
       )}
+
+      <ToastContainer
+        className="toast-container"
+        toastClassName="dark-toast"
+        progressClassName={css({
+          height: "2px",
+        })}
+      />
     </>
   )
 }

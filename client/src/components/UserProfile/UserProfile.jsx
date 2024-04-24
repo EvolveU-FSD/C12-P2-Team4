@@ -77,13 +77,13 @@ function UserProfile() {
               <span>{user.firstname + " " + user.lastname}</span>
             </dd>
           </div>
-          <div className="bg-secondary-gold px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <div className="bg-[#ECECEC] px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
             <dt className="text-sm font-medium leading-6 text-gray-900">
               Address
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
               <input
-                className="w-full h-auto bg-secondary-gold cursor-pointer"
+                className="bg-[#ECECEC] w-full h-auto cursor-pointer"
                 placeholder="Click to Enter your current Address..."
               />
             </dd>
@@ -96,13 +96,13 @@ function UserProfile() {
               {user.email}
             </dd>
           </div>
-          <div className="bg-secondary-gold px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
+          <div className="bg-[#ECECEC] px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-3">
             <dt className="text-sm font-medium leading-6 text-gray-900">
               Traveller Bio
             </dt>
             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
               <input
-                className="w-full h-auto bg-secondary-gold cursor-pointer"
+                className="w-full h-auto bg-[#ECECEC] cursor-pointer"
                 placeholder="Click to enter your Traveller's Bio..."
               />
             </dd>

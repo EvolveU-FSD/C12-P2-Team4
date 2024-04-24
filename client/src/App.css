@@ -6,14 +6,6 @@
   padding: 2em;
 }
 
-.map-container {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  background-color: #f1be48ff;
-  border-radius: 2rem;
-}
-
 /* PROFILE CSS */
 .profile {
   display: flex;

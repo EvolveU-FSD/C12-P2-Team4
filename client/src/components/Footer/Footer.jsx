@@ -1,5 +1,5 @@
-import Weather from "../Weather/Weather";
-import React, { useEffect } from "react";
+import Weather from "../Weather/Weather"
+import React, { useEffect } from "react"
 const navigation = [
   {
     name: "Facebook",
@@ -62,25 +62,25 @@ const navigation = [
       </svg>
     ),
   },
-];
+]
 
 export default function Footer() {
   useEffect(() => {
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    let time = 0;
+    const canvas = document.getElementById("canvas")
+    const ctx = canvas.getContext("2d")
+    let time = 0
 
     // Function to update the size of the canvas
     function updateSize() {
-      canvas.width = window.innerWidth;
-      canvas.height = 200; // Adjust as needed
+      canvas.width = window.innerWidth
+      canvas.height = 200 // Adjust as needed
     }
 
     // Update the size of the canvas initially
-    updateSize();
+    updateSize()
 
     // Update the size of the canvas when the window is resized
-    window.addEventListener("resize", updateSize);
+    window.addEventListener("resize", updateSize)
 
     function drawWave(
       offset,
@@ -89,8 +89,8 @@ export default function Footer() {
       direction = 1,
       startY = canvas.height / 2
     ) {
-      ctx.beginPath();
-      ctx.moveTo(0, startY);
+      ctx.beginPath()
+      ctx.moveTo(0, startY)
       ctx.bezierCurveTo(
         canvas.width / 3,
         startY +
@@ -102,42 +102,41 @@ export default function Footer() {
             100, // Increased amplitude
         canvas.width,
         startY
-      );
-      ctx.lineTo(canvas.width, canvas.height);
-      ctx.lineTo(0, canvas.height);
-      ctx.closePath();
-      ctx.fillStyle = `rgba(200, 16, 46, ${opacity})`;
+      )
+      ctx.lineTo(canvas.width, canvas.height)
+      ctx.lineTo(0, canvas.height)
+      ctx.closePath()
+      ctx.fillStyle = `rgba(200, 16, 46, ${opacity})`
 
-      ctx.fill();
+      ctx.fill()
     }
 
     function animate() {
       // Clear the canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       // Draw the waves
-      drawWave(0, 1); // Original wave
-      drawWave(0.5, 0.5, true, -1, canvas.height / 3); // Delayed wave in reverse and opposite direction
-      drawWave(1, 0.3, false, 1, canvas.height / 4); // Another wave
-      drawWave(1.5, 0.2, true, -1, canvas.height / 5); // Yet another wave
+      drawWave(0, 1) // Original wave
+      drawWave(0.5, 0.5, true, -1, canvas.height / 3) // Delayed wave in reverse and opposite direction
+      drawWave(1, 0.3, false, 1, canvas.height / 4) // Another wave
+      drawWave(1.5, 0.2, true, -1, canvas.height / 5) // Yet another wave
 
       // Update the time
-      time += 0.01;
+      time += 0.01
 
       // Request the next frame
-      requestAnimationFrame(animate);
+      requestAnimationFrame(animate)
     }
 
     // Start the animation
-    animate();
-  }, []);
+    animate()
+  }, [])
 
   return (
     <>
+      <Weather />
       <canvas id="canvas"></canvas>
       <footer className="bg-white">
-        <Weather />
-
         <div className="w-full pb-4  md:flex md:items-center md:justify-between lg:px-8 bg-primary-red">
           <div className="flex justify-center space-x-6 md:order-2">
             {navigation.map((item) => (
@@ -159,5 +158,5 @@ export default function Footer() {
         </div>
       </footer>
     </>
-  );
+  )
 }

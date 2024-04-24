@@ -1,16 +1,14 @@
-import React, { useContext, useState, useEffect } from "react"
-import { AuthContext } from "../Auth/AuthProvider"
-import processInput from "../../../../server/controllers/processInput"
-import { ToastContainer, toast } from "react-toastify"
-import { css } from "glamor"
-import "react-toastify/dist/ReactToastify.css"
-import "../ItineraryCard/ItineraryCard.css"
-import "../../global.css"
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../Auth/AuthProvider";
+import processInput from "../../../../server/controllers/processInput";
+import "./CreateEvent.css";
+import "../../global.css";
 
-function Events() {
-  const { auth } = useContext(AuthContext)
-  console.log("1. Printing itinerary auth value:......:.. ", auth)
-
+function CreateEvent() {
+  const { auth } = useContext(AuthContext);
+  console.log("Printing itinerary auth value:......:.. ", auth);
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState(null);
   const [eventData, setEventData] = useState({
     date: "",
     username: "",
@@ -18,58 +16,71 @@ function Events() {
     eventTitle: "",
     place: "",
     description: "",
-  })
-  const [loadError, setLoadError] = useState(null)
+  });
+  const [loadError, setLoadError] = useState(null);
 
-  const clearFields = () => {
-    setLoadError(null)
-  }
+  const closeModal = () => {
+    setModalType(null);
+    setShowModal(false);
+    setLoadError(null);
+  };
 
   const handleEventCreation = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     if (!auth || !auth.accessToken) {
-      toast.error("Sign In or Sign Up to continue....")
-      return
+      setModalType("signin");
+      setShowModal(true);
+      return;
     }
     try {
+      console.log("1. EventData: ", eventData);
+      console.log("2. User:....", auth.user);
+
       const response = await fetch("/api/dayevent", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + auth.accessToken,
+          Authorization: `Bearer ${auth.accessToken}`,
         },
         body: JSON.stringify({
           ...eventData,
           eventTitle: eventData.eventTitle,
           email: eventData.email,
         }),
-      })
+      });
       if (!response.ok) {
-        toast.error("Cannot submit event with missing fields...")
+        throw new Error("Event creation failed...");
       }
-      toast.success(
-        "Event Saved to Planner Successfully!!",
-        await response.json()
-      )
-      clearFields()
+      console.log("Event created successfully:", await response.json());
+      closeModal();
     } catch (error) {
-      setLoadError(error.message)
+      console.error("Event creation error:", error);
+      setLoadError(error.message);
     }
-  }
+  };
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target
-    setEventData((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = event.target;
+    setEventData((prev) => ({ ...prev, [name]: value }));
+  };
 
   return (
     <>
-      <div className="event-container  flex flex-row  m-4 gap-2 p-2.5">
-        {loadError && (
-          <div className="error">
-            {toast.error("Complete form to continue...")}
+      {showModal && modalType === "signin" && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={closeModal}>
+              &times;
+            </span>
+            <section className="flex w-full text-center flex-row justify-center text-primary-night">
+              SignUp or SignIn to Continue...
+            </section>
+            {loadError && <div className="error">{loadError}</div>}
           </div>
-        )}
+        </div>
+      )}
+      <div className="event-container flex  m-4 gap-2 p-2.5">
+        {loadError && <div className="error">{loadError}</div>}
         <form onSubmit={handleEventCreation}>
           <label htmlFor="eventTitle">Event Title:</label>
           <input
@@ -83,7 +94,7 @@ function Events() {
           />
           <label htmlFor="date">Date:</label>
           <input
-            className="bg-secondary-gold text-primary-night flex justify-end w-full"
+            className="bg-[#F0F0F0] text-primary-night flex justify-center"
             type="date"
             id="date"
             name="date"
@@ -93,7 +104,7 @@ function Events() {
           />
           <label htmlFor="eventTime">Event Time:</label>
           <input
-            className="flex justify-end bg-secondary-gold text-primary-night w-full"
+            className="flex justify-center bg-[#f0f0f0] text-primary-night"
             type="time"
             id="eventTime"
             name="eventTime"
@@ -103,7 +114,7 @@ function Events() {
           />
           <label htmlFor="place">Place:</label>
           <input
-            className="flex justify-center bg-[#e43535] text-primary-night"
+            className="flex justify-center bg-[#f0f0f0] text-primary-night"
             type="text"
             id="place"
             name="place"
@@ -113,7 +124,7 @@ function Events() {
           />
           <label htmlFor="username">Username:</label>
           <input
-            className="flex justify-center  bg-primary-white text-primary-night"
+            className="flex justify-center bg-[#f0f0f0] text-primary-night"
             type="text"
             id="username"
             name="username"
@@ -132,25 +143,18 @@ function Events() {
             onChange={handleInputChange}
           />
           <button
-            className="eventButton text-1xl justify-items-center ml-3 rounded shadow-md border border-secondary-gold bg-white text-secondary-gold hover:bg-secondary-gold hover:text-white"
+            className="eventButton bg-secondary-gold text-2xl justify-items-center ml-3"
             onClick={handleEventCreation}
           >
-            <i className="fa-solid fa-pen-to-square text-secondary-gold bg-white hover:bg-transparent hover:text-primary-white">
+            <i className="fa-solid fa-pen-to-square text-primary-orange hover:text-primary-red">
               {" "}
               Create Event
             </i>
           </button>
         </form>
       </div>
-      <ToastContainer
-        className="toast-container"
-        toastClassName="dark-toast"
-        progressClassName={css({
-          height: "2px",
-        })}
-      />
     </>
-  )
+  );
 }
 
-export default Events
+export default CreateEvent;
