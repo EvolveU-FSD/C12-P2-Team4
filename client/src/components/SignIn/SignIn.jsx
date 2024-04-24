@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from "react"
-import { AuthContext } from "../Auth/AuthProvider"
-import "./signin.css"
-import { ToastContainer, toast } from "react-toastify"
-import { css } from "glamor"
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../Auth/AuthProvider";
+import "./signin.css";
+import { ToastContainer, toast } from "react-toastify";
+import { css } from "glamor";
 
 const UserAuth = ({
   onLogin,
@@ -11,47 +11,47 @@ const UserAuth = ({
   modalType,
   setModalType,
 }) => {
-  const { auth, setAuth } = useContext(AuthContext)
+  const { auth, setAuth } = useContext(AuthContext);
 
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
     _id: "",
-  })
+  });
   const [signUpData, setSignUpData] = useState({
     firstname: "",
     lastname: "",
     username: "",
     email: "",
     password: "",
-  })
-  const [loadError, setLoadError] = useState(null)
+  });
+  const [loadError, setLoadError] = useState(null);
 
   useEffect(() => {
-    const savedAuth = localStorage.getItem("auth")
+    const savedAuth = localStorage.getItem("auth");
     if (savedAuth) {
-      setAuth(JSON.parse(savedAuth))
+      setAuth(JSON.parse(savedAuth));
     }
-  }, [auth])
+  }, [auth]);
 
   const closeModal = () => {
-    setModalType(null)
-    setShowModal(false)
-    setLoadError(null)
-  }
+    setModalType(null);
+    setShowModal(false);
+    setLoadError(null);
+  };
 
   const handleInputChange = (event, formType) => {
-    const { name, value } = event.target
+    const { name, value } = event.target;
     if (formType === "signup") {
-      setSignUpData((prev) => ({ ...prev, [name]: value }))
+      setSignUpData((prev) => ({ ...prev, [name]: value }));
     } else {
-      setCredentials((prev) => ({ ...prev, [name]: value }))
+      setCredentials((prev) => ({ ...prev, [name]: value }));
     }
-  }
+  };
 
   const handleSignIn = async (event) => {
-    event.preventDefault()
-    const { username, password } = credentials
+    event.preventDefault();
+    const { username, password } = credentials;
 
     try {
       const response = await fetch("/api/signin", {
@@ -60,17 +60,17 @@ const UserAuth = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
-      })
+      });
 
       if (response.ok) {
-        const data = await response.json()
+        const data = await response.json();
         setAuth({
           email: data.email,
           username: username,
 
           _id: data._id,
           accessToken: data.accessToken,
-        })
+        });
         localStorage.setItem(
           "auth",
           JSON.stringify({
@@ -80,22 +80,22 @@ const UserAuth = ({
             _id: data._id,
             accessToken: data.accessToken,
           })
-        )
-        closeModal()
-        onLogin()
-        toast.success("Successfully, signed in...")
+        );
+        closeModal();
+        onLogin();
+        toast.success("Successfully, signed in...");
       } else {
-        const errorData = await response.json()
-        throw new Error(errorData.error || "Failed to sign in")
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to sign in");
       }
     } catch (error) {
-      console.error("Signin Error:", error)
-      alert(error.message)
+      console.error("Signin Error:", error);
+      alert(error.message);
     }
-  }
+  };
 
   const handleSignUp = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     try {
       const response = await fetch("/api/signup", {
         method: "POST",
@@ -103,26 +103,26 @@ const UserAuth = ({
           "Content-Type": "application/json",
         },
         body: JSON.stringify(signUpData),
-      })
+      });
 
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || "Failed to sign up")
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to sign up");
       }
 
-      const data = await response.json()
-      setAuth({ email: data.email, accessToken: data.accessToken }) // Process or log the data
+      const data = await response.json();
+      setAuth({ email: data.email, accessToken: data.accessToken }); // Process or log the data
       localStorage.setItem(
         "auth",
         JSON.stringify({ email: data.email, accessToken: data.accessToken })
-      ) //Storage
-      closeModal() // Close the modal on success
-      toast.success("Successfully, Signed Up...")
+      ); //Storage
+      closeModal(); // Close the modal on success
+      toast.success("Successfully, Signed Up...");
     } catch (error) {
-      setLoadError(error.message)
-      console.error("SignUp Error:", error)
+      setLoadError(error.message);
+      console.error("SignUp Error:", error);
     }
-  }
+  };
 
   return (
     <>
@@ -239,7 +239,7 @@ const UserAuth = ({
         })}
       />
     </>
-  )
-}
+  );
+};
 
-export default UserAuth
+export default UserAuth;

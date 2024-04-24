@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import "./PublicArt.css";
-// const [loadError, setLoadError] = useState(null);
+
 import { AuthContext } from "../../components/Auth/AuthProvider";
 import NavBar from "../../components/ReusableComponents/NavBar";
 import Footer from "../../components/Footer/Footer";
@@ -8,12 +8,14 @@ import DateTimeModal from "../../components/Itinerary/DateTimeModal";
 
 function PublicArt() {
   const { auth } = useContext(AuthContext);
+  console.log("Printing itinerary auth value:......:.. ", auth);
+  const [loadError, setLoadError] = useState(null);
   const [artData, setArtData] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [modalArtItem, setModalArtItem] = useState(null);
   const [eventData, setEventData] = useState({
     date: "",
-    username: "",
+    user: "",
     eventTime: "",
     eventTitle: "",
     place: "",
@@ -42,8 +44,11 @@ function PublicArt() {
     }
     try {
       console.log("1. EventData: ", eventData);
-      console.log("2. User:....", auth.user);
+      console.log("2. User:....", auth._id);
+      const dateTime = new Date(`${date}T${time}`);
 
+      // Format the date to the ISO 8601 format
+      const formattedDate = dateTime.toISOString().replace("Z", "+00:00");
       const response = await fetch("/api/dayevent", {
         method: "POST",
         headers: {
@@ -52,12 +57,12 @@ function PublicArt() {
         },
         body: JSON.stringify({
           ...eventData,
-          eventTitle: artItem ? artItem.title : eventData.eventTitle,
-          lat: artItem ? artItem.lat : null,
-          lng: artItem ? artItem.lng : null,
-          date: date,
+          user: auth._id,
+          eventTitle: artItem.title,
+          date: formattedDate,
           eventTime: time,
-          email: eventData.email,
+          place: `${artItem.lat},${artItem.lng}`,
+          description: artItem.short_desc,
         }),
       });
       if (!response.ok) {
@@ -73,21 +78,37 @@ function PublicArt() {
 
   const handleAddToItinerary = async (art) => {
     // Create a new object with only the title and coordinates
-    const artToSave = {
+    const event = {
       eventTitle: art.title,
       lat: art.point.coordinates[1],
       lng: art.point.coordinates[0],
+      point: art.point,
+      short_desc: art.short_desc,
     };
 
+    // Populate eventData with the art item data
+    setEventData({
+      eventTitle: art.title,
+      place: `${art.point.coordinates[1]},${art.point.coordinates[0]}`,
+      description: art.short_desc,
+    });
+
     // Show the modal and save the art item
-    setModalArtItem(artToSave);
+    setModalArtItem(event);
     setShowModal(true);
   };
 
-  // Call this function when the modal is confirmed
-  const handleModalConfirm = (date, time) => {
-    handleArtItemPost(modalArtItem, date, time);
+  const handleModalConfirm = async (date, time) => {
+    // Set date and time in eventData
+    setEventData((prevEventData) => ({
+      ...prevEventData,
+      date: date,
+      eventTime: time,
+    }));
+
+    // Close the modal
     setShowModal(false);
+    await handleArtItemPost(modalArtItem, date, time);
   };
 
   return (
@@ -99,6 +120,7 @@ function PublicArt() {
         handleConfirm={handleModalConfirm}
       />
       <div className="wrapper bg-[#ECECEC]">
+        {loadError && <p>Error: {loadError}</p>}
         <div className="gallery">
           {artData.map((art) => (
             <div className="publicart__card" key={art.title}>

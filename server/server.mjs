@@ -233,7 +233,7 @@ app.get("/api/dayevent/:eventTitle", authenticateToken, async (req, res) => {
 app.post("/api/dayevent", authenticateToken, async (req, res) => {
   console.log("11 inside dayevent....:...")
   try {
-    const user = await User.findOne({ username: req.body.username })
+    const user = await User.findOne({ _id: req.body.user })
 
     const { username, email, date, eventTime, eventTitle, place, description } =
       req.body
