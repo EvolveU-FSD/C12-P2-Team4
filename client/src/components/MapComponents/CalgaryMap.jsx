@@ -1,127 +1,127 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"
 import {
   GoogleMap,
   useJsApiLoader,
   Marker,
   InfoWindow,
-} from "@react-google-maps/api";
+} from "@react-google-maps/api"
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faSearch,
   faArrowRight,
   faArrowLeft,
-} from "@fortawesome/free-solid-svg-icons";
-import { Button } from "@mui/material";
-import "./calgarymap.css";
+} from "@fortawesome/free-solid-svg-icons"
+import { Button } from "@mui/material"
+import "./calgarymap.css"
 
-const YOUR_MAP_KEY = import.meta.env.VITE_APP_GOOGLE_MAP_API_KEY;
+const YOUR_MAP_KEY = import.meta.env.VITE_APP_GOOGLE_MAP_API_KEY
 
 const containerStyle = {
   position: "relative",
   width: "100%",
   height: "420px",
   borderRadius: "15px",
-};
+}
 
 function getCurrentLocation() {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
-      reject(new Error("Geolocation is not supported by your browser"));
+      reject(new Error("Geolocation is not supported by your browser"))
     } else {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           resolve({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
-          });
+          })
         },
         () => {
-          reject(new Error("Unable to retrieve your location"));
+          reject(new Error("Unable to retrieve your location"))
         }
-      );
+      )
     }
-  });
+  })
 }
 
 let center = {
   lat: 0,
   lng: 0,
-};
+}
 
 getCurrentLocation()
   .then((location) => {
-    console.log(location);
+    console.log(location)
     center = {
       lat: location.lat,
       lng: location.lng,
-    };
+    }
   })
   .catch((error) => {
-    console.error(error);
-  });
-const libraries = ["places"];
+    console.error(error)
+  })
+const libraries = ["places"]
 function CalgaryMap() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: YOUR_MAP_KEY, // Add your Google Maps API key here
     libraries,
-  });
-  const [map, setMap] = useState(null);
-  const [markersData, setMarkersData] = useState([]);
-  const [activeMarker, setActiveMarker] = useState(null);
-  const [searchValue, setSearchValue] = useState("");
-  const [searchMade, setSearchMade] = useState(false);
-  const [range, setRange] = useState(5); // [km]
-  const [currentStartIndex, setCurrentStartIndex] = useState(0);
-  const itemsPerSlide = 4;
+  })
+  const [map, setMap] = useState(null)
+  const [markersData, setMarkersData] = useState([])
+  const [activeMarker, setActiveMarker] = useState(null)
+  const [searchValue, setSearchValue] = useState("")
+  const [searchMade, setSearchMade] = useState(false)
+  const [range, setRange] = useState(5) // [km]
+  const [currentStartIndex, setCurrentStartIndex] = useState(0)
+  const itemsPerSlide = 4
 
   // Calculate the items for the current slide
   const currentItems = markersData.slice(
     currentStartIndex,
     currentStartIndex + itemsPerSlide
-  );
+  )
 
   // Calculate the total number of slides
-  const totalSlides = Math.ceil(markersData.length / itemsPerSlide);
+  const totalSlides = Math.ceil(markersData.length / itemsPerSlide)
   const [mapCenter, setMapCenter] = useState({
     lat: 0,
     lng: 0,
-  });
+  })
 
   useEffect(() => {
     getCurrentLocation()
       .then((location) => {
-        console.log(location);
+        console.log(location)
         setMapCenter({
           lat: location.lat,
           lng: location.lng,
-        });
+        })
       })
       .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+        console.error(error)
+      })
+  }, [])
 
   const handleSearch = async () => {
-    event.preventDefault();
+    event.preventDefault()
     if (searchValue) {
-      const location = `${mapCenter.lat},${mapCenter.lng}`;
-      const radius = range * 1000; // Convert km to meters for the Google Places API
-      const keyword = searchValue;
+      const location = `${mapCenter.lat},${mapCenter.lng}`
+      const radius = range * 1000 // Convert km to meters for the Google Places API
+      const keyword = searchValue
 
       const url = `/api/places?location=${encodeURIComponent(
         location
       )}&radius=${encodeURIComponent(radius)}&keyword=${encodeURIComponent(
         keyword
-      )}`;
+      )}`
 
       try {
-        const response = await fetch(url);
-        const data = await response.json();
+        const response = await fetch(url)
+        const data = await response.json()
 
         if (response.ok) {
-          console.log(data.results);
+          console.log(data.results)
           setMarkersData(
             data.results.map((place) => ({
               name: place.name,
@@ -132,28 +132,28 @@ function CalgaryMap() {
               lat: place.geometry.location.lat,
               lng: place.geometry.location.lng,
             }))
-          );
+          )
         } else {
-          console.error(data.error);
+          console.error(data.error)
         }
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     }
-    setSearchMade(true);
-  };
+    setSearchMade(true)
+  }
 
   const onLoad = React.useCallback(function callback(map) {
-    setMap(map);
-  }, []);
+    setMap(map)
+  }, [])
 
   const onUnmount = React.useCallback(function callback(map) {
-    setMap(null);
-  }, []);
+    setMap(null)
+  }, [])
 
   return isLoaded ? (
     <>
-      <form className="searchForm">
+      <form className="searchForm ml-[8rem]">
         <div>
           <input
             className="searchBar"
@@ -198,10 +198,10 @@ function CalgaryMap() {
             position={{ lat: activeMarker.lat, lng: activeMarker.lng }}
             onCloseClick={() => setActiveMarker(null)}
           >
-            <div className="info-window">
+            <div className="info-window ml-[8rem]">
               <img
-                className="info-window-image"
-                src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=325&photoreference=${activeMarker.photoref}&key=AIzaSyCIC_vfw1KByMvwLXmgHdY5ZKfA8NorD5w`}
+                className="info-window-image ml-[8rem]"
+                src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=325&photoreference=${activeMarker.photoref}&key=YOUR_MAP_KEY`}
                 alt={activeMarker.name}
               />
               <p className="info-text">{activeMarker.name}</p>
@@ -210,13 +210,13 @@ function CalgaryMap() {
           </InfoWindow>
         )}
       </GoogleMap>
-      <div className="carousel-container">
+      <div className="carousel-container ml-[8rem]">
         {searchMade && (
           <button
             className={currentStartIndex === 0 ? "button-disabled" : ""}
             onClick={() => {
               if (currentStartIndex > 0) {
-                setCurrentStartIndex(currentStartIndex - itemsPerSlide);
+                setCurrentStartIndex(currentStartIndex - itemsPerSlide)
               }
             }}
           >
@@ -229,7 +229,7 @@ function CalgaryMap() {
               <div className="places-card-info">
                 <img
                   className="places-card-image"
-                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=325&photoreference=${marker.photoref}&key=AIzaSyCIC_vfw1KByMvwLXmgHdY5ZKfA8NorD5w`}
+                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=325&photoreference=${marker.photoref}&key=YOUR_MAP_KEY`}
                   alt={marker.name}
                 />
                 <div className="places-card-text">{marker.name}</div>
@@ -248,7 +248,7 @@ function CalgaryMap() {
             }
             onClick={() => {
               if (currentStartIndex < (totalSlides - 1) * itemsPerSlide) {
-                setCurrentStartIndex(currentStartIndex + itemsPerSlide);
+                setCurrentStartIndex(currentStartIndex + itemsPerSlide)
               }
             }}
           >
@@ -259,7 +259,7 @@ function CalgaryMap() {
     </>
   ) : (
     <div>Loading...</div>
-  );
+  )
 }
 
-export default CalgaryMap;
+export default CalgaryMap
