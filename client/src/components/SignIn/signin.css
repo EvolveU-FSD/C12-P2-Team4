@@ -27,8 +27,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, 50%);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 4px 6px rgba(225, 13, 13, 0.102);
   width: 50%;
   height: auto;
   overflow: none;
