@@ -41,7 +41,7 @@ function NavMenu() {
   }
 
   return (
-    <nav className="sticky top-0 z-40 bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent w-full text-secondary-gold gap-4 flex flex-row justify-between px-8 py-6">
+    <nav className="sticky top-0 z-40 bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent w-full text-secondary-gold gap-4 flex flex-row justify-between px-8 py-2">
       <div>
         <Link to="/">
           <img
@@ -49,15 +49,11 @@ function NavMenu() {
             alt="logo"
             className="w-1 h-2"
           />
-          {/* <i className="fa-solid fa- text-3xl m-1 mt-8">
-            EH <i className="fa-solid fa-plane text-5xl text-primary-red "></i>{" "}
-            Traveller
-          </i> */}
         </Link>
       </div>
 
-      <div className="ml-auto w-fulll flex flex-col justify-start text-primary-orange">
-        <button className="p-2 " onClick={() => setMenuOpen(!menuOpen)}>
+      <div className="ml-auto w-full flex flex-row justify-end  text-primary-orange">
+        <button className="p-2" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? (
             <XMarkIcon className="h-8 w-8" />
           ) : (
@@ -65,36 +61,144 @@ function NavMenu() {
           )}
         </button>
         {menuOpen && (
-          <ul className="absolute right-0 top-full mt-2 w-48 bg-white shadow-lg rounded-lg">
+          <div className="mx-auto flex gap-12 justify-around text-3xl">
             {!auth ? (
-              <>
-                <li>
-                  <Link to="/signin">Sign In</Link>
-                </li>
-                <li>
-                  <Link to="/signup">Sign Up</Link>
-                </li>
-              </>
+              !showModal && (
+                <>
+                  <button onClick={() => openModal("signin")}>
+                    <i className="fa-solid fa-right-to-bracket text-3xl">
+                      <span> SIGNIN</span>
+                    </i>
+                  </button>
+                  <button onClick={() => openModal("signup")}>
+                    <i className="fas fa-user-plus text-3xl">
+                      <span> SIGNUP</span>
+                    </i>
+                  </button>
+                  <button
+                    type="button"
+                    className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
+                    onClick={() => setMenuOpen(true)}
+                  >
+                    <Bars3Icon
+                      className="h-8 w-8 text-primary-red"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </>
+              )
             ) : (
-              <>
+              <ul className="link flex flex-row gap-12">
+                {onProfilePage && (
+                  <>
+                    <li>
+                      <Link to="/publicart">
+                        <i className="fa-solid fa-image text-3xl"> Art</i>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/calendar">
+                        <i className="fa-solid fa-calendar text-3xl">
+                          {" "}
+                          Calendar
+                        </i>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/">
+                        <i className="fa-solid fa-map text-3xl"> Explore</i>
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {onHomePage && (
+                  <>
+                    <li>
+                      <Link to="/publicart">
+                        <i className="fa-solid fa-image text-3xl"> Art</i>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/calendar">
+                        <i className="fa-solid fa-calendar text-3xl">
+                          {" "}
+                          Calendar
+                        </i>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/profile">
+                        <i className="fa-regular fa-user"> Profile</i>
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {onCalendarPage && (
+                  <>
+                    <li>
+                      <Link to="/publicart">
+                        <i className="fa-solid fa-image text-3xl"> Art</i>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/">
+                        <i className="fa-solid fa-map text-3xl"> explore</i>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/profile">
+                        <i className="fa-solid fa-user text-3xl"> Profile</i>
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {onArtPage && (
+                  <>
+                    <li>
+                      <Link to="/calendar">
+                        <i className="fa-solid fa-calendar text-3xl">
+                          {" "}
+                          Calendar
+                        </i>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/">
+                        <i className="fa-solid fa-map text-3xl"> Explore</i>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/profile">
+                        <i className="fa-solid fa-user text-3xl"> Profile</i>
+                      </Link>
+                    </li>
+                  </>
+                )}
                 <li>
-                  <Link to="/publicart">Art</Link>
+                  <button onClick={handleLogout}>
+                    <i className="fa-solid fa-arrow-right-from-bracket">
+                      {" "}
+                      Logout
+                    </i>
+                  </button>
                 </li>
-                <li>
-                  <Link to="/calendar">Calendar</Link>
-                </li>
-                <li>
-                  <Link to="/profile">Profile</Link>
-                </li>
-                <li>
-                  <button onClick={handleLogout}>Logout</button>
-                </li>
-              </>
+              </ul>
             )}
-          </ul>
+          </div>
+        )}
+
+        {showModal && (
+          <UserAuth
+            showModal={showModal}
+            setShowModal={setShowModal}
+            modalType={modalType}
+            setModalType={setModalType}
+            onLogin={() => setShowModal(false)} // Close modal on login
+          />
         )}
       </div>
     </nav>
   )
 }
+
 export default NavMenu

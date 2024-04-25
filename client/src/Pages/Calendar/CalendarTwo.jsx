@@ -20,6 +20,7 @@ import {
   subMonths,
   addMonths,
 } from "date-fns"
+import NavMenu from "../../components/Navigation/NavMenu"
 
 const Calendar = () => {
   //Keeps track of selected date
@@ -124,7 +125,7 @@ const Calendar = () => {
 
   return (
     <>
-      <NavBar />
+      <NavMenu />
       <div className="flex bg-[#ECECEC]">
         <section className="calendar-section m-2 font-bold">
           {getHeader()}
