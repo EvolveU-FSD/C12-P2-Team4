@@ -142,7 +142,7 @@ function NavMenu() {
                     </li>
                     <li>
                       <Link to="/">
-                        <i className="fa-solid fa-map text-3xl"> explore</i>
+                        <i className="fa-solid fa-map text-3xl"> Explore</i>
                       </Link>
                     </li>
                     <li>
