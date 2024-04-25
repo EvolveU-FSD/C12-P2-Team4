@@ -230,10 +230,9 @@ app.get("/api/dayevent/:eventTitle", authenticateToken, async (req, res) => {
 })
 
 //vulnerability discovered, add validation to confirm user sending information credentials match username entered...
-app.post("/api/dayevent", authenticateToken, async (req, res) => {
-  console.log("11 inside dayevent....:...")
+app.post("/api/dayevent", async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.body.user })
+    const user = await User.findOne({ username: req.body.username })
 
     const { username, email, date, eventTime, eventTitle, place, description } =
       req.body
@@ -315,7 +314,7 @@ app.post("/api/signin", async (req, res) => {
     }
     const email = user.email
     const _id = user.id
-    const username = user.name
+    const username = user.username
 
     const accessToken = jwt.sign(
       { email: email, username: username, _id: _id, user },

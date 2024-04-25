@@ -32,7 +32,7 @@ const UserAuth = ({
     if (savedAuth) {
       setAuth(JSON.parse(savedAuth));
     }
-  }, [auth]);
+  }, []);
 
   const closeModal = () => {
     setModalType(null);
@@ -66,8 +66,7 @@ const UserAuth = ({
         const data = await response.json();
         setAuth({
           email: data.email,
-          username: username,
-
+          username: data.username,
           _id: data._id,
           accessToken: data.accessToken,
         });
@@ -111,10 +110,18 @@ const UserAuth = ({
       }
 
       const data = await response.json();
-      setAuth({ email: data.email, accessToken: data.accessToken }); // Process or log the data
+      setAuth({
+        email: data.email,
+        accessToken: data.accessToken,
+        username: data.username,
+      }); // Process or log the data
       localStorage.setItem(
         "auth",
-        JSON.stringify({ email: data.email, accessToken: data.accessToken })
+        JSON.stringify({
+          email: data.email,
+          accessToken: data.accessToken,
+          username: data.username,
+        })
       ); //Storage
       closeModal(); // Close the modal on success
       toast.success("Successfully, Signed Up...");

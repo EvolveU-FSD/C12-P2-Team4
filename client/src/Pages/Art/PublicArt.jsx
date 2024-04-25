@@ -8,7 +8,8 @@ import DateTimeModal from "../../components/Itinerary/DateTimeModal";
 
 function PublicArt() {
   const { auth } = useContext(AuthContext);
-  console.log("Printing itinerary auth value:......:.. ", auth);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
   const [loadError, setLoadError] = useState(null);
   const [artData, setArtData] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -36,7 +37,16 @@ function PublicArt() {
     fetchArtData();
   }, []);
 
-  const handleArtItemPost = async (artItem, date, time) => {
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = artData.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(artData.length / itemsPerPage);
+
+  const handleArtItemPost = async (artItem, eventData, date, time) => {
+    console.log("Art item:", artItem);
     if (!auth || !auth.accessToken) {
       setModalType("signin");
       setShowModal(true);
@@ -45,10 +55,8 @@ function PublicArt() {
     try {
       console.log("1. EventData: ", eventData);
       console.log("2. User:....", auth._id);
-      const dateTime = new Date(`${date}T${time}`);
-
-      // Format the date to the ISO 8601 format
-      const formattedDate = dateTime.toISOString().replace("Z", "+00:00");
+      const dateTime = new Date(`${date}T00:00:00.000Z`);
+      const formattedDate = dateTime.toISOString();
       const response = await fetch("/api/dayevent", {
         method: "POST",
         headers: {
@@ -58,7 +66,8 @@ function PublicArt() {
         body: JSON.stringify({
           ...eventData,
           user: auth._id,
-          eventTitle: artItem.title,
+          username: auth.username,
+          eventTitle: artItem.title || eventData.eventTitle,
           date: formattedDate,
           eventTime: time,
           place: `${artItem.lat},${artItem.lng}`,
@@ -69,7 +78,7 @@ function PublicArt() {
         throw new Error("Event creation failed...");
       }
       console.log("Event created successfully:", await response.json());
-      closeModal();
+      setShowModal(false);
     } catch (error) {
       console.error("Event creation error:", error);
       setLoadError(error.message);
@@ -100,15 +109,17 @@ function PublicArt() {
 
   const handleModalConfirm = async (date, time) => {
     // Set date and time in eventData
-    setEventData((prevEventData) => ({
-      ...prevEventData,
+    const updatedEventData = {
+      ...eventData,
       date: date,
       eventTime: time,
-    }));
+      eventTitle: modalArtItem.eventTitle,
+    };
+    setEventData(updatedEventData);
 
     // Close the modal
     setShowModal(false);
-    await handleArtItemPost(modalArtItem, date, time);
+    await handleArtItemPost(modalArtItem, updatedEventData, date, time);
   };
 
   return (
@@ -121,8 +132,28 @@ function PublicArt() {
       />
       <div className="wrapper bg-[#ECECEC]">
         {loadError && <p>Error: {loadError}</p>}
+        <div>
+          <button
+            onClick={() => {
+              if (currentPage > 1) {
+                setCurrentPage(currentPage - 1);
+              }
+            }}
+          >
+            &lt; Previous
+          </button>
+          <button
+            onClick={() => {
+              if (currentPage < totalPages) {
+                setCurrentPage(currentPage + 1);
+              }
+            }}
+          >
+            Next &gt;
+          </button>
+        </div>
         <div className="gallery">
-          {artData.map((art) => (
+          {currentItems.map((art) => (
             <div className="publicart__card" key={art.title}>
               <div className="top">
                 <div className="publicart__card-imgbox prompt-card">

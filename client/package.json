@@ -24,6 +24,7 @@
     "date-fns": "^3.6.0",
     "glamor": "^2.20.40",
     "jwt-decode": "^4.0.0",
+    "lottie-react": "^2.4.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -7,7 +7,11 @@ import {
 } from "@react-google-maps/api";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSearch,
+  faArrowRight,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { Button } from "@mui/material";
 import "./calgarymap.css";
 
@@ -67,9 +71,19 @@ function CalgaryMap() {
   const [markersData, setMarkersData] = useState([]);
   const [activeMarker, setActiveMarker] = useState(null);
   const [searchValue, setSearchValue] = useState("");
+  const [searchMade, setSearchMade] = useState(false);
   const [range, setRange] = useState(5); // [km]
-  const [searchResult, setSearchResult] = useState(null);
-  const [timeoutId, setTimeoutId] = useState(null);
+  const [currentStartIndex, setCurrentStartIndex] = useState(0);
+  const itemsPerSlide = 4;
+
+  // Calculate the items for the current slide
+  const currentItems = markersData.slice(
+    currentStartIndex,
+    currentStartIndex + itemsPerSlide
+  );
+
+  // Calculate the total number of slides
+  const totalSlides = Math.ceil(markersData.length / itemsPerSlide);
   const [mapCenter, setMapCenter] = useState({
     lat: 0,
     lng: 0,
@@ -112,7 +126,9 @@ function CalgaryMap() {
             data.results.map((place) => ({
               name: place.name,
               vicinity: place.vicinity,
-              photoref: place.photos[0].photo_reference,
+              photoref: place.photos
+                ? place.photos[0].photo_reference
+                : "default_photo_reference",
               lat: place.geometry.location.lat,
               lng: place.geometry.location.lng,
             }))
@@ -124,6 +140,7 @@ function CalgaryMap() {
         console.error(error);
       }
     }
+    setSearchMade(true);
   };
 
   const onLoad = React.useCallback(function callback(map) {
@@ -193,21 +210,51 @@ function CalgaryMap() {
           </InfoWindow>
         )}
       </GoogleMap>
-      <div className="places-card-container">
-        {markersData.map((marker, index) => (
-          <div className="places-card" key={index}>
-            <div className="places-card-info">
-              <img
-                className="places-card-image"
-                src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=325&photoreference=${marker.photoref}&key=AIzaSyCIC_vfw1KByMvwLXmgHdY5ZKfA8NorD5w`}
-                alt={marker.name}
-              />
-              <div className="places-card-text">{marker.name}</div>
-            </div>
+      <div className="carousel-container">
+        {searchMade && (
+          <button
+            className={currentStartIndex === 0 ? "button-disabled" : ""}
+            onClick={() => {
+              if (currentStartIndex > 0) {
+                setCurrentStartIndex(currentStartIndex - itemsPerSlide);
+              }
+            }}
+          >
+            <FontAwesomeIcon icon={faArrowLeft} /> Previous
+          </button>
+        )}
+        <div className="carousel-slide">
+          {currentItems.map((marker, index) => (
+            <div className="places-card" key={index}>
+              <div className="places-card-info">
+                <img
+                  className="places-card-image"
+                  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=325&photoreference=${marker.photoref}&key=AIzaSyCIC_vfw1KByMvwLXmgHdY5ZKfA8NorD5w`}
+                  alt={marker.name}
+                />
+                <div className="places-card-text">{marker.name}</div>
+              </div>
 
-            <button className="places-card-button">Add to Itinerary</button>
-          </div>
-        ))}
+              <button className="places-card-button">Add to Itinerary</button>
+            </div>
+          ))}
+        </div>
+        {searchMade && (
+          <button
+            className={
+              currentStartIndex === (totalSlides - 1) * itemsPerSlide
+                ? "button-disabled"
+                : ""
+            }
+            onClick={() => {
+              if (currentStartIndex < (totalSlides - 1) * itemsPerSlide) {
+                setCurrentStartIndex(currentStartIndex + itemsPerSlide);
+              }
+            }}
+          >
+            Next <FontAwesomeIcon icon={faArrowRight} />
+          </button>
+        )}
       </div>
     </>
   ) : (

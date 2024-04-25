@@ -26,6 +26,7 @@ function DayView({ selectedDate }) {
               id: event._id,
               hour: parseInt(event.eventTime, 10),
               event: event.eventTitle,
+              place: event.place,
             }))
           );
         } else {
@@ -83,7 +84,14 @@ function DayView({ selectedDate }) {
               <li key={event.id} className="dayViewHour">
                 <div className="hourEventContainer flex text-bold gap-5">
                   <span>{event.hour}:00</span>
-                  <div className="eventName prompt_card">
+                  <div
+                    className="eventName prompt_card"
+                    onClick={() => {
+                      const [lat, lng] = event.place.split(",");
+                      const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+                      window.open(url, "_blank");
+                    }}
+                  >
                     <span>{event.event}</span>
                     <div className="eventButton-container">
                       <button
