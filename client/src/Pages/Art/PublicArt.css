@@ -7,6 +7,12 @@
   width: 100%;
 }
 
+.page-controls {
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+}
+
 .gallery {
   display: flex;
   flex-flow: row wrap;
@@ -29,13 +35,6 @@
 }
 
 .publicart__card button {
-  /* background-color: #f1be48;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #f2eeed;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 0.5em;*/
   padding: 0.5em 1em;
   margin: 0.5em 0 0 0;
   cursor: pointer;

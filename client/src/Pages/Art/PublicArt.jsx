@@ -1,20 +1,21 @@
-import { useEffect, useState, useContext } from "react"
-import "./PublicArt.css"
+import { useEffect, useState, useContext } from "react";
+import "./PublicArt.css";
 
-import { AuthContext } from "../../components/Auth/AuthProvider"
-import NavBar from "../../components/ReusableComponents/NavBar"
-import Footer from "../../components/Footer/Footer"
-import DateTimeModal from "../../components/Itinerary/DateTimeModal"
-import NavMenu from "../../components/Navigation/NavMenu"
+import { AuthContext } from "../../components/Auth/AuthProvider";
+import Footer from "../../components/Footer/Footer";
+import DateTimeModal from "../../components/Itinerary/DateTimeModal";
+import NavMenu from "../../components/Navigation/NavMenu";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 function PublicArt() {
-  const { auth } = useContext(AuthContext)
-  const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 4
-  const [loadError, setLoadError] = useState(null)
-  const [artData, setArtData] = useState([])
-  const [showModal, setShowModal] = useState(false)
-  const [modalArtItem, setModalArtItem] = useState(null)
+  const { auth } = useContext(AuthContext);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
+  const [loadError, setLoadError] = useState(null);
+  const [artData, setArtData] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [modalArtItem, setModalArtItem] = useState(null);
   const [eventData, setEventData] = useState({
     date: "",
     user: "",
@@ -22,42 +23,42 @@ function PublicArt() {
     eventTitle: "",
     place: "",
     description: "",
-  })
+  });
 
   useEffect(() => {
     const fetchArtData = async () => {
       try {
-        const response = await fetch("api/public-art")
-        const data = await response.json()
-        setArtData(data)
+        const response = await fetch("api/public-art");
+        const data = await response.json();
+        setArtData(data);
       } catch (error) {
-        console.error("Error occurred while fetching art data:", error)
+        console.error("Error occurred while fetching art data:", error);
       }
-    }
+    };
 
-    fetchArtData()
-  }, [])
+    fetchArtData();
+  }, []);
 
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber)
-  }
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = artData.slice(indexOfFirstItem, indexOfLastItem)
-  const totalPages = Math.ceil(artData.length / itemsPerPage)
+    setCurrentPage(pageNumber);
+  };
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = artData.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(artData.length / itemsPerPage);
 
   const handleArtItemPost = async (artItem, eventData, date, time) => {
-    console.log("Art item:", artItem)
+    console.log("Art item:", artItem);
     if (!auth || !auth.accessToken) {
-      setModalType("signin")
-      setShowModal(true)
-      return
+      setModalType("signin");
+      setShowModal(true);
+      return;
     }
     try {
-      console.log("1. EventData: ", eventData)
-      console.log("2. User:....", auth._id)
-      const dateTime = new Date(`${date}T00:00:00.000Z`)
-      const formattedDate = dateTime.toISOString()
+      console.log("1. EventData: ", eventData);
+      console.log("2. User:....", auth._id);
+      const dateTime = new Date(`${date}T00:00:00.000Z`);
+      const formattedDate = dateTime.toISOString();
       const response = await fetch("/api/dayevent", {
         method: "POST",
         headers: {
@@ -74,17 +75,17 @@ function PublicArt() {
           place: `${artItem.lat},${artItem.lng}`,
           description: artItem.short_desc,
         }),
-      })
+      });
       if (!response.ok) {
-        throw new Error("Event creation failed...")
+        throw new Error("Event creation failed...");
       }
-      console.log("Event created successfully:", await response.json())
-      setShowModal(false)
+      console.log("Event created successfully:", await response.json());
+      setShowModal(false);
     } catch (error) {
-      console.error("Event creation error:", error)
-      setLoadError(error.message)
+      console.error("Event creation error:", error);
+      setLoadError(error.message);
     }
-  }
+  };
 
   const handleAddToItinerary = async (art) => {
     // Create a new object with only the title and coordinates
@@ -94,19 +95,19 @@ function PublicArt() {
       lng: art.point.coordinates[0],
       point: art.point,
       short_desc: art.short_desc,
-    }
+    };
 
     // Populate eventData with the art item data
     setEventData({
       eventTitle: art.title,
       place: `${art.point.coordinates[1]},${art.point.coordinates[0]}`,
       description: art.short_desc,
-    })
+    });
 
     // Show the modal and save the art item
-    setModalArtItem(event)
-    setShowModal(true)
-  }
+    setModalArtItem(event);
+    setShowModal(true);
+  };
 
   const handleModalConfirm = async (date, time) => {
     // Set date and time in eventData
@@ -115,13 +116,13 @@ function PublicArt() {
       date: date,
       eventTime: time,
       eventTitle: modalArtItem.eventTitle,
-    }
-    setEventData(updatedEventData)
+    };
+    setEventData(updatedEventData);
 
     // Close the modal
-    setShowModal(false)
-    await handleArtItemPost(modalArtItem, updatedEventData, date, time)
-  }
+    setShowModal(false);
+    await handleArtItemPost(modalArtItem, updatedEventData, date, time);
+  };
 
   return (
     <>
@@ -134,24 +135,26 @@ function PublicArt() {
       <div className="wrapper bg-[#ECECEC]">
         {loadError && <p>Error: {loadError}</p>}
         <div>
-          <button
-            onClick={() => {
-              if (currentPage > 1) {
-                setCurrentPage(currentPage - 1)
-              }
-            }}
-          >
-            &lt; Previous
-          </button>
-          <button
-            onClick={() => {
-              if (currentPage < totalPages) {
-                setCurrentPage(currentPage + 1)
-              }
-            }}
-          >
-            Next &gt;
-          </button>
+          <div className="page-controls">
+            <button
+              onClick={() => {
+                if (currentPage > 1) {
+                  setCurrentPage(currentPage - 1);
+                }
+              }}
+            >
+              <FontAwesomeIcon icon={faArrowLeft} /> Previous
+            </button>
+            <button
+              onClick={() => {
+                if (currentPage < totalPages) {
+                  setCurrentPage(currentPage + 1);
+                }
+              }}
+            >
+              Next <FontAwesomeIcon icon={faArrowRight} />
+            </button>
+          </div>
         </div>
         <div className="gallery">
           {currentItems.map((art) => (
@@ -182,7 +185,7 @@ function PublicArt() {
       </div>
       <Footer />
     </>
-  )
+  );
 }
 
-export default PublicArt
+export default PublicArt;

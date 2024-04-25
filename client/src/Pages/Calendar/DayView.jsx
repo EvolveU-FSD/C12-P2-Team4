@@ -1,25 +1,25 @@
-import React, { useContext, useEffect, useState } from "react"
-import { format } from "date-fns"
-import "../../global.css"
-import { AuthContext } from "../../components/Auth/AuthProvider"
+import React, { useContext, useEffect, useState } from "react";
+import { format } from "date-fns";
+import "../../global.css";
+import { AuthContext } from "../../components/Auth/AuthProvider";
 
 function DayView({ selectedDate }) {
-  const { auth } = useContext(AuthContext)
-  const [events, setEvents] = useState([])
-  const [editingEventId, setEditingEventId] = useState(null)
-  const [editingText, setEditingText] = useState("")
+  const { auth } = useContext(AuthContext);
+  const [events, setEvents] = useState([]);
+  const [editingEventId, setEditingEventId] = useState(null);
+  const [editingText, setEditingText] = useState("");
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const formattedDate = format(selectedDate, "yyyy-MM-dd")
+      const formattedDate = format(selectedDate, "yyyy-MM-dd");
       try {
         const response = await fetch(`/api/events/?date=${formattedDate}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${auth.accessToken}`,
           },
-        })
-        const data = await response.json()
+        });
+        const data = await response.json();
         if (response.ok) {
           setEvents(
             data.map((event) => ({
@@ -28,23 +28,23 @@ function DayView({ selectedDate }) {
               event: event.eventTitle,
               place: event.place,
             }))
-          )
+          );
         } else {
-          throw new Error(data.message || "Failed to fetch events")
+          throw new Error(data.message || "Failed to fetch events");
         }
       } catch (error) {
-        console.error("Error fetching events:", error.message)
+        console.error("Error fetching events:", error.message);
       }
-    }
+    };
 
-    fetchEvents()
-  }, [selectedDate, auth.accessToken])
+    fetchEvents();
+  }, [selectedDate, auth.accessToken]);
 
   const handleEditChange = (id) => {
-    const event = events.find((e) => e.id === id)
-    setEditingEventId(id)
-    setEditingText(event ? event.event : "")
-  }
+    const event = events.find((e) => e.id === id);
+    setEditingEventId(id);
+    setEditingText(event ? event.event : "");
+  };
 
   const saveEditingEvent = async () => {
     try {
@@ -55,28 +55,22 @@ function DayView({ selectedDate }) {
           Authorization: `Bearer ${auth.accessToken}`,
         },
         body: JSON.stringify({ event: editingText }),
-      })
+      });
       if (response.ok) {
         setEvents((prev) =>
           prev.map((e) =>
             e.id === editingEventId ? { ...e, event: editingText } : e
           )
-        )
-        setEditingEventId(null)
-        setEditingText("")
+        );
+        setEditingEventId(null);
+        setEditingText("");
       } else {
-        throw new Error("Failed to update event")
+        throw new Error("Failed to update event");
       }
     } catch (error) {
-      console.error("Error saving event:", error.message)
+      console.error("Error saving event:", error.message);
     }
-  }
-
-  function showRoute() {
-    const [lat, lng] = event.place.split(",")
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
-    window.open(url, "_blank")
-  }
+  };
 
   return (
     <>
@@ -109,7 +103,14 @@ function DayView({ selectedDate }) {
                       >
                         <i className="fa-solid fa-trash"> Delete</i>
                       </button>
-                      <button className="eventButton" onClick={showRoute}>
+                      <button
+                        className="eventButton"
+                        onClick={() => {
+                          const [lat, lng] = event.place.split(",");
+                          const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+                          window.open(url, "_blank");
+                        }}
+                      >
                         <i className="fa-solid fa-map "> Route</i>
                       </button>
                       {editingEventId === event.id && (
@@ -144,10 +145,10 @@ function DayView({ selectedDate }) {
         </ol>
       </div>
     </>
-  )
+  );
 }
 
-export default DayView
+export default DayView;
 
 // import React, { useContext, useEffect, useState } from "react"
 // import { format, set } from "date-fns"
