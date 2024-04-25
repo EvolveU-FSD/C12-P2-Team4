@@ -174,6 +174,9 @@ app.put("/api/events/:id", authenticateToken, async (req, res) => {
   const { id } = req.params
   const { event } = req.body
 
+  console.log("#1 in api events/id:.event....:...", typeof event)
+  console.log("#2 in api events/id:.event....:...", event)
+
   if (!event) {
     return res.status(400).json({ message: "Event details are required" })
   }
@@ -188,7 +191,7 @@ app.put("/api/events/:id", authenticateToken, async (req, res) => {
     // If the event exists, update it
     const updatedEvent = await DayEvent.findByIdAndUpdate(
       id,
-      { event },
+      { eventTitle: event },
       { new: true, runValidators: true } // Ensure validation rules defined in the schema are applied
     )
 
