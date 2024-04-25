@@ -134,7 +134,7 @@ function DayView({ selectedDate }) {
           ) : (
             <div className="flex flex-row justify-center">
               {" "}
-              <div className="prompt-card text-bold text-primary-orange rounded-5 mt-5 p-5">
+              <div className="prompt-card text-bold text-primary-red rounded-5 mt-5 p-5">
                 Looks like there are no events Today...
               </div>
             </div>

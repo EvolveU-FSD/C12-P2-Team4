@@ -58,7 +58,7 @@
 
 .close:hover,
 .close:focus {
-  color: rgb(227, 27, 27);
+  color: #c8102eff;
   text-decoration: none;
 }
 
