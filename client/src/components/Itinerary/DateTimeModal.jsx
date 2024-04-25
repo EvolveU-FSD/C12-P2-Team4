@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 const DateTimeModal = ({ showModal, handleClose, handleConfirm }) => {
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+  const [date, setDate] = useState("")
+  const [time, setTime] = useState("")
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    handleConfirm(date, time);
-  };
+    e.preventDefault()
+    handleConfirm(date, time)
+  }
 
   if (!showModal) {
-    return null;
+    return null
   }
 
   return (
@@ -19,12 +19,14 @@ const DateTimeModal = ({ showModal, handleClose, handleConfirm }) => {
         <h2>Select Date and Time</h2>
         <form onSubmit={handleSubmit}>
           <input
+            className="bg-secondary-gold"
             type="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
             required
           />
           <input
+            className="bg-secondary-gold"
             type="time"
             value={time}
             onChange={(e) => setTime(e.target.value)}
@@ -35,7 +37,7 @@ const DateTimeModal = ({ showModal, handleClose, handleConfirm }) => {
         </form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DateTimeModal;
+export default DateTimeModal

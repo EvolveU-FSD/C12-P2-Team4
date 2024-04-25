@@ -45,7 +45,7 @@ function NavMenu() {
       <div>
         <Link to="/">
           <img
-            src="public/assets/images/Eh-Travler-Logo-removebg.png"
+            src="/public/assets/images/Eh-Travler-Logo-removebg.png"
             alt="logo"
             className=" m-[-2rem] w-[14rem] h-[14rem] logo mb-[1rem]"
           />
@@ -142,7 +142,7 @@ function NavMenu() {
                     </li>
                     <li>
                       <Link to="/">
-                        <i className="fa-solid fa-map text-3xl"> explore</i>
+                        <i className="fa-solid fa-map text-3xl"> Explore</i>
                       </Link>
                     </li>
                     <li>
