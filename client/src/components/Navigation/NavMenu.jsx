@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react"
-import { Link, useLocation, useNavigate } from "react-router-dom" // Import useNavigate
-import UserAuth from "../SignIn/SignIn"
-import { AuthContext } from "../Auth/AuthProvider"
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
+import UserAuth from "../SignIn/SignIn";
+import { AuthContext } from "../Auth/AuthProvider";
 import {
   Bars3Icon,
   CalendarIcon,
@@ -11,34 +11,34 @@ import {
   HomeIcon,
   UsersIcon,
   XMarkIcon,
-} from "@heroicons/react/24/outline"
-import { ToastContainer, toast } from "react-toastify"
-import "../SignIn/signin.css"
-import { css } from "glamor"
+} from "@heroicons/react/24/outline";
+import { ToastContainer, toast } from "react-toastify";
+import "../SignIn/signin.css";
+import { css } from "glamor";
 
 function NavMenu() {
-  const { auth, _id, logout } = useContext(AuthContext)
-  const [showModal, setShowModal] = useState(false)
-  const [modalType, setModalType] = useState(null)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const location = useLocation()
-  const navigate = useNavigate()
+  const { auth, _id, logout } = useContext(AuthContext);
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const onArtPage = location.pathname === "/publicart"
-  const onCalendarPage = location.pathname === "/calendar"
-  const onHomePage = location.pathname === "/"
-  const onProfilePage = location.pathname === "/profile"
+  const onArtPage = location.pathname === "/publicart";
+  const onCalendarPage = location.pathname === "/calendar";
+  const onHomePage = location.pathname === "/";
+  const onProfilePage = location.pathname === "/profile";
 
   const openModal = (type) => {
-    setModalType(type)
-    setShowModal(true)
-  }
+    setModalType(type);
+    setShowModal(true);
+  };
 
   const handleLogout = () => {
-    logout() // Call the logout function from AuthContext
-    navigate("/")
-    setMenuOpen(false) // Close the menu upon logging out
-  }
+    logout(); // Call the logout function from AuthContext
+    navigate("/");
+    setMenuOpen(false); // Close the menu upon logging out
+  };
 
   return (
     <nav className=" top-0 z-40 flex flex-row justify-between px-8 py-2 w-full h-[8rem]">
@@ -47,7 +47,7 @@ function NavMenu() {
           <img
             src="public/assets/images/Eh-Travler-Logo-removebg.png"
             alt="logo"
-            className="w-[9.5rem] h-[9rem]"
+            className="w-[9.5rem] h-[9.5rem] logo"
           />
         </Link>
       </div>
@@ -198,7 +198,7 @@ function NavMenu() {
         )}
       </div>
     </nav>
-  )
+  );
 }
 
-export default NavMenu
+export default NavMenu;

@@ -19,3 +19,7 @@ home-container {
 .event-container {
   width: 15%;
 }
+
+.logo {
+  animation: spin 8s linear infinite;
+}
