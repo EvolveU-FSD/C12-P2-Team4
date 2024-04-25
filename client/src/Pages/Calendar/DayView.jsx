@@ -72,6 +72,12 @@ function DayView({ selectedDate }) {
     }
   }
 
+  function showRoute() {
+    const [lat, lng] = event.place.split(",")
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
+    window.open(url, "_blank")
+  }
+
   return (
     <>
       <div className="dayView">
@@ -84,14 +90,7 @@ function DayView({ selectedDate }) {
               <li key={event.id} className="dayViewHour">
                 <div className="hourEventContainer flex text-bold gap-5">
                   <span>{event.hour}:00</span>
-                  <div
-                    className="eventName prompt_card"
-                    onClick={() => {
-                      const [lat, lng] = event.place.split(",")
-                      const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`
-                      // window.open(url, "_blank");
-                    }}
-                  >
+                  <div className="eventName prompt_card">
                     <span>{event.event}</span>
                     <div className="eventButton-container">
                       <button
@@ -109,6 +108,9 @@ function DayView({ selectedDate }) {
                         }
                       >
                         <i className="fa-solid fa-trash"> Delete</i>
+                      </button>
+                      <button className="eventButton" onClick={showRoute}>
+                        <i className="fa-solid fa-map "> Route</i>
                       </button>
                       {editingEventId === event.id && (
                         <div>
