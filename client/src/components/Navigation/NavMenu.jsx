@@ -41,23 +41,23 @@ function NavMenu() {
   }
 
   return (
-    <nav className="top-0 z-40 flex flex-row justify-between px-8 py-2 w-full h-1/2">
+    <nav className=" top-0 z-40 flex flex-row justify-between px-8 py-2 w-full h-[8rem]">
       <div>
         <Link to="/">
           <img
-            src="../../../public/assets/images/Eh-Travler-Logo-removebg.png"
+            src="public/assets/images/Eh-Travler-Logo-removebg.png"
             alt="logo"
-            className="w-1 h-1/2"
+            className="w-[9.5rem] h-[9rem]"
           />
         </Link>
       </div>
 
-      <div className="ml-auto w-full flex flex-row justify-end  text-primary-orange h-1/2">
+      <div className="ml-auto w-auto flex flex-row justify-end  text-primary-orange h-10">
         <button className="p-2" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? (
-            <XMarkIcon className="h-1 w-8" />
+            <XMarkIcon className="h-8 w-8" />
           ) : (
-            <Bars3Icon className="h-1   w-8" />
+            <Bars3Icon className="h-8   w-8" />
           )}
         </button>
         {menuOpen && (
