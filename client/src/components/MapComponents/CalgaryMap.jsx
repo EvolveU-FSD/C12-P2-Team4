@@ -22,6 +22,8 @@ const containerStyle = {
   width: "100%",
   height: "420px",
   borderRadius: "15px",
+  marginLeft: "6rem",
+  marginRight: "8rem",
 }
 
 function getCurrentLocation() {
@@ -153,7 +155,7 @@ function CalgaryMap() {
 
   return isLoaded ? (
     <>
-      <form className="searchForm ml-[8rem]">
+      <form className="searchForm ml-[6rem]">
         <div>
           <input
             className="searchBar"
