@@ -1,18 +1,19 @@
-import React, { useState } from "react";
-import NavBar from "../../components/ReusableComponents/NavBar";
-import CalgaryMap from "../../components/MapComponents/CalgaryMap";
-import Footer from "../../components/Footer/Footer";
-import "./Home.css";
-import Events from "../../components/Events/Events";
+import React, { useState } from "react"
+import NavBar from "../../components/ReusableComponents/NavBar"
+import CalgaryMap from "../../components/MapComponents/CalgaryMap"
+import Footer from "../../components/Footer/Footer"
+import "./Home.css"
+import Events from "../../components/Events/Events"
+import NavMenu from "../../components/Navigation/NavMenu"
 
 export default function Home() {
-  const [modalType, setModalType] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState(null)
+  const [showModal, setShowModal] = useState(false)
 
   return (
     <div className="home-container">
       <div className="nav-bar">
-        <NavBar />
+        <NavMenu />
       </div>
 
       <div className="map-container flex flex-row">
@@ -26,5 +27,5 @@ export default function Home() {
         <Footer />
       </div>
     </div>
-  );
+  )
 }
