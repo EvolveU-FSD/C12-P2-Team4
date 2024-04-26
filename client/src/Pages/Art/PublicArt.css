@@ -39,18 +39,20 @@
   margin: 0.5em 0 0 0;
   cursor: pointer;
   background-color: white;
-  outline: 2px solid #f1be48;
+  outline: 2px solid #c8102eff;
   color: black;
   justify-content: center;
   border: none;
   cursor: pointer;
   border-radius: 3px;
   font-size: 15px;
+  font-weight: bold;
 }
 
 .publicart__card button:hover {
-  background-color: rgba(241, 190, 72, 0.7); /* Lower opacity on hover */
+  background-color: hsla(350, 85%, 42%, 1); /* Lower opacity on hover */
   color: white;
+  font-weight: bold;
 }
 .publicart__card-imgbox {
   margin: 1.5em 0 0 0;
