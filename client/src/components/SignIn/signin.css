@@ -6,7 +6,7 @@
 } */
 /* Modal Styles */
 
-@keyframes plane-animation {
+/* @keyframes plane-animation {
   0% {
     transform: translateX(0);
   }
@@ -20,7 +20,7 @@
 
 .animate-plane {
   animation: plane-animation 2s infinite;
-}
+} */
 
 .modal {
   z-index: 9999;
@@ -99,4 +99,13 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: #f1be48;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

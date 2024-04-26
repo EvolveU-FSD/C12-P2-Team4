@@ -47,7 +47,7 @@ function NavMenu() {
           <img
             src="/assets/images/Eh-Travler-Logo-removebg.png"
             alt="logo"
-            className=" m-[-2rem] w-[14rem] h-[14rem] logo mb-[1rem]"
+            className=" w-[14rem] h-[14rem] mb-[1rem] logo"
           />
         </Link>
       </div>
