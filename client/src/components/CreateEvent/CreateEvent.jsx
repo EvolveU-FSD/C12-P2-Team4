@@ -143,7 +143,7 @@ function CreateEvent() {
             onChange={handleInputChange}
           />
           <button
-            className="eventButton bg-secondary-gold text-2xl justify-items-center ml-3"
+            className="eventButton bg-primary-red text-2xl justify-items-center ml-3"
             onClick={handleEventCreation}
           >
             <i className="fa-solid fa-pen-to-square text-primary-red hover:text-primary-red">

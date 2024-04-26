@@ -1,15 +1,15 @@
-import React, { useContext, useState, useEffect } from "react"
-import { AuthContext } from "../Auth/AuthProvider"
-import processInput from "../../../../server/controllers/processInput"
-import { ToastContainer, toast } from "react-toastify"
-import { css } from "glamor"
-import "react-toastify/dist/ReactToastify.css"
-import "../ItineraryCard/ItineraryCard.css"
-import "../../global.css"
+import React, { useContext, useState, useEffect } from "react";
+import { AuthContext } from "../Auth/AuthProvider";
+import processInput from "../../../../server/controllers/processInput";
+import { ToastContainer, toast } from "react-toastify";
+import { css } from "glamor";
+import "react-toastify/dist/ReactToastify.css";
+import "../ItineraryCard/ItineraryCard.css";
+import "../../global.css";
 
 function Events() {
-  const { auth } = useContext(AuthContext)
-  console.log("1. Printing itinerary auth value:......:.. ", auth)
+  const { auth } = useContext(AuthContext);
+  console.log("1. Printing itinerary auth value:......:.. ", auth);
 
   const [eventData, setEventData] = useState({
     date: "",
@@ -18,18 +18,18 @@ function Events() {
     eventTitle: "",
     place: "",
     description: "",
-  })
-  const [loadError, setLoadError] = useState(null)
+  });
+  const [loadError, setLoadError] = useState(null);
 
   const clearFields = () => {
-    setLoadError(null)
-  }
+    setLoadError(null);
+  };
 
   const handleEventCreation = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
     if (!auth || !auth.accessToken) {
-      toast.error("Sign In or Sign Up to continue....")
-      return
+      toast.error("Sign In or Sign Up to continue....");
+      return;
     }
     try {
       const response = await fetch("/api/dayevent", {
@@ -43,24 +43,24 @@ function Events() {
           eventTitle: eventData.eventTitle,
           email: eventData.email,
         }),
-      })
+      });
       if (!response.ok) {
-        toast.error("Cannot submit event with missing fields...")
+        toast.error("Cannot submit event with missing fields...");
       }
       toast.success(
         "Event Saved to Planner Successfully!!",
         await response.json()
-      )
-      clearFields()
+      );
+      clearFields();
     } catch (error) {
-      setLoadError(error.message)
+      setLoadError(error.message);
     }
-  }
+  };
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target
-    setEventData((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = event.target;
+    setEventData((prev) => ({ ...prev, [name]: value }));
+  };
 
   return (
     <>
@@ -132,10 +132,10 @@ function Events() {
             onChange={handleInputChange}
           />
           <button
-            className="eventButton text-1xl justify-items-center ml-3 rounded shadow-md border border-secondary-gold bg-white text-secondary-gold hover:bg-secondary-gold hover:text-white"
+            className="eventButton text-1xl justify-items-center ml-3 rounded shadow-md border border-primary-red; bg-primary-red text-white hover:bg-primary-red hover:text-white hover:opacity-90"
             onClick={handleEventCreation}
           >
-            <i className="fa-solid fa-pen-to-square text-secondary-gold bg-white hover:bg-transparent hover:text-primary-white">
+            <i className="fa-solid fa-pen-to-square border-primary-red text-primary-white hover:text-primary-white">
               {" "}
               Create Event
             </i>
@@ -150,7 +150,7 @@ function Events() {
         })}
       />
     </>
-  )
+  );
 }
 
-export default Events
+export default Events;

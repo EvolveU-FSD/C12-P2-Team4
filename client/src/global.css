@@ -12,6 +12,9 @@
   display: flex;
   justify-content: space-between;
 }
+.border-primary-red {
+  border-color: #c8102eff;
+}
 
 /* Tailwind Styles */
 
