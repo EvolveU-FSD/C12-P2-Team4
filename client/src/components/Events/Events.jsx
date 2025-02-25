@@ -123,7 +123,7 @@ function Events() {
           />
           <label htmlFor="description">Description:</label>
           <input
-            className="border-solid bg-primary-white  text-primary-night "
+            className="bg-secondary-gold text-primary-night flex justify-end w-full"
             type="string"
             id="description"
             name="description"
